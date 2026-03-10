@@ -39,17 +39,17 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .app { display:flex; flex-direction:column; height:100vh; height:100dvh; }
 
 /* HEADER */
-.hdr { background:var(--s1); border-bottom:1px solid var(--bd); padding:10px 14px 8px; flex-shrink:0; box-shadow:var(--shadow); }
-.hdr-title { font-size:16px; font-weight:700; color:var(--t1); }
-.hdr-title em { color:var(--blue); font-style:normal; }
-.hdr-sub { font-size:10px; color:var(--t3); margin-top:1px; }
-.chips { display:flex; gap:6px; margin-top:8px; overflow-x:auto; scrollbar-width:none; }
+.hdr { background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%); border-bottom:none; padding:12px 14px 0; flex-shrink:0; box-shadow:0 2px 16px rgba(15,23,42,0.4); }
+.hdr-title { font-size:16px; font-weight:700; color:#fff; }
+.hdr-title em { color:rgba(255,255,255,0.85); font-style:normal; font-size:13px; font-weight:500; letter-spacing:0.3px; }
+.hdr-sub { font-size:10px; color:rgba(255,255,255,0.7); margin-top:1px; }
+.chips { display:flex; gap:6px; margin-top:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:12px; }
 .chips::-webkit-scrollbar { display:none; }
-.chip { background:var(--s3); border:1px solid var(--bd); border-radius:20px; padding:3px 10px;
-  display:flex; align-items:center; gap:4px; white-space:nowrap; flex-shrink:0; font-size:11px; color:var(--t2); }
-.chip .n { font-family:'DM Mono',monospace; font-size:13px; font-weight:600; }
-.chip.bl .n { color:var(--blue); } .chip.or .n { color:var(--orange); }
-.chip.gr .n { color:var(--green); } .chip.pu .n { color:var(--purple); }
+.chip { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:20px; padding:4px 11px;
+  display:flex; align-items:center; gap:4px; white-space:nowrap; flex-shrink:0; font-size:11px; color:rgba(255,255,255,0.85); }
+.chip .n { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:#fff; }
+.chip.bl .n { color:#93c5fd; } .chip.or .n { color:#fdba74; }
+.chip.gr .n { color:#86efac; } .chip.pu .n { color:#c4b5fd; }
 
 
 /* MONTH BAR */
@@ -333,7 +333,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .ml-text { font-size:10px; color:var(--t2); }
 
 /* TAB BAR */
-.tabbar { display:flex; background:var(--s1); border-top:1px solid var(--bd); flex-shrink:0; box-shadow:0 -2px 8px rgba(0,0,0,0.05); }
+.tabbar { display:flex; background:var(--s1); border-top:1px solid var(--bd); flex-shrink:0; box-shadow:0 -2px 8px rgba(0,0,0,0.05); position:relative; z-index:200; }
 .tbtn { flex:1; background:none; border:none; color:var(--t3); padding:9px 4px 7px;
   cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px;
   font-family:'Noto Sans KR',sans-serif; transition:color 0.15s; }
@@ -648,7 +648,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   position: fixed !important;
   top: 0; left: 0; right: 0;
   bottom: 56px !important;
-  z-index: 50;
+  z-index: 100;
 }
 #panel-aichat.active { display:flex !important; }
 </style>
@@ -659,8 +659,8 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 <!-- HEADER -->
 <div class="hdr">
   <div class="hdr-title" style="display:flex;align-items:flex-start;justify-content:space-between;">
-    <div><em>2026·3월</em><br><span style="font-size:13px;font-weight:600;color:var(--t2);">초당제약 이상윤 과장 스케줄</span></div>
-    <button onclick="openEditorCurrent()" style="background:var(--blue-lt);border:none;border-radius:9px;padding:6px 10px;cursor:pointer;color:var(--blue);font-size:12px;font-weight:700;font-family:'Noto Sans KR',sans-serif;flex-shrink:0;margin-left:8px;">✏️ 편집</button>
+    <div><span style="font-size:17px;font-weight:800;color:#fff;letter-spacing:-0.5px;">초당제약 이상윤 과장 스케줄</span></div>
+    <button onclick="openEditorCurrent()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:9px;padding:6px 10px;cursor:pointer;color:#fff;font-size:12px;font-weight:700;font-family:'Noto Sans KR',sans-serif;flex-shrink:0;margin-left:8px;">✏️ 편집</button>
   </div>
 
   <div class="chips">
@@ -2067,7 +2067,7 @@ function showToast(){
   document.getElementById('toastSub').textContent='방문완료한 병원을 기록해주세요';
   toast.classList.add('show');
 }
-function dismissToast(){ document.getElementById('toast').classList.remove('show'); }
+function dismissToast(){ document.getElementById('toast').classList.remove('show'); localStorage.setItem('toast_dismissed', getTodayKey()); }
 function goToRecord(){
   dismissToast();
   switchTab('record', document.querySelector('.tbtn:nth-child(2)'));
@@ -2078,9 +2078,11 @@ function getTodayKey(){
   return `${m}/${d}`;
 }
 
-// Auto show toast after 3 seconds if today has visits
+// Auto show toast after 3 seconds if today has visits (하루 1회만)
 setTimeout(()=>{
   const today=getTodayKey();
+  const dismissed=localStorage.getItem('toast_dismissed');
+  if(dismissed===today) return;
   if(SCH[today] && SCH[today].visits.filter(v=>v.name).length>0){
     showToast();
   }
