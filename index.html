@@ -8,7 +8,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script type="text/javascript" src="https://map.vworld.kr/js/vworldMapInit.js.do?version=2.0&apiKey=C1D8B5E0-C152-39D2-9563-B321FB1CD9AC"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
@@ -645,7 +644,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .chat-bubble.loading { background:#f1f5f9; color:#94a3b8; font-style:italic; }
 .qbtn { background:#f0f4ff; border:1px solid #c7d7ff; color:#2563eb; border-radius:20px; padding:5px 10px; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:'Noto Sans KR',sans-serif; flex-shrink:0; }
 .chat-action-btn { background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; border-radius:8px; padding:5px 10px; font-size:11px; font-weight:700; cursor:pointer; margin-top:6px; font-family:'Noto Sans KR',sans-serif; }
-#panel-aichat { padding-bottom: 0 !important; }
+#panel-aichat { padding-bottom: 0 !important; } #panel-aichat .chat-input-wrap { padding-bottom: env(safe-area-inset-bottom, 0); }
 #panel-aichat.active { display:flex !important; }
 </style>
 </head>
@@ -717,44 +716,9 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   </div>
 
 
-</div>
-
-<!-- TAB BAR -->
-<div class="tabbar">
-  <button class="tbtn active" onclick="switchTab('sch',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-    </svg>
-    <span>일정</span>
-  </button>
-  <button class="tbtn" onclick="switchTab('record',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-      <polyline points="9 12 11 14 15 10"/>
-    </svg>
-    <span>방문기록</span>
-  </button>
-  <button class="tbtn" onclick="switchTab('actstats',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-      <circle cx="18" cy="7" r="2" fill="currentColor" stroke="none"/>
-    </svg>
-    <span>활동·통계</span>
-  </button>
-  <button class="tbtn" onclick="switchTab('aichat',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-    </svg>
-    <span>AI채팅</span>
-  </button>
-
-</div>
-
-</div>
-
 
 <!-- AI 채팅 패널 -->
-<div id="panel-aichat" class="panel" style="display:none;flex-direction:column;height:100%;background:#f8fafc;">
+<div id="panel-aichat" class="panel" style="display:none;flex-direction:column;background:#f8fafc;">
 
   <!-- API 키 설정 영역 -->
   <div id="apiKeyArea" style="padding:12px 14px;background:#fff;border-bottom:1px solid #e2e8f0;display:none;">
@@ -810,6 +774,44 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
       </svg>
     </button>
   </div>
+
+
+</div>
+
+<!-- TAB BAR -->
+<div class="tabbar">
+  <button class="tbtn active" onclick="switchTab('sch',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <span>일정</span>
+  </button>
+  <button class="tbtn" onclick="switchTab('record',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+      <polyline points="9 12 11 14 15 10"/>
+    </svg>
+    <span>방문기록</span>
+  </button>
+  <button class="tbtn" onclick="switchTab('actstats',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      <circle cx="18" cy="7" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+    <span>활동·통계</span>
+  </button>
+  <button class="tbtn" onclick="switchTab('aichat',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    </svg>
+    <span>AI채팅</span>
+  </button>
+
+</div>
+
+</div>
+
+
 </div>
 
 <!-- 병원 상세 모달 -->
@@ -1637,7 +1639,6 @@ function selectDate(dk){
 let visitRecords={};
 function loadRecords(){
   try{ const s=localStorage.getItem('visitRecords'); if(s) visitRecords=JSON.parse(s); }catch(e){}
-  sbGet('visitRecords').then(function(d){ if(d){ visitRecords=d; localStorage.setItem('visitRecords',JSON.stringify(d)); } });
 }
 function saveRecords(){ try{ localStorage.setItem('visitRecords',JSON.stringify(visitRecords)); }catch(e){} sbSet('visitRecords', visitRecords); }
 
@@ -2347,7 +2348,7 @@ function switchTab(name,btn){
   if(btn) btn.classList.add('active');
   if(name==='record') renderRecordPanel();
   if(name==='actstats') renderActStats();
-  if(name==='aichat') initChatPanel();
+  if(name==='aichat'){ initChatPanel(); dismissToast(); }
   if(name==='client' && !clMapInited) clInitMap();
   if(name==='map') initVworldMap();
 }
@@ -3313,7 +3314,6 @@ function addNewHospManual(){
     const extras = JSON.parse(localStorage.getItem('extraHospitals')||'{}');
     extras[name] = {quota:quota, lat:lat, lng:lng, addr:selectedNewHosp?selectedNewHosp.addr:''};
     localStorage.setItem('extraHospitals', JSON.stringify(extras));
-    sbSet('extraHospitals', extras);
   }catch(e){}
 
   document.getElementById('newHospManualName').value='';
@@ -3367,7 +3367,6 @@ function deleteExtraHospital(name){
     const extras=JSON.parse(localStorage.getItem('extraHospitals')||'{}');
     delete extras[name];
     localStorage.setItem('extraHospitals', JSON.stringify(extras));
-    sbSet('extraHospitals', extras);
   }catch(e){}
   delete QUOTA_TOTAL[name];
   delete H[name];
@@ -3413,14 +3412,6 @@ function loadExtraHospitals(){
       }
     });
   }catch(e){}
-  sbGet('extraHospitals').then(function(extras){
-    if(!extras) return;
-    localStorage.setItem('extraHospitals', JSON.stringify(extras));
-    Object.keys(extras).forEach(function(name){
-      const h=extras[name];
-      if(!QUOTA_TOTAL[name]){ QUOTA_TOTAL[name]=h.quota||1; H[name]={lat:h.lat,lng:h.lng}; }
-    });
-  });
 }
 
 // ── SCHEDULE EDITOR ──
@@ -4035,7 +4026,6 @@ var hospInfoDB = {};
 
 function loadHospInfo(){
   try { hospInfoDB = JSON.parse(localStorage.getItem('hospInfoDB')||'{}'); } catch(e){ hospInfoDB={}; }
-  sbGet('hospInfoDB').then(function(d){ if(d){ hospInfoDB=d; localStorage.setItem('hospInfoDB',JSON.stringify(d)); } });
   // 전체 병원 초기 실적 데이터 (없을 때만)
   var _initData = {
     '365웰정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'4',amt:'22'},1:{qty:'21',amt:'117'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
@@ -4072,7 +4062,6 @@ function loadHospInfo(){
 
 function saveHospInfoDB(){
   try { localStorage.setItem('hospInfoDB', JSON.stringify(hospInfoDB)); } catch(e){}
-  sbSet('hospInfoDB', hospInfoDB);
 }
 
 function openHospDetail(name){
@@ -4308,35 +4297,39 @@ function toggleSalesEdit(){
 
 
 // ── AI 채팅 ──
-// ── SUPABASE SYNC ──
-const SUPABASE_URL = 'https://tsshgvrfcdcsvekvpfys.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_u1oGDZqGdJNfvylqql_RSw_rFz0syH8';
-const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// ── SUPABASE SYNC (plain fetch) ──
+var SB_URL = 'https://tsshgvrfcdcsvekvpfys.supabase.co';
+var SB_KEY = 'sb_publishable_u1oGDZqGdJNfvylqql_RSw_rFz0syH8';
 
 async function sbSet(key, value) {
   try {
-    const { error } = await _sb.from('kv_store').upsert({ key, value: JSON.stringify(value), updated_at: new Date().toISOString() }, { onConflict: 'key' });
-    if (error) console.warn('sbSet error:', error.message);
-  } catch(e) { console.warn('sbSet failed:', e); }
+    await fetch(SB_URL + '/rest/v1/app_data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SB_KEY,
+        'Authorization': 'Bearer ' + SB_KEY,
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({ key: key, value: JSON.stringify(value), updated_at: new Date().toISOString() })
+    });
+  } catch(e) {}
 }
 
-async function sbGet(key) {
+async function sbPullAll() {
   try {
-    const { data, error } = await _sb.from('kv_store').select('value').eq('key', key).single();
-    if (error || !data) return null;
-    return JSON.parse(data.value);
-  } catch(e) { return null; }
-}
-
-// 실시간 변경 감지 (이상윤 → 예진 자동 반영)
-function sbSubscribe() {
-  _sb.channel('kv_changes').on('postgres_changes', { event: '*', schema: 'public', table: 'kv_store' }, function(payload) {
-    const key = payload.new && payload.new.key;
-    if (!key) return;
-    if (key === 'hospInfoDB') { loadHospInfo(); }
-    if (key === 'visitRecords') { loadRecords(); rerenderCurrentTab(); }
-    if (key === 'extraHospitals') { loadExtraHospitals(); rerenderCurrentTab(); }
-  }).subscribe();
+    var r = await fetch(SB_URL + '/rest/v1/app_data?select=key,value', {
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+    });
+    var rows = await r.json();
+    if (Array.isArray(rows)) {
+      rows.forEach(function(row) {
+        if (row.key && row.value != null && row.key !== 'baigel_api_key') {
+          localStorage.setItem(row.key, row.value);
+        }
+      });
+    }
+  } catch(e) {}
 }
 
 var chatHistory = [];
@@ -4607,7 +4600,6 @@ loadExtraHospitals();
 loadHospInfo();
 renderWeekTabs();
 updateStats();
-sbSubscribe();
 
 // 오늘 날짜 자동 포커스
 (function(){
