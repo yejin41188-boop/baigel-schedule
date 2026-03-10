@@ -644,7 +644,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .chat-bubble.loading { background:#f1f5f9; color:#94a3b8; font-style:italic; }
 .qbtn { background:#f0f4ff; border:1px solid #c7d7ff; color:#2563eb; border-radius:20px; padding:5px 10px; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:'Noto Sans KR',sans-serif; flex-shrink:0; }
 .chat-action-btn { background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; border-radius:8px; padding:5px 10px; font-size:11px; font-weight:700; cursor:pointer; margin-top:6px; font-family:'Noto Sans KR',sans-serif; }
-#panel-aichat { padding-bottom: 0 !important; } #panel-aichat .chat-input-wrap { padding-bottom: env(safe-area-inset-bottom, 0); }
+#panel-aichat {
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
+  bottom: 56px !important;
+  z-index: 50;
+}
 #panel-aichat.active { display:flex !important; }
 </style>
 </head>
@@ -716,9 +721,44 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   </div>
 
 
+</div>
+
+<!-- TAB BAR -->
+<div class="tabbar">
+  <button class="tbtn active" onclick="switchTab('sch',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <span>일정</span>
+  </button>
+  <button class="tbtn" onclick="switchTab('record',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+      <polyline points="9 12 11 14 15 10"/>
+    </svg>
+    <span>방문기록</span>
+  </button>
+  <button class="tbtn" onclick="switchTab('actstats',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      <circle cx="18" cy="7" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+    <span>활동·통계</span>
+  </button>
+  <button class="tbtn" onclick="switchTab('aichat',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    </svg>
+    <span>AI채팅</span>
+  </button>
+
+</div>
+
+</div>
+
 
 <!-- AI 채팅 패널 -->
-<div id="panel-aichat" class="panel" style="display:none;flex-direction:column;background:#f8fafc;">
+<div id="panel-aichat" class="panel" style="display:none;flex-direction:column;height:100%;background:#f8fafc;">
 
   <!-- API 키 설정 영역 -->
   <div id="apiKeyArea" style="padding:12px 14px;background:#fff;border-bottom:1px solid #e2e8f0;display:none;">
@@ -774,44 +814,6 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
       </svg>
     </button>
   </div>
-
-
-</div>
-
-<!-- TAB BAR -->
-<div class="tabbar">
-  <button class="tbtn active" onclick="switchTab('sch',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-    </svg>
-    <span>일정</span>
-  </button>
-  <button class="tbtn" onclick="switchTab('record',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-      <polyline points="9 12 11 14 15 10"/>
-    </svg>
-    <span>방문기록</span>
-  </button>
-  <button class="tbtn" onclick="switchTab('actstats',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-      <circle cx="18" cy="7" r="2" fill="currentColor" stroke="none"/>
-    </svg>
-    <span>활동·통계</span>
-  </button>
-  <button class="tbtn" onclick="switchTab('aichat',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-    </svg>
-    <span>AI채팅</span>
-  </button>
-
-</div>
-
-</div>
-
-
 </div>
 
 <!-- 병원 상세 모달 -->
@@ -4297,38 +4299,16 @@ function toggleSalesEdit(){
 
 
 // ── AI 채팅 ──
-// ── SUPABASE SYNC (plain fetch) ──
+// ── SUPABASE SYNC ──
 var SB_URL = 'https://tsshgvrfcdcsvekvpfys.supabase.co';
 var SB_KEY = 'sb_publishable_u1oGDZqGdJNfvylqql_RSw_rFz0syH8';
-
 async function sbSet(key, value) {
   try {
     await fetch(SB_URL + '/rest/v1/app_data', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SB_KEY,
-        'Authorization': 'Bearer ' + SB_KEY,
-        'Prefer': 'resolution=merge-duplicates'
-      },
+      headers: {'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'resolution=merge-duplicates'},
       body: JSON.stringify({ key: key, value: JSON.stringify(value), updated_at: new Date().toISOString() })
     });
-  } catch(e) {}
-}
-
-async function sbPullAll() {
-  try {
-    var r = await fetch(SB_URL + '/rest/v1/app_data?select=key,value', {
-      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
-    });
-    var rows = await r.json();
-    if (Array.isArray(rows)) {
-      rows.forEach(function(row) {
-        if (row.key && row.value != null && row.key !== 'baigel_api_key') {
-          localStorage.setItem(row.key, row.value);
-        }
-      });
-    }
   } catch(e) {}
 }
 
