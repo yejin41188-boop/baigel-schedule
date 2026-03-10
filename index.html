@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script type="text/javascript" src="https://map.vworld.kr/js/vworldMapInit.js.do?version=2.0&apiKey=C1D8B5E0-C152-39D2-9563-B321FB1CD9AC"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
@@ -595,6 +597,56 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 }
 .se-date-label { font-size:11px; color:var(--t3); margin-bottom:4px; }
 
+
+/* ── 병원 상세 모달 ── */
+.hosp-detail-modal { position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; justify-content:flex-end; background:rgba(0,0,0,0.45); opacity:0; pointer-events:none; transition:opacity 0.25s; }
+.hosp-detail-modal.open { opacity:1; pointer-events:auto; }
+.hosp-detail-sheet { background:var(--s1); border-radius:18px 18px 0 0; max-height:88vh; overflow-y:auto; padding:0 0 32px 0; transform:translateY(100%); transition:transform 0.3s cubic-bezier(.4,0,.2,1); }
+.hosp-detail-modal.open .hosp-detail-sheet { transform:translateY(0); }
+.hosp-detail-hdr { display:flex; align-items:center; gap:8px; padding:14px 16px 10px; border-bottom:1px solid var(--bd); position:sticky; top:0; background:var(--s1); z-index:1; }
+.hosp-detail-title { font-size:15px; font-weight:800; color:var(--t1); flex:1; }
+.hosp-detail-body { padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+.hosp-detail-photo { width:80px; height:80px; border-radius:12px; object-fit:cover; border:2px solid var(--bd); background:var(--s3); display:flex; align-items:center; justify-content:center; font-size:28px; cursor:pointer; flex-shrink:0; overflow:hidden; }
+.hosp-detail-photo img { width:100%; height:100%; object-fit:cover; }
+.hosp-detail-section { background:var(--s2); border-radius:12px; padding:12px 14px; }
+.hosp-detail-section-title { font-size:11px; font-weight:700; color:var(--t3); margin-bottom:8px; letter-spacing:0.5px; }
+.hosp-detail-field { display:flex; flex-direction:column; gap:3px; margin-bottom:10px; }
+.hosp-detail-field:last-child { margin-bottom:0; }
+.hosp-detail-label { font-size:11px; color:var(--t3); font-weight:600; }
+.hosp-detail-input { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
+.hosp-detail-textarea { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; min-height:70px; resize:none; }
+.hosp-detail-select { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
+.hosp-sales-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.hosp-sales-item { background:var(--s1); border-radius:8px; padding:8px 10px; border:1px solid var(--bd); }
+.hosp-sales-month { font-size:10px; color:var(--t3); font-weight:600; margin-bottom:4px; }
+.hosp-sales-inputs { display:flex; gap:4px; }
+.hosp-sales-input { background:var(--s3); border:none; border-radius:6px; padding:5px 7px; font-size:12px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
+.hosp-detail-save-btn { width:100%; padding:13px; background:var(--blue); color:#fff; border:none; border-radius:12px; font-size:14px; font-weight:700; font-family:'Noto Sans KR',sans-serif; cursor:pointer; margin-top:4px; }
+
+
+/* 실적 그래프 */
+.sales-chart-wrap { background:var(--s2); border-radius:12px; padding:12px 14px; }
+.sales-chart-title { font-size:11px; font-weight:700; color:var(--t3); margin-bottom:10px; }
+.sales-chart-tabs { display:flex; gap:6px; margin-bottom:10px; }
+.sales-chart-tab { padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; border:1px solid var(--bd); background:var(--s1); color:var(--t3); cursor:pointer; }
+.sales-chart-tab.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+.sales-chart-bars { display:flex; align-items:flex-end; gap:4px; height:80px; }
+.sales-chart-col { display:flex; flex-direction:column; align-items:center; gap:3px; flex:1; }
+.sales-chart-bar-wrap { width:100%; display:flex; align-items:flex-end; height:64px; }
+.sales-chart-bar { width:100%; border-radius:4px 4px 0 0; transition:height 0.3s; min-height:2px; }
+.sales-chart-val { font-size:8px; color:var(--t3); font-weight:600; white-space:nowrap; }
+.sales-chart-label { font-size:9px; color:var(--t3); font-weight:600; }
+
+
+/* AI 채팅 */
+.chat-bubble { max-width:88%; padding:10px 13px; border-radius:14px; font-size:13px; line-height:1.55; word-break:break-word; }
+.ai-bubble { background:#fff; border:1px solid #e2e8f0; color:#1e293b; align-self:flex-start; border-bottom-left-radius:4px; }
+.user-bubble { background:#2563eb; color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+.chat-bubble.loading { background:#f1f5f9; color:#94a3b8; font-style:italic; }
+.qbtn { background:#f0f4ff; border:1px solid #c7d7ff; color:#2563eb; border-radius:20px; padding:5px 10px; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:'Noto Sans KR',sans-serif; flex-shrink:0; }
+.chat-action-btn { background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; border-radius:8px; padding:5px 10px; font-size:11px; font-weight:700; cursor:pointer; margin-top:6px; font-family:'Noto Sans KR',sans-serif; }
+#panel-aichat { padding-bottom: 0 !important; }
+#panel-aichat.active { display:flex !important; }
 </style>
 </head>
 <body>
@@ -663,33 +715,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
     <div id="vworld-map-container"></div>
     <div class="map-hosp-list" id="mapHospList"></div>
   </div>
-  <div class="panel" id="panel-client">
-    <div class="cl-search-bar" style="position:relative;">
-      <input class="cl-search-input" id="clSearchInput" placeholder="병원명 또는 주소 검색" />
-      <button class="cl-search-btn" onclick="clSearch()">검색</button>
-      <div class="cl-results" id="clResults"></div>
-    </div>
-    <div class="cl-body">
-      <div class="cl-side">
-        <div class="cl-side-header">
-          <span class="cl-side-title">거래처 목록</span>
-          <span class="cl-count" id="clCount">0</span>
-        </div>
-        <div class="cl-list" id="clList"><div style="text-align:center;color:var(--t3);font-size:11px;padding:16px 0;">거래처를 추가해주세요</div></div>
-        <div class="cl-dist-bar">
-          <div style="font-size:10px;font-weight:700;color:var(--t3);margin-bottom:5px;">거리 확인</div>
-          <div class="cl-dist-row">
-            <select class="cl-dist-sel" id="clFrom"><option value="">출발</option></select>
-            <span style="color:var(--t3);font-size:12px;">→</span>
-            <select class="cl-dist-sel" id="clTo"><option value="">도착</option></select>
-            <button class="cl-dist-btn" onclick="clCalcDist()">계산</button>
-          </div>
-          <div class="cl-dist-result" id="clDistResult"></div>
-        </div>
-      </div>
-      <div class="cl-map" id="clMapWrap"></div>
-    </div>
-  </div>
+
 
 </div>
 
@@ -715,14 +741,180 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
     </svg>
     <span>활동·통계</span>
   </button>
-  <button class="tbtn" onclick="switchTab('client',this)">
+  <button class="tbtn" onclick="switchTab('aichat',this)">
     <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
     </svg>
-    <span>거래처</span>
+    <span>AI채팅</span>
   </button>
+
 </div>
 
+</div>
+
+
+<!-- AI 채팅 패널 -->
+<div id="panel-aichat" class="panel" style="display:none;flex-direction:column;height:100%;background:#f8fafc;">
+
+  <!-- API 키 설정 영역 -->
+  <div id="apiKeyArea" style="padding:12px 14px;background:#fff;border-bottom:1px solid #e2e8f0;display:none;">
+    <div style="font-size:11px;color:#64748b;margin-bottom:6px;">Anthropic API 키 입력</div>
+    <div style="display:flex;gap:6px;">
+      <input id="apiKeyInput" type="password" placeholder="sk-ant-..." style="flex:1;border:1px solid #e2e8f0;border-radius:8px;padding:7px 10px;font-size:12px;font-family:'Noto Sans KR',sans-serif;"/>
+      <button onclick="saveApiKey()" style="background:#2563eb;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">저장</button>
+    </div>
+  </div>
+
+  <!-- 상단 헤더 -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px;background:#fff;border-bottom:1px solid #e2e8f0;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:28px;height:28px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;">🤖</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#1e293b;">Claude AI</div>
+        <div style="font-size:10px;color:#64748b;" id="chatStatusLabel">실적·일정 데이터 연동됨</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <button onclick="clearChatHistory()" style="background:#f1f5f9;border:none;border-radius:7px;padding:5px 9px;font-size:11px;color:#64748b;cursor:pointer;">🗑 초기화</button>
+      <button onclick="toggleApiKey()" style="background:#f1f5f9;border:none;border-radius:7px;padding:5px 9px;font-size:11px;color:#64748b;cursor:pointer;">🔑 API키</button>
+    </div>
+  </div>
+
+  <!-- 빠른 질문 버튼 -->
+  <div style="padding:8px 12px;background:#fff;border-bottom:1px solid #f1f5f9;display:flex;gap:6px;overflow-x:auto;flex-shrink:0;" id="quickBtns">
+    <button onclick="quickAsk('이번달 실적 상위 5개 병원 알려줘')" class="qbtn">📊 실적 TOP5</button>
+    <button onclick="quickAsk('전월 대비 실적 오른 병원과 내린 병원 분석해줘')" class="qbtn">📈 상승/하락</button>
+    <button onclick="quickAsk('이번주 방문 일정 알려줘')" class="qbtn">📅 이번주 일정</button>
+    <button onclick="quickAsk('방문 안 된 병원 중 실적 있는 곳 알려줘')" class="qbtn">⚠️ 미방문</button>
+    <button onclick="quickAsk('전체 병원 실적 요약해줘')" class="qbtn">🏥 전체 요약</button>
+  </div>
+
+  <!-- 채팅 메시지 영역 -->
+  <div id="chatMessages" style="flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;">
+    <div class="chat-bubble ai-bubble">
+      안녕하세요! 바이겔 영업 데이터에 연결되어 있어요. 실적 조회, 업데이트, 방문 일정 논의 등 무엇이든 말씀해주세요.<br><br>
+      <span style="color:#94a3b8;font-size:11px;">예시: "시화병원 2월 바이겔 850천원으로 업데이트해줘"</span>
+    </div>
+  </div>
+
+  <!-- 입력창 -->
+  <div style="padding:10px 12px;background:#fff;border-top:1px solid #e2e8f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;">
+    <textarea id="chatInput" placeholder="메시지 입력..." rows="1"
+      style="flex:1;border:1px solid #e2e8f0;border-radius:12px;padding:9px 12px;font-size:13px;font-family:'Noto Sans KR',sans-serif;resize:none;line-height:1.4;max-height:100px;overflow-y:auto;outline:none;"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
+    <button onclick="sendChat()" id="sendBtn"
+      style="background:#2563eb;border:none;border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+      <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- 병원 상세 모달 -->
+<div class="hosp-detail-modal" id="hospDetailModal" onclick="hospDetailModalBgClick(event)">
+  <div class="hosp-detail-sheet" id="hospDetailSheet">
+    <div class="hosp-detail-hdr">
+      <span class="hosp-detail-title" id="hospDetailTitle">병원명</span>
+      <button onclick="closeHospDetail()" style="background:none;border:none;font-size:20px;color:var(--t3);cursor:pointer;padding:0;">✕</button>
+    </div>
+    <div class="hosp-detail-body">
+      <!-- 사진 + 기본정보 -->
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div class="hosp-detail-photo" id="hospDetailPhoto" onclick="hospPhotoUpload()">📷</div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+          <div class="hosp-detail-field">
+            <label class="hosp-detail-label">병원 종류</label>
+            <select class="hosp-detail-select" id="hd_type">
+              <option value="">선택</option>
+              <option value="의원">의원</option>
+              <option value="병원">병원</option>
+              <option value="종합병원">종합병원</option>
+              <option value="대학병원">대학병원</option>
+            </select>
+          </div>
+          <div class="hosp-detail-field">
+            <label class="hosp-detail-label">진료과목</label>
+            <input class="hosp-detail-input" id="hd_dept" placeholder="정형외과, 신경외과..."/>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="hospPhotoInput" accept="image/*" style="display:none" onchange="hospPhotoSelected(this)"/>
+
+      <!-- 기본 정보 섹션 -->
+      <div class="hosp-detail-section">
+        <div class="hosp-detail-section-title">📋 기본 정보</div>
+        <div class="hosp-detail-field">
+          <label class="hosp-detail-label">담당 원장</label>
+          <input class="hosp-detail-input" id="hd_doctor" placeholder="홍길동 원장"/>
+        </div>
+        <div class="hosp-detail-field">
+          <label class="hosp-detail-label">전화번호</label>
+          <input class="hosp-detail-input" id="hd_tel" placeholder="031-000-0000" type="tel"/>
+        </div>
+        <div class="hosp-detail-field">
+          <label class="hosp-detail-label">주소</label>
+          <input class="hosp-detail-input" id="hd_addr" placeholder="경기도 시흥시..."/>
+        </div>
+      </div>
+
+
+      <!-- 실적 그래프 -->
+      <div class="sales-chart-wrap" id="hospSalesChart">
+        <div class="sales-chart-title">📊 월별 실적 추이 (수량)</div>
+        <div class="sales-chart-tabs">
+          <button class="sales-chart-tab active" onclick="switchChartTab('baigel',this)">바이겔</button>
+          <button class="sales-chart-tab" onclick="switchChartTab('pita2',this)">피타바스2mg</button>
+          <button class="sales-chart-tab" onclick="switchChartTab('pita4',this)">피타바스4mg</button>
+        </div>
+        <div class="sales-chart-bars" id="salesChartBars"></div>
+      </div>
+
+      <!-- 월별 실적 -->
+      <div class="hosp-detail-section">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div class="hosp-detail-section-title" style="margin:0;">📊 월별 실적</div>
+          <button onclick="toggleSalesEdit()" id="salesEditBtn" style="background:var(--blue-lt);color:var(--blue);border:none;border-radius:7px;padding:4px 11px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">✏️ 편집</button>
+        </div>
+        <!-- 3개 차트 영역 -->
+        <div id="salesChartArea">
+          <div style="font-size:10px;font-weight:700;color:#2563eb;margin-bottom:3px;">■ 바이겔 (천원)</div>
+          <canvas id="chartBaigel" style="width:100%;display:block;"></canvas>
+          <div style="font-size:10px;font-weight:700;color:#7c3aed;margin:10px 0 3px;">■ 피타바스 2mg (천원)</div>
+          <canvas id="chartPita2" style="width:100%;display:block;"></canvas>
+          <div style="font-size:10px;font-weight:700;color:#059669;margin:10px 0 3px;">■ 피타바스 4mg (천원)</div>
+          <canvas id="chartPita4" style="width:100%;display:block;"></canvas>
+        </div>
+        <!-- 편집 영역 (숨김) -->
+        <div id="salesEditArea" style="display:none;margin-top:12px;">
+          <div style="display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;align-items:center;font-size:10px;margin-bottom:5px;text-align:center;">
+            <span></span>
+            <span style="color:#2563eb;font-weight:700;">바이겔<br>수량</span>
+            <span style="color:#2563eb;font-weight:700;">바이겔<br>천원</span>
+            <span style="color:#7c3aed;font-weight:700;">피타2<br>수량</span>
+            <span style="color:#7c3aed;font-weight:700;">피타2<br>천원</span>
+            <span style="color:#059669;font-weight:700;">피타4<br>수량</span>
+            <span style="color:#059669;font-weight:700;">피타4<br>천원</span>
+          </div>
+          <div id="salesInputRows"></div>
+        </div>
+      </div>
+
+      <!-- 영업 메모 -->
+      <div class="hosp-detail-section">
+        <div class="hosp-detail-section-title">🎯 공략 메모</div>
+        <textarea class="hosp-detail-textarea" id="hd_memo" placeholder="원장 성향, 경쟁사 현황, 공략 포인트..."></textarea>
+      </div>
+
+      <div class="hosp-detail-section">
+        <div class="hosp-detail-section-title">📝 최근 방문 요약</div>
+        <textarea class="hosp-detail-textarea" id="hd_recent" placeholder="최근 방문 내용, 다음 방문 계획..."></textarea>
+      </div>
+
+      <button class="hosp-detail-save-btn" onclick="saveHospDetail()">💾 저장</button>
+    </div>
+  </div>
 </div>
 
 <!-- MAP MODAL -->
@@ -1268,7 +1460,7 @@ function renderCustomDayDetailGlobal(day, m, data) {
     const card=document.createElement('div');
     card.className='vcard '+type;
     card.innerHTML='<div class="vcard-inner"><div class="vcard-seq">'+order+'번째 방문</div>'
-      +'<div class="vcard-top"><div class="vcard-name">'+v.name+'</div></div>'
+      +'<div class="vcard-top"><div class="vcard-name" onclick="openHospDetail(\''+v.name+'\')" style="cursor:pointer;">'+v.name+'</div></div>'
       +'<div class="vcard-badges"><span class="badge badge-'+type+'">'+typeLabelMap[type]+'</span>'
       +(isDone?'<span class="badge badge-done">완료 ✓</span>':'')+'</div>'
       +'<div class="qrow"><span class="qlabel">할당</span>'
@@ -1394,7 +1586,7 @@ function renderSchedule(dk){
       <div class="vcard-inner">
         <div class="vcard-seq">${order}번째 방문</div>
         <div class="vcard-top">
-          <div class="vcard-name">${v.name}</div>
+          <div class="vcard-name" onclick="openHospDetail('${v.name}')" style="cursor:pointer;">${v.name}</div>
           <div class="vcard-time">${v.time}</div>
         </div>
         <div class="vcard-badges">
@@ -1445,8 +1637,9 @@ function selectDate(dk){
 let visitRecords={};
 function loadRecords(){
   try{ const s=localStorage.getItem('visitRecords'); if(s) visitRecords=JSON.parse(s); }catch(e){}
+  sbGet('visitRecords').then(function(d){ if(d){ visitRecords=d; localStorage.setItem('visitRecords',JSON.stringify(d)); } });
 }
-function saveRecords(){ try{ localStorage.setItem('visitRecords',JSON.stringify(visitRecords)); }catch(e){} }
+function saveRecords(){ try{ localStorage.setItem('visitRecords',JSON.stringify(visitRecords)); }catch(e){} sbSet('visitRecords', visitRecords); }
 
 function renderRecordPanel(){
   const panel=document.getElementById('panel-record');
@@ -2154,6 +2347,7 @@ function switchTab(name,btn){
   if(btn) btn.classList.add('active');
   if(name==='record') renderRecordPanel();
   if(name==='actstats') renderActStats();
+  if(name==='aichat') initChatPanel();
   if(name==='client' && !clMapInited) clInitMap();
   if(name==='map') initVworldMap();
 }
@@ -3119,6 +3313,7 @@ function addNewHospManual(){
     const extras = JSON.parse(localStorage.getItem('extraHospitals')||'{}');
     extras[name] = {quota:quota, lat:lat, lng:lng, addr:selectedNewHosp?selectedNewHosp.addr:''};
     localStorage.setItem('extraHospitals', JSON.stringify(extras));
+    sbSet('extraHospitals', extras);
   }catch(e){}
 
   document.getElementById('newHospManualName').value='';
@@ -3172,6 +3367,7 @@ function deleteExtraHospital(name){
     const extras=JSON.parse(localStorage.getItem('extraHospitals')||'{}');
     delete extras[name];
     localStorage.setItem('extraHospitals', JSON.stringify(extras));
+    sbSet('extraHospitals', extras);
   }catch(e){}
   delete QUOTA_TOTAL[name];
   delete H[name];
@@ -3217,6 +3413,14 @@ function loadExtraHospitals(){
       }
     });
   }catch(e){}
+  sbGet('extraHospitals').then(function(extras){
+    if(!extras) return;
+    localStorage.setItem('extraHospitals', JSON.stringify(extras));
+    Object.keys(extras).forEach(function(name){
+      const h=extras[name];
+      if(!QUOTA_TOTAL[name]){ QUOTA_TOTAL[name]=h.quota||1; H[name]={lat:h.lat,lng:h.lng}; }
+    });
+  });
 }
 
 // ── SCHEDULE EDITOR ──
@@ -3374,6 +3578,16 @@ function saveEditorMonth(){
   }
   rerenderCurrentTab();
   alert(m+'월 일정이 저장됐습니다! ✅');
+}
+
+function clearEditorMonth(){
+  const m = currentEditMonth;
+  if(!editorData[m] || !editorData[m].dates || editorData[m].dates.length===0){
+    alert('삭제할 일정이 없습니다.'); return;
+  }
+  editorData[m] = { dates:[] };
+  renderEditorDates();
+  renderEditorCalendar();
 }
 
 function copyPrevMonth(){
@@ -3566,6 +3780,7 @@ function renderEditorDates(){
   data.dates.forEach(function(day){
     const card = document.createElement('div');
     card.className = 'se-day-card';
+    card.id = 'editorCard_'+day.key.replace('/','_');
 
     // 헤더
     const hdr = document.createElement('div');
@@ -3589,7 +3804,7 @@ function renderEditorDates(){
       row.innerHTML =
         '<button class="se-move-btn" data-key="'+day.key+'" data-idx="'+idx+'" data-dir="-1" onclick="editorMoveHospBtn(this)">▲</button>'
         +'<button class="se-move-btn" data-key="'+day.key+'" data-idx="'+idx+'" data-dir="1" onclick="editorMoveHospBtn(this)">▼</button>'
-        +'<span class="se-visit-name">'+v.name+'</span>'
+        +'<span class="se-visit-name" onclick="openHospDetail(\''+v.name+'\')" style="cursor:pointer;">'+v.name+'</span>'
         +'<span class="se-visit-badge" style="background:'+typeBg[type]+';color:'+typeColor[type]+';">'+typeLabel[type]+'</span>'
         +'<span style="font-size:11px;font-weight:700;color:'+(assigned>=quota?'#16a34a':'#ea580c')+';min-width:32px;text-align:right;">'+assigned+'/'+quota+'</span>'
         +'<button class="se-del-btn" data-key="'+day.key+'" data-name="'+v.name+'" onclick="editorDelHospBtn(this)">×</button>';
@@ -3745,9 +3960,8 @@ function editorCalendarClickDay(d){
   var dowKr = ['일','월','화','수','목','금','토'];
   if(!editorData[m]) editorData[m]={dates:[]};
   var idx = editorData[m].dates.findIndex(function(dt){ return dt.key===key; });
-  if(idx>=0){
-    editorData[m].dates.splice(idx,1);
-  } else {
+  if(idx<0){
+    // 새 날짜 추가
     editorData[m].dates.push({
       key:key, dow:dowKr[dow], week:'',
       hours:(dow===1?'11:00~':'10:00~'), visits:[]
@@ -3756,9 +3970,626 @@ function editorCalendarClickDay(d){
       var ap=a.key.split('/'),bp=b.key.split('/');
       return (parseInt(ap[0])-parseInt(bp[0]))||parseInt(ap[1])-parseInt(bp[1]);
     });
+    renderEditorDates();
+    renderEditorCalendar();
   }
-  renderEditorDates();
-  renderEditorCalendar();
+  // 해당 날짜 카드로 스크롤
+  setTimeout(function(){
+    var cardId = 'editorCard_'+key.replace('/','_');
+    var card = document.getElementById(cardId);
+    if(card){ card.scrollIntoView({behavior:'smooth', block:'start'}); }
+    else {
+      // id 없으면 editorScroll 내에서 찾기
+      var scroll = document.getElementById('editorScroll');
+      if(scroll) scroll.scrollTop = 0;
+    }
+  }, 100);
+}
+
+
+
+// ── 실적 그래프 ──
+var currentChartTab = 'baigel';
+
+function switchChartTab(tab, btn){
+  currentChartTab = tab;
+  document.querySelectorAll('.sales-chart-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderSalesChart();
+}
+
+function renderSalesChart(){
+  var bars = document.getElementById('salesChartBars');
+  if(!bars) return;
+  var months = [8,9,10,11,12,1];
+  var labels = ['8월','9월','10월','11월','12월','1월'];
+  var colors = { baigel:'#2563eb', pita2:'#16a34a', pita4:'#7c3aed' };
+  var color = colors[currentChartTab] || '#2563eb';
+
+  var vals = months.map(function(m){
+    var id = currentChartTab==='baigel' ? 'hd_s'+m+'_qty'
+            : currentChartTab==='pita2' ? 'hd_p2_'+m+'_qty'
+            : 'hd_p4_'+m+'_qty';
+    var el = document.getElementById(id);
+    return el ? (parseFloat(el.value)||0) : 0;
+  });
+
+  var max = Math.max.apply(null, vals) || 1;
+
+  bars.innerHTML = vals.map(function(v, i){
+    var pct = Math.round(v / max * 100);
+    var dispVal = v > 0 ? (v >= 1000 ? Math.round(v/100)/10+'k' : v) : '';
+    return '<div class="sales-chart-col">'
+      + '<div class="sales-chart-val">'+dispVal+'</div>'
+      + '<div class="sales-chart-bar-wrap">'
+      + '<div class="sales-chart-bar" style="height:'+pct+'%;background:'+color+';width:100%;"></div>'
+      + '</div>'
+      + '<div class="sales-chart-label">'+labels[i]+'</div>'
+      + '</div>';
+  }).join('');
+}
+
+
+// ── 병원 상세 카드 ──
+var hospInfoDB = {};
+
+function loadHospInfo(){
+  try { hospInfoDB = JSON.parse(localStorage.getItem('hospInfoDB')||'{}'); } catch(e){ hospInfoDB={}; }
+  sbGet('hospInfoDB').then(function(d){ if(d){ hospInfoDB=d; localStorage.setItem('hospInfoDB',JSON.stringify(d)); } });
+  // 전체 병원 초기 실적 데이터 (없을 때만)
+  var _initData = {
+    '365웰정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'4',amt:'22'},1:{qty:'21',amt:'117'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '검단더굿정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'9',amt:'50'},9:{qty:'123',amt:'684'},10:{qty:'102',amt:'567'},11:{qty:'64',amt:'356'},12:{qty:'72',amt:'400'},1:{qty:'93',amt:'517'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '고려재활의학과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'82',amt:'456'},10:{qty:'54',amt:'300'},11:{qty:'70',amt:'389'},12:{qty:'70',amt:'389'},1:{qty:'106',amt:'589'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '광명성애병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'127',amt:'706'},9:{qty:'164',amt:'911'},10:{qty:'160',amt:'889'},11:{qty:'139',amt:'772'},12:{qty:'164',amt:'911'},1:{qty:'119',amt:'661'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '김포서울리더스정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'10',amt:'56'},9:{qty:'14',amt:'78'},10:{qty:'21',amt:'117'},11:{qty:'27',amt:'150'},12:{qty:'20',amt:'111'},1:{qty:'19',amt:'106'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '다선의원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'16',amt:'89'},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'6',amt:'33'},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '문산서울정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'42',amt:'233'},9:{qty:'41',amt:'228'},10:{qty:'36',amt:'200'},11:{qty:'37',amt:'206'},12:{qty:'40',amt:'222'},1:{qty:'40',amt:'222'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '박병섭내과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'15',amt:'83'},9:{qty:'16',amt:'89'},10:{qty:'17',amt:'94'},11:{qty:'10',amt:'56'},12:{qty:'8',amt:'44'},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '백석정형외과의원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'86',amt:'478'},9:{qty:'198',amt:'1100'},10:{qty:'257',amt:'1428'},11:{qty:'253',amt:'1406'},12:{qty:'200',amt:'1111'},1:{qty:'191',amt:'1061'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '성모365달려라정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'5',amt:'28'},11:{qty:'13',amt:'72'},12:{qty:'15',amt:'83'},1:{qty:'6',amt:'33'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '성모날개정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'21',amt:'117'},12:{qty:'45',amt:'250'},1:{qty:'29',amt:'161'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '성모튼튼365정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'9',amt:'50'},12:{qty:'13',amt:'72'},1:{qty:'10',amt:'56'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '수원덕산병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'16',amt:'89'},1:{qty:'88',amt:'489'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '수원백병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'5',amt:'28'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'300',amt:'168'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '수원의료원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'5',amt:'28'},11:{qty:'1',amt:'6'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '시화병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'758',amt:'4214'},9:{qty:'736',amt:'4091'},10:{qty:'584',amt:'3250'},11:{qty:'537',amt:'2989'},12:{qty:'748',amt:'4160'},1:{qty:'697',amt:'3873'}},pita2:{8:{qty:'35313',amt:'19776'},9:{qty:'37376',amt:'20931'},10:{qty:'33326',amt:'18663'},11:{qty:'35681',amt:'19982'},12:{qty:'38824',amt:'21741'},1:{qty:'28759',amt:'16105'}},pita4:{8:{qty:'6115',amt:'5143'},9:{qty:'5455',amt:'4588'},10:{qty:'6927',amt:'5826'},11:{qty:'5782',amt:'4863'},12:{qty:'6886',amt:'5792'},1:{qty:'5055',amt:'4251'}}},
+    '연세드림재활의학과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'497',amt:'2762'},9:{qty:'430',amt:'2390'},10:{qty:'398',amt:'2212'},11:{qty:'401',amt:'2228'},12:{qty:'412',amt:'2289'},1:{qty:'415',amt:'2305'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '연세삼육오매일의원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'11',amt:'61'},9:{qty:'3',amt:'17'},10:{qty:'3',amt:'17'},11:{qty:'1',amt:'6'},12:{qty:'7',amt:'39'},1:{qty:'12',amt:'67'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '연세이음정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'30',amt:'167'},9:{qty:'53',amt:'295'},10:{qty:'53',amt:'295'},11:{qty:'38',amt:'211'},12:{qty:'26',amt:'144'},1:{qty:'20',amt:'111'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '원광대산본병원': {type:'대학병원',dept:'정형외과',doctor:'',tel:'',addr:'경기도 군포시 산본로 321',memo:'',recent:'',photo:'',sales:{8:{qty:'37',amt:'206'},9:{qty:'76',amt:'422'},10:{qty:'75',amt:'417'},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'10061',amt:'5634'},9:{qty:'5123',amt:'2869'},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'389',amt:'327'},9:{qty:'2274',amt:'1912'},10:{qty:'1839',amt:'1547'},11:{qty:'1110',amt:'934'},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '이정혁마취통증의학과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'16',amt:'89'},9:{qty:'12',amt:'67'},10:{qty:'19',amt:'106'},11:{qty:'18',amt:'100'},12:{qty:'21',amt:'117'},1:{qty:'20',amt:'111'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '잠실믿음정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'2',amt:'11'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '제이에스병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'293',amt:'1628'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '중앙대광명병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'884',amt:'4912'},9:{qty:'1217',amt:'6763'},10:{qty:'749',amt:'4162'},11:{qty:'823',amt:'4573'},12:{qty:'1036',amt:'5757'},1:{qty:'915',amt:'5083'}},pita2:{8:{qty:'147',amt:'82'},9:{qty:'',amt:''},10:{qty:'3629',amt:'2032'},11:{qty:'3225',amt:'1806'},12:{qty:'3616',amt:'2025'},1:{qty:'3355',amt:'1879'}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '중앙대병원(서울)': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'282',amt:'1567'},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'336',amt:'1867'},12:{qty:'246',amt:'1367'},1:{qty:'214',amt:'1189'}},pita2:{8:{qty:'9308',amt:'5212'},9:{qty:'9523',amt:'5333'},10:{qty:'8674',amt:'4857'},11:{qty:'7871',amt:'4408'},12:{qty:'9115',amt:'5104'},1:{qty:'8027',amt:'4495'}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}}
+  };
+  Object.keys(_initData).forEach(function(h){
+    if(!hospInfoDB[h]){ hospInfoDB[h] = _initData[h]; }
+  });
+  saveHospInfoDB();
+}
+
+function saveHospInfoDB(){
+  try { localStorage.setItem('hospInfoDB', JSON.stringify(hospInfoDB)); } catch(e){}
+  sbSet('hospInfoDB', hospInfoDB);
+}
+
+function openHospDetail(name){
+  loadHospInfo();
+  var info = hospInfoDB[name] || {sales:{},pita2:{},pita4:{}};
+  document.getElementById('hospDetailTitle').textContent = name;
+  document.getElementById('hd_type').value = info.type||'';
+  document.getElementById('hd_dept').value = info.dept||'';
+  document.getElementById('hd_doctor').value = info.doctor||'';
+  document.getElementById('hd_tel').value = info.tel||'';
+  document.getElementById('hd_addr').value = info.addr||'';
+  document.getElementById('hd_memo').value = info.memo||'';
+  document.getElementById('hd_recent').value = info.recent||'';
+  // 실적 편집 인풋 행 생성
+  var months = [8,9,10,11,12,1];
+  var monthLabels = {8:'8월',9:'9월',10:'10월',11:'11월',12:'12월',1:'1월'};
+  var inputRows = document.getElementById('salesInputRows');
+  inputRows.innerHTML = '';
+  // 헤더
+  var hdr = document.createElement('div');
+  hdr.style.cssText = 'display:grid;grid-template-columns:34px 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;margin-bottom:4px;';
+  hdr.innerHTML = '<span></span>'
+    +'<span style="font-size:10px;color:#2563eb;font-weight:700;text-align:center;">바이겔<br>수량</span>'
+    +'<span style="font-size:10px;color:#2563eb;font-weight:700;text-align:center;">바이겔<br>천원</span>'
+    +'<span style="font-size:10px;color:#16a34a;font-weight:700;text-align:center;">피타2mg<br>수량</span>'
+    +'<span style="font-size:10px;color:#16a34a;font-weight:700;text-align:center;">피타2mg<br>천원</span>'
+    +'<span style="font-size:10px;color:#0891b2;font-weight:700;text-align:center;">피타4mg<br>수량</span>'
+    +'<span style="font-size:10px;color:#0891b2;font-weight:700;text-align:center;">피타4mg<br>천원</span>';
+  inputRows.appendChild(hdr);
+  months.forEach(function(m){
+    var s = (info.sales&&info.sales[m])||{};
+    var p2 = (info.pita2&&info.pita2[m])||{};
+    var p4 = (info.pita4&&info.pita4[m])||{};
+    var row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:34px 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;align-items:center;margin-bottom:4px;';
+    row.innerHTML = '<span style="font-size:11px;font-weight:700;color:var(--t2);">'+monthLabels[m]+'</span>'
+      +'<input class="hosp-sales-input" id="hd_s'+m+'_qty" value="'+(s.qty||'')+'" placeholder="수량"/>'
+      +'<input class="hosp-sales-input" id="hd_s'+m+'_amt" value="'+(s.amt||'')+'" placeholder="천원"/>'
+      +'<input class="hosp-sales-input" id="hd_p2_'+m+'_qty" value="'+(p2.qty||'')+'" placeholder="수량"/>'
+      +'<input class="hosp-sales-input" id="hd_p2_'+m+'_amt" value="'+(p2.amt||'')+'" placeholder="천원"/>'
+      +'<input class="hosp-sales-input" id="hd_p4_'+m+'_qty" value="'+(p4.qty||'')+'" placeholder="수량"/>'
+      +'<input class="hosp-sales-input" id="hd_p4_'+m+'_amt" value="'+(p4.amt||'')+'" placeholder="천원"/>';
+    inputRows.appendChild(row);
+  });
+  // 차트 렌더링
+  setTimeout(function(){ renderSalesChart(info||{}); }, 150);
+  // 사진
+  var photo = document.getElementById('hospDetailPhoto');
+  if(info.photo){ photo.innerHTML='<img src="'+info.photo+'" alt="원장사진"/>'; }
+  else { photo.innerHTML='📷'; }
+  // 현재 병원명 저장
+  document.getElementById('hospDetailModal').dataset.hospName = name;
+  document.getElementById('hospDetailModal').classList.add('open');
+  setTimeout(renderSalesChart, 50);
+}
+
+function closeHospDetail(){
+  document.getElementById('hospDetailModal').classList.remove('open');
+}
+
+function hospDetailModalBgClick(e){
+  if(e.target === document.getElementById('hospDetailModal')) closeHospDetail();
+}
+
+function saveHospDetail(){
+  var name = document.getElementById('hospDetailModal').dataset.hospName;
+  if(!name) return;
+  var months = [8,9,10,11,12,1];
+  var sales = {}, pita2 = {}, pita4 = {};
+  months.forEach(function(m){
+    sales[m] = {
+      qty: document.getElementById('hd_s'+m+'_qty').value,
+      amt: document.getElementById('hd_s'+m+'_amt').value
+    };
+    pita2[m] = {
+      qty: document.getElementById('hd_p2_'+m+'_qty').value,
+      amt: document.getElementById('hd_p2_'+m+'_amt').value
+    };
+    pita4[m] = {
+      qty: document.getElementById('hd_p4_'+m+'_qty').value,
+      amt: document.getElementById('hd_p4_'+m+'_amt').value
+    };
+  });
+  var photo = document.getElementById('hospDetailPhoto');
+  var photoData = '';
+  if(photo.querySelector('img')) photoData = photo.querySelector('img').src;
+  hospInfoDB[name] = {
+    type: document.getElementById('hd_type').value,
+    dept: document.getElementById('hd_dept').value,
+    doctor: document.getElementById('hd_doctor').value,
+    tel: document.getElementById('hd_tel').value,
+    addr: document.getElementById('hd_addr').value,
+    memo: document.getElementById('hd_memo').value,
+    recent: document.getElementById('hd_recent').value,
+    sales: sales,
+    pita2: pita2,
+    pita4: pita4,
+    photo: photoData
+  };
+  saveHospInfoDB();
+  closeHospDetail();
+  // 저장 피드백
+  // 편집창 닫기
+  document.getElementById('salesEditArea').style.display = 'none';
+  document.getElementById('salesEditBtn').textContent = '✏️ 편집';
+  // 차트 리렌더
+  setTimeout(function(){ renderSalesChart(hospInfoDB[name]||{}); }, 100);
+  var btn = document.querySelector('.hosp-detail-save-btn');
+  if(btn){ btn.textContent='✅ 저장됨'; setTimeout(function(){ btn.textContent='💾 저장'; },1200); }
+}
+
+function hospPhotoUpload(){
+  document.getElementById('hospPhotoInput').click();
+}
+
+function hospPhotoSelected(input){
+  var file = input.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var photo = document.getElementById('hospDetailPhoto');
+    photo.innerHTML = '<img src="'+e.target.result+'" alt="원장사진"/>';
+  };
+  // 이미지 압축 (최대 200px)
+  var img = new Image();
+  img.onload = function(){
+    var canvas = document.createElement('canvas');
+    var max = 200;
+    var w = img.width, h = img.height;
+    if(w > h){ if(w>max){ h=Math.round(h*max/w); w=max; } }
+    else { if(h>max){ w=Math.round(w*max/h); h=max; } }
+    canvas.width=w; canvas.height=h;
+    canvas.getContext('2d').drawImage(img,0,0,w,h);
+    var photo = document.getElementById('hospDetailPhoto');
+    photo.innerHTML = '<img src="'+canvas.toDataURL('image/jpeg',0.7)+'" alt="원장사진"/>';
+  };
+  img.src = URL.createObjectURL(file);
+}
+
+
+
+// ── 실적 차트 ──
+function drawBarChart(canvasId, data, color){
+  var canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  var dpr = window.devicePixelRatio || 1;
+  var cssW = canvas.parentElement.clientWidth || 300;
+  var cssH = 110;
+  canvas.style.width = cssW + 'px';
+  canvas.style.height = cssH + 'px';
+  canvas.width = cssW * dpr;
+  canvas.height = cssH * dpr;
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  var labels = ['8월','9월','10월','11월','12월','1월'];
+  var vals = data.map(function(v){ return parseInt(v)||0; });
+  var maxVal = Math.max.apply(null, vals) || 1;
+  maxVal = Math.ceil(maxVal * 1.25);
+
+  var pad = {l:42, r:8, t:16, b:22};
+  var chartW = cssW - pad.l - pad.r;
+  var chartH = cssH - pad.t - pad.b;
+  var n = labels.length;
+  var slotW = chartW / n;
+  var barW = Math.floor(slotW * 0.52);
+
+  ctx.clearRect(0, 0, cssW, cssH);
+
+  // Y축 격자 3개
+  [0.33, 0.66, 1].forEach(function(r){
+    var y = pad.t + chartH * (1 - r);
+    ctx.strokeStyle = '#e5e9f0';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + chartW, y); ctx.stroke();
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '9px sans-serif';
+    ctx.textAlign = 'right';
+    var label = Math.round(maxVal * r);
+    ctx.fillText(label.toLocaleString(), pad.l - 4, y + 3);
+  });
+
+  // 바 & 레이블
+  labels.forEach(function(lbl, i){
+    var v = vals[i];
+    var x = pad.l + slotW * i + (slotW - barW) / 2;
+    var barH = v ? Math.max(3, chartH * v / maxVal) : 0;
+    var y = pad.t + chartH - barH;
+
+    if(v){
+      // 바 그라데이션
+      var grad = ctx.createLinearGradient(x, y, x, y + barH);
+      grad.addColorStop(0, color);
+      grad.addColorStop(1, color + '99');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.roundRect(x, y, barW, barH, [3, 3, 0, 0]);
+      ctx.fill();
+
+      // 수치
+      ctx.fillStyle = color;
+      ctx.font = 'bold 9px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(v, x + barW/2, y - 3);
+    }
+
+    // X축 레이블
+    ctx.fillStyle = '#64748b';
+    ctx.font = '9px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(lbl, x + barW/2, pad.t + chartH + 14);
+  });
+}
+
+function renderSalesChart(info){
+  if(!info) info = {};
+  var months = [8,9,10,11,12,1];
+  var bData  = months.map(function(m){ return parseInt((info.sales &&info.sales[m] &&info.sales[m].amt) ||0)||0; });
+  var p2Data = months.map(function(m){ return parseInt((info.pita2 &&info.pita2[m] &&info.pita2[m].amt)||0)||0; });
+  var p4Data = months.map(function(m){ return parseInt((info.pita4 &&info.pita4[m] &&info.pita4[m].amt)||0)||0; });
+  drawBarChart('chartBaigel', bData,  '#2563eb');
+  drawBarChart('chartPita2',  p2Data, '#7c3aed');
+  drawBarChart('chartPita4',  p4Data, '#059669');
+}
+
+function toggleSalesEdit(){
+  var editArea = document.getElementById('salesEditArea');
+  var btn = document.getElementById('salesEditBtn');
+  var isOpen = editArea.style.display !== 'none';
+  editArea.style.display = isOpen ? 'none' : 'block';
+  btn.textContent = isOpen ? '✏️ 편집' : '✅ 닫기';
+}
+
+
+// ── AI 채팅 ──
+// ── SUPABASE SYNC ──
+const SUPABASE_URL = 'https://tsshgvrfcdcsvekvpfys.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_u1oGDZqGdJNfvylqql_RSw_rFz0syH8';
+const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function sbSet(key, value) {
+  try {
+    const { error } = await _sb.from('kv_store').upsert({ key, value: JSON.stringify(value), updated_at: new Date().toISOString() }, { onConflict: 'key' });
+    if (error) console.warn('sbSet error:', error.message);
+  } catch(e) { console.warn('sbSet failed:', e); }
+}
+
+async function sbGet(key) {
+  try {
+    const { data, error } = await _sb.from('kv_store').select('value').eq('key', key).single();
+    if (error || !data) return null;
+    return JSON.parse(data.value);
+  } catch(e) { return null; }
+}
+
+// 실시간 변경 감지 (이상윤 → 예진 자동 반영)
+function sbSubscribe() {
+  _sb.channel('kv_changes').on('postgres_changes', { event: '*', schema: 'public', table: 'kv_store' }, function(payload) {
+    const key = payload.new && payload.new.key;
+    if (!key) return;
+    if (key === 'hospInfoDB') { loadHospInfo(); }
+    if (key === 'visitRecords') { loadRecords(); rerenderCurrentTab(); }
+    if (key === 'extraHospitals') { loadExtraHospitals(); rerenderCurrentTab(); }
+  }).subscribe();
+}
+
+var chatHistory = [];
+var chatApiKey = '';
+
+function initChatPanel(){
+  chatApiKey = localStorage.getItem('baigel_api_key') || '';
+  if(!chatApiKey){
+    document.getElementById('apiKeyArea').style.display = 'block';
+    document.getElementById('chatStatusLabel').textContent = 'API 키 필요';
+  } else {
+    document.getElementById('apiKeyArea').style.display = 'none';
+    document.getElementById('chatStatusLabel').textContent = '실적·일정 데이터 연동됨';
+  }
+}
+
+function saveApiKey(){
+  var key = document.getElementById('apiKeyInput').value.trim();
+  if(!key){ alert('API 키를 입력하세요'); return; }
+  localStorage.setItem('baigel_api_key', key);
+  chatApiKey = key;
+  document.getElementById('apiKeyArea').style.display = 'none';
+  document.getElementById('chatStatusLabel').textContent = '실적·일정 데이터 연동됨';
+}
+
+function toggleApiKey(){
+  var area = document.getElementById('apiKeyArea');
+  area.style.display = area.style.display === 'none' ? 'block' : 'none';
+}
+
+function clearChatHistory(){
+  chatHistory = [];
+  var msgs = document.getElementById('chatMessages');
+  msgs.innerHTML = '<div class="chat-bubble ai-bubble">채팅 기록이 초기화되었어요. 무엇이든 질문하세요!</div>';
+}
+
+function quickAsk(text){
+  document.getElementById('chatInput').value = text;
+  sendChat();
+}
+
+function buildSystemPrompt(){
+  loadHospInfo();
+
+  // 현재 월 일정 추출
+  var scheduleData = {};
+  try {
+    var stored = JSON.parse(localStorage.getItem('scheduleDB') || '{}');
+    scheduleData = stored;
+  } catch(e){}
+
+  // 병원 실적 요약 (텍스트로 압축)
+  var hospSummary = '';
+  var months = ['8','9','10','11','12','1'];
+  Object.keys(hospInfoDB).forEach(function(h){
+    var info = hospInfoDB[h];
+    var lines = [];
+    months.forEach(function(m){
+      var b = (info.sales&&info.sales[m])||{};
+      var p2 = (info.pita2&&info.pita2[m])||{};
+      var p4 = (info.pita4&&info.pita4[m])||{};
+      if(b.amt||p2.amt||p4.amt){
+        lines.push(m+'월:바이겔'+(b.amt||0)+'천원/'+(b.qty||0)+'개,피타2mg'+(p2.amt||0)+'천원/'+(p2.qty||0)+'개,피타4mg'+(p4.amt||0)+'천원/'+(p4.qty||0)+'개');
+      }
+    });
+    if(lines.length){
+      hospSummary += h+'['+lines.join('|')+']\n';
+    }
+    // 기본정보
+    if(info.doctor) hospSummary += h+' 원장:'+info.doctor+'\n';
+    if(info.memo) hospSummary += h+' 메모:'+info.memo+'\n';
+  });
+
+  return `당신은 초당제약 이상윤 과장의 영업 어시스턴트입니다. 담당 제품은 바이겔(외용 인도메타신), 피타바스 2mg, 피타바스 4mg입니다.
+
+【현재 병원별 월별 실적 데이터 (8~1월)】
+${hospSummary}
+
+【방문 일정 데이터】
+${JSON.stringify(scheduleData).slice(0,3000)}
+
+【가능한 작업】
+1. 실적 조회·분석·비교
+2. 실적 데이터 업데이트 요청 시 → 반드시 JSON 명령 포함
+3. 방문 일정 조회·제안·논의
+4. 병원 정보(원장명, 전화, 메모 등) 수정
+5. 방문 메모 저장
+
+【데이터 업데이트 규칙】
+실적이나 병원정보를 수정해야 할 때는 반드시 응답 맨 끝에 아래 형식의 JSON 블록을 포함하세요:
+
+\`\`\`json
+{
+  "actions": [
+    {
+      "type": "updateSales",
+      "hospital": "병원명",
+      "month": 2,
+      "drug": "baigel",
+      "qty": 500,
+      "amt": 850
+    },
+    {
+      "type": "updateInfo",
+      "hospital": "병원명",
+      "field": "doctor",
+      "value": "홍길동"
+    },
+    {
+      "type": "updateMemo",
+      "hospital": "병원명",
+      "field": "memo",
+      "value": "메모 내용"
+    }
+  ]
+}
+\`\`\`
+
+drug 값: "baigel" | "pita2" | "pita4"
+field 값: "doctor" | "tel" | "addr" | "memo" | "recent" | "type" | "dept"
+
+JSON 블록이 없으면 데이터가 업데이트되지 않습니다.
+응답은 반드시 한국어로 하세요.`;
+}
+
+function appendMessage(text, role){
+  var msgs = document.getElementById('chatMessages');
+  var div = document.createElement('div');
+  div.className = 'chat-bubble ' + (role === 'user' ? 'user-bubble' : 'ai-bubble');
+  if(role === 'ai'){
+    // 마크다운 기본 처리
+    var html = text
+      .replace(/```json[\s\S]*?```/g, '') // JSON 블록 숨기기
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+    div.innerHTML = html;
+  } else {
+    div.textContent = text;
+  }
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function parseAndApplyActions(responseText){
+  var match = responseText.match(/```json([\s\S]*?)```/);
+  if(!match) return 0;
+  var applied = 0;
+  try {
+    var obj = JSON.parse(match[1].trim());
+    var actions = obj.actions || [];
+    loadHospInfo();
+    actions.forEach(function(action){
+      var h = action.hospital;
+      if(!hospInfoDB[h]){
+        hospInfoDB[h] = {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',
+          sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},
+          pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},
+          pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}};
+      }
+      if(action.type === 'updateSales'){
+        var m = String(action.month);
+        var drugMap = {baigel:'sales', pita2:'pita2', pita4:'pita4'};
+        var key = drugMap[action.drug];
+        if(key){
+          if(!hospInfoDB[h][key]) hospInfoDB[h][key] = {};
+          if(!hospInfoDB[h][key][m]) hospInfoDB[h][key][m] = {};
+          if(action.qty !== undefined) hospInfoDB[h][key][m].qty = String(action.qty);
+          if(action.amt !== undefined) hospInfoDB[h][key][m].amt = String(action.amt);
+          applied++;
+        }
+      } else if(action.type === 'updateInfo' || action.type === 'updateMemo'){
+        hospInfoDB[h][action.field] = action.value;
+        applied++;
+      }
+    });
+    if(applied > 0) saveHospInfoDB();
+  } catch(e){ console.error('Action parse error:', e); }
+  return applied;
+}
+
+async function sendChat(){
+  var input = document.getElementById('chatInput');
+  var text = input.value.trim();
+  if(!text) return;
+
+  chatApiKey = localStorage.getItem('baigel_api_key') || '';
+  if(!chatApiKey){
+    document.getElementById('apiKeyArea').style.display = 'block';
+    alert('API 키를 먼저 입력해주세요.');
+    return;
+  }
+
+  input.value = '';
+  input.style.height = 'auto';
+  document.getElementById('sendBtn').disabled = true;
+
+  appendMessage(text, 'user');
+  chatHistory.push({role:'user', content: text});
+
+  var loadingDiv = appendMessage('생각 중...', 'ai');
+  loadingDiv.classList.add('loading');
+
+  try {
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': chatApiKey, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        system: buildSystemPrompt(),
+        messages: chatHistory
+      })
+    });
+
+    var data = await resp.json();
+
+    if(data.error){
+      loadingDiv.textContent = '오류: ' + data.error.message;
+      loadingDiv.style.color = '#ef4444';
+      chatHistory.pop();
+    } else {
+      var reply = data.content[0].text;
+      chatHistory.push({role:'assistant', content: reply});
+
+      // 액션 적용
+      var applied = parseAndApplyActions(reply);
+
+      // 메시지 표시
+      var html = reply
+        .replace(/```json[\s\S]*?```/g, '')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+      loadingDiv.innerHTML = html;
+      loadingDiv.classList.remove('loading');
+
+      // 업데이트 됐으면 알림
+      if(applied > 0){
+        var noti = document.createElement('div');
+        noti.style.cssText = 'font-size:11px;color:#16a34a;text-align:center;padding:4px;';
+        noti.textContent = '✅ ' + applied + '개 항목이 저장되었습니다';
+        document.getElementById('chatMessages').appendChild(noti);
+        document.getElementById('chatMessages').scrollTop = 99999;
+      }
+    }
+  } catch(e){
+    loadingDiv.textContent = '네트워크 오류: ' + e.message;
+    loadingDiv.style.color = '#ef4444';
+    chatHistory.pop();
+  }
+
+  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('chatMessages').scrollTop = 99999;
 }
 
 // ── RERENDER CURRENT TAB ──
@@ -3773,8 +4604,10 @@ function rerenderCurrentTab(){
 // ── INIT ──
 loadRecords();
 loadExtraHospitals();
+loadHospInfo();
 renderWeekTabs();
 updateStats();
+sbSubscribe();
 
 // 오늘 날짜 자동 포커스
 (function(){
@@ -3817,6 +4650,7 @@ updateStats();
     <div class="se-hdr-title" id="editorTitle">일정 편집</div>
     <button class="se-btn" id="extraMgrBtn" style="background:#fee2e2;color:#dc2626;">🏥 관리</button>
     <button class="se-btn" onclick="copyPrevMonth()" style="background:var(--purple-lt);color:var(--purple);">📋 이전달 복사</button>
+    <button class="se-btn" onclick="clearEditorMonth()" style="background:var(--red-lt);color:var(--red);">🗑 전체삭제</button>
     <button class="se-btn" onclick="saveEditorMonth()" style="background:var(--blue);color:#fff;margin-left:4px;">💾 저장</button>
   </div>
   <div class="se-body">
@@ -3850,8 +4684,7 @@ updateStats();
         <input class="se-date-input" id="newHospManualName" placeholder="병원명 입력 (예: 인천인하대병원)" style="width:100%;"/>
       </div>
 
-      <!-- 지도 picker 버튼 -->
-      <button onclick="openCoordPicker()" style="width:100%;padding:10px;background:var(--s3);color:var(--t2);border:1px solid var(--bd);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:Noto Sans KR,sans-serif;margin-bottom:8px;">🗺 지도에서 병원 위치 선택</button>
+
 
       <!-- 수동 좌표 입력 -->
       <div style="background:#fef9c3;border:1px solid #fbbf24;border-radius:10px;padding:9px 11px;margin-bottom:8px;">
@@ -3883,6 +4716,32 @@ updateStats();
     <!-- 일정 목록 스크롤 -->
     <div class="se-scroll" id="editorScroll"></div>
   </div>
+
+  <!-- 에디터 내 하단 탭바 -->
+  <div class="tabbar" style="z-index:9001;">
+    <button class="tbtn" onclick="closeEditor();switchTab('sch',document.querySelector('.tbtn:nth-child(1)'))">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span>일정</span>
+    </button>
+    <button class="tbtn" onclick="closeEditor();switchTab('record',document.querySelector('.tbtn:nth-child(2)'))">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        <polyline points="9 12 11 14 15 10"/>
+      </svg>
+      <span>방문기록</span>
+    </button>
+    <button class="tbtn" onclick="closeEditor();switchTab('actstats',document.querySelector('.tbtn:nth-child(3)'))">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+        <circle cx="18" cy="7" r="2" fill="currentColor" stroke="none"/>
+      </svg>
+      <span>활동·통계</span>
+    </button>
+
+  </div>
+
 </div>
 
 
