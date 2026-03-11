@@ -653,6 +653,18 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   overflow: hidden;
 }
 #panel-aichat.active { display:flex !important; }
+#chat-input-bar {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  padding: 10px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
+  z-index: 20;
+}
 
 /* ── SPLASH ── */
 #splash {
@@ -854,7 +866,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   </div>
 
   <!-- 채팅 메시지 영역 -->
-  <div id="chatMessages" style="flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;">
+  <div id="chatMessages" style="flex:1;overflow-y:auto;padding:14px 12px 20px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch;">
     <div class="chat-bubble ai-bubble">
       안녕하세요! 바이겔 영업 데이터에 연결되어 있어요. 실적 조회, 업데이트, 방문 일정 논의 등 무엇이든 말씀해주세요.<br><br>
       <span style="color:#94a3b8;font-size:13px;">예시: "시화병원 2월 바이겔 850천원으로 업데이트해줘"</span>
@@ -862,7 +874,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   </div>
 
   <!-- 입력창 -->
-  <div style="padding:10px 12px;background:#fff;border-top:1px solid #e2e8f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;position:relative;z-index:10;">
+  <div id="chat-input-bar">
     <textarea id="chatInput" placeholder="메시지 입력..." rows="1"
       style="flex:1;border:1px solid #e2e8f0;border-radius:12px;padding:9px 12px;font-size:16px;font-family:'Noto Sans KR',sans-serif;resize:none;line-height:1.4;max-height:100px;overflow-y:auto;outline:none;-webkit-user-select:text;user-select:text;touch-action:manipulation;position:relative;z-index:10;"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"
@@ -2899,7 +2911,7 @@ function switchTab(name,btn){
   if(mb) mb.style.display=(name==='record'||name==='sch')?'flex':'none';
   if(name==='record') renderRecordPanel();
   if(name==='actstats') renderActStats();
-  if(name==='aichat'){ initChatPanel(); dismissToast(); }
+  if(name==='aichat'){ initChatPanel(); dismissToast(); if(document.getElementById('panel-aichat')) document.getElementById('panel-aichat').style.bottom='56px'; }
   if(name==='client' && !clMapInited) clInitMap();
   if(name==='map') initVworldMap();
 }
