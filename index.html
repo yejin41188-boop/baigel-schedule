@@ -40,19 +40,19 @@
   --shadow: 0 1px 4px rgba(11,46,114,0.07), 0 4px 16px rgba(11,46,114,0.05);
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:15px; }
+html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:17px; }
 .app { display:flex; flex-direction:column; height:100vh; height:100dvh; }
 
 /* HEADER */
 .hdr { background:linear-gradient(135deg,#0b2e72 0%,#0a92c2 55%,#0bc4e0 100%); border-bottom:3px solid #0bc4e0; padding:12px 14px 0; flex-shrink:0; box-shadow:0 2px 16px rgba(11,46,114,0.35); }
-.hdr-title { font-size:18px; font-weight:700; color:#fff; }
-.hdr-title em { color:rgba(255,255,255,0.85); font-style:normal; font-size:14px; font-weight:500; letter-spacing:0.3px; }
-.hdr-sub { font-size:12px; color:rgba(255,255,255,0.7); margin-top:1px; }
+.hdr-title { font-size:20px; font-weight:700; color:#fff; }
+.hdr-title em { color:rgba(255,255,255,0.85); font-style:normal; font-size:16px; font-weight:500; letter-spacing:0.3px; }
+.hdr-sub { font-size:14px; color:rgba(255,255,255,0.7); margin-top:1px; }
 .chips { display:flex; gap:6px; margin-top:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:12px; }
 .chips::-webkit-scrollbar { display:none; }
 .chip { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:20px; padding:4px 11px;
-  display:flex; align-items:center; gap:4px; white-space:nowrap; flex-shrink:0; font-size:12px; color:rgba(255,255,255,0.85); }
-.chip .n { font-family:'DM Mono',monospace; font-size:14px; font-weight:700; color:#fff; }
+  display:flex; align-items:center; gap:4px; white-space:nowrap; flex-shrink:0; font-size:14px; color:rgba(255,255,255,0.85); }
+.chip .n { font-family:'DM Mono',monospace; font-size:16px; font-weight:700; color:#fff; }
 .chip.bl .n { color:#7dd3ea; } .chip.or .n { color:#fdba74; }
 .chip.gr .n { color:#86efac; } .chip.pu .n { color:#c4b5fd; }
 
@@ -61,7 +61,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .month-bar { display:flex; background:#fff; border-bottom:2px solid var(--bd); flex-shrink:0; overflow-x:auto; scrollbar-width:none; gap:0; }
 .month-bar::-webkit-scrollbar { display:none; }
 .mtab { flex:1; min-width:40px; background:none; border:none; color:var(--t3); padding:3px 4px 3px;
-  font-size:12px; font-weight:600; cursor:pointer; border-bottom:2px solid transparent;
+  font-size:14px; font-weight:600; cursor:pointer; border-bottom:2px solid transparent;
   font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; white-space:nowrap; text-align:center; }
 .mtab.active { color:var(--navy); border-bottom-color:var(--cyan); }
 
@@ -73,7 +73,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 /* WEEK TABS */
 .week-tabs { display:block; background:var(--s1); border-bottom:1px solid var(--bd); flex-shrink:0; overflow:visible; }
 .week-tabs::-webkit-scrollbar { display:none; }
-.wtab { background:none; border:none; color:var(--t3); padding:4px 12px; font-size:12px; font-weight:600;
+.wtab { background:none; border:none; color:var(--t3); padding:4px 12px; font-size:14px; font-weight:600;
   white-space:nowrap; cursor:pointer; border-bottom:2px solid transparent;
   font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; flex-shrink:0; }
 .wtab.active { color:var(--navy); border-bottom-color:var(--cyan); }
@@ -88,11 +88,11 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .dcard:active { transform:scale(0.93); }
 .dcard.active { background:var(--cyan); border-color:var(--cyan); }
 .dcard.buffer { opacity:0.5; }
-.dcard .dn { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:var(--t2); line-height:1; }
+.dcard .dn { font-family:'DM Mono',monospace; font-size:15px; font-weight:700; color:var(--t2); line-height:1; }
 .dcard.active .dn { color:#fff; }
-.dcard .dd { font-size:8px; color:var(--t3); margin-top:1px; display:none; }
+.dcard .dd { font-size:10px; color:var(--t3); margin-top:1px; display:none; }
 .dcard.active .dd { color:rgba(255,255,255,0.8); }
-.dcard .dc { font-size:7px; color:var(--t3); display:none; }
+.dcard .dc { font-size:9px; color:var(--t3); display:none; }
 .dcard.active .dc { color:rgba(255,255,255,0.7); }
 .dcard.active .dc { color:rgba(255,255,255,0.7); }
 .ddots { display:none; }
@@ -114,23 +114,23 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   margin-bottom:4px; gap:6px; padding:4px 10px 0;
 }
 .day-title-left { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
-.day-main { font-size:16px; font-weight:700; color:var(--t1); }
-.day-sub { font-size:12px; color:var(--t3); margin-top:1px; }
+.day-main { font-size:18px; font-weight:700; color:var(--t1); }
+.day-sub { font-size:14px; color:var(--t3); margin-top:1px; }
 .day-btns { display:flex; align-items:center; gap:4px; flex-shrink:0; }
 .map-btn {
   display:flex; align-items:center; gap:4px;
   background:var(--blue); color:#fff; border:none;
-  border-radius:16px; padding:5px 9px; font-size:11px; font-weight:600;
+  border-radius:16px; padding:5px 9px; font-size:13px; font-weight:600;
   cursor:pointer; white-space:nowrap;
   font-family:'Noto Sans KR',sans-serif;
   transition:all 0.15s;
 }
 .map-btn:active { transform:scale(0.95); background:#007aab; }
-.map-btn { font-size:12px; }
+.map-btn { font-size:14px; }
 .edit-btn-sm {
   display:flex; align-items:center; gap:3px;
   background:var(--blue-lt); color:var(--blue); border:1px solid var(--blue);
-  border-radius:16px; padding:5px 9px; font-size:11px; font-weight:600;
+  border-radius:16px; padding:5px 9px; font-size:13px; font-weight:600;
   cursor:pointer; white-space:nowrap;
   font-family:'Noto Sans KR',sans-serif;
   transition:all 0.15s;
@@ -138,7 +138,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .miss-btn {
   display:flex; align-items:center; gap:5px;
   background:var(--orange-lt); color:var(--orange); border:1px solid #fed7aa;
-  border-radius:20px; padding:6px 12px; font-size:12px; font-weight:600;
+  border-radius:20px; padding:6px 12px; font-size:14px; font-weight:600;
   cursor:pointer; white-space:nowrap; flex-shrink:0;
   font-family:'Noto Sans KR',sans-serif; transition:all 0.15s;
 }
@@ -147,7 +147,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .day-count-badge {
   background:var(--blue-lt); color:var(--blue);
   border-radius:8px; padding:3px 8px;
-  font-family:'DM Mono',monospace; font-size:11px; font-weight:600;
+  font-family:'DM Mono',monospace; font-size:13px; font-weight:600;
   white-space:nowrap;
 }
 
@@ -168,10 +168,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 
 /* 메인 한줄 */
 .vcard-row { display:flex; align-items:center; gap:5px; padding:7px 8px 4px 10px; }
-.vcard-seq { font-size:9px; color:var(--t3); font-weight:600; flex-shrink:0; min-width:16px; }
-.vcard-name { font-size:14px; font-weight:700; color:var(--t1); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; }
-.vcard-time { font-family:"DM Mono",monospace; font-size:11px; color:var(--navy); white-space:nowrap; flex-shrink:0; font-weight:600; background:var(--cyan-lt); padding:2px 5px; border-radius:5px; }
-.badge { font-size:10px; padding:2px 6px; border-radius:5px; font-weight:700; flex-shrink:0; }
+.vcard-seq { font-size:11px; color:var(--t3); font-weight:600; flex-shrink:0; min-width:16px; }
+.vcard-name { font-size:16px; font-weight:700; color:var(--t1); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; }
+.vcard-time { font-family:"DM Mono",monospace; font-size:13px; color:var(--navy); white-space:nowrap; flex-shrink:0; font-weight:600; background:var(--cyan-lt); padding:2px 5px; border-radius:5px; }
+.badge { font-size:12px; padding:2px 6px; border-radius:5px; font-weight:700; flex-shrink:0; }
 .badge-univ { background:var(--orange-lt); color:var(--orange); }
 .badge-weekly { background:var(--cyan-lt); color:var(--navy); }
 .badge-biweekly { background:var(--purple-lt); color:var(--purple); }
@@ -179,10 +179,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .badge-done { background:var(--green-lt); color:var(--green); }
 
 /* 서브 한줄 (주소+이동+할당) */
-.vcard-sub { display:flex; align-items:center; gap:5px; padding:0 8px 4px 30px; font-size:11px; color:var(--t3); flex-wrap:wrap; }
-.vcard-note { font-size:11px; color:var(--orange); font-weight:500; }
-.dist-pill { background:var(--cyan-lt); color:var(--navy); border-radius:4px; padding:1px 5px; font-family:"DM Mono",monospace; font-size:10px; font-weight:600; }
-.qval-inline { font-family:"DM Mono",monospace; font-size:10px; font-weight:600; color:var(--t2); }
+.vcard-sub { display:flex; align-items:center; gap:5px; padding:0 8px 4px 30px; font-size:13px; color:var(--t3); flex-wrap:wrap; }
+.vcard-note { font-size:13px; color:var(--orange); font-weight:500; }
+.dist-pill { background:var(--cyan-lt); color:var(--navy); border-radius:4px; padding:1px 5px; font-family:"DM Mono",monospace; font-size:12px; font-weight:600; }
+.qval-inline { font-family:"DM Mono",monospace; font-size:12px; font-weight:600; color:var(--t2); }
 
 /* 활동 하단 줄 */
 .vcard-act-row { display:flex; align-items:center; gap:6px; padding:4px 8px 5px 30px; border-top:1px solid var(--bd); }
@@ -191,12 +191,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 /* MOVE ARROW */
 .move-arrow {
   display:flex; align-items:center; gap:6px;
-  padding:5px 12px; color:var(--t3); font-size:11px;
+  padding:5px 12px; color:var(--t3); font-size:13px;
 }
-.move-arrow::before { content:'↓'; color:var(--bd2); font-size:14px; }
+.move-arrow::before { content:'↓'; color:var(--bd2); font-size:16px; }
 
 /* ALERT CARD */
-.alert-text { font-size:12px; color:var(--red); line-height:1.6; font-weight:500; }
+.alert-text { font-size:14px; color:var(--red); line-height:1.6; font-weight:500; }
 .alert-ico { margin-right:4px; }
 
 /* SUMMARY BOX */
@@ -209,8 +209,8 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .sb-row { display:flex; gap:0; flex:1; height:100%; align-items:center; }
 .sb-item { flex:1; text-align:center; display:flex; align-items:center; justify-content:center; gap:5px; height:100%; }
 .sb-item:not(:last-child) { border-right:1px solid rgba(255,255,255,0.3); }
-.sb-num { font-family:'DM Mono',monospace; font-size:15px; font-weight:800; color:#fff; }
-.sb-label { font-size:10px; color:rgba(255,255,255,0.8); font-weight:500; }
+.sb-num { font-family:'DM Mono',monospace; font-size:17px; font-weight:800; color:#fff; }
+.sb-label { font-size:12px; color:rgba(255,255,255,0.8); font-weight:500; }
 
 /* ── RECORD PANEL ── */
 #panel-record { overflow:hidden; padding:0; background:var(--bg); display:none; flex-direction:column; }
@@ -221,32 +221,32 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 #panel-map.active { display:flex; }
 .map-top-bar { background:var(--s1); border-bottom:1px solid var(--bd); padding:8px 10px; flex-shrink:0; }
 .map-search-row { display:flex; gap:6px; margin-bottom:6px; }
-.map-search-input { flex:1; background:var(--s2); border:1.5px solid var(--bd); border-radius:8px; padding:8px 10px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:13px; outline:none; }
+.map-search-input { flex:1; background:var(--s2); border:1.5px solid var(--bd); border-radius:8px; padding:8px 10px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:15px; outline:none; }
 .map-search-input:focus { border-color:var(--blue); }
-.map-search-btn { background:var(--blue); border:none; border-radius:8px; padding:8px 12px; color:#fff; font-family:'Noto Sans KR',sans-serif; font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; }
+.map-search-btn { background:var(--blue); border:none; border-radius:8px; padding:8px 12px; color:#fff; font-family:'Noto Sans KR',sans-serif; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap; }
 .map-search-results { background:var(--s1); border:1.5px solid var(--blue); border-radius:8px; max-height:160px; overflow-y:auto; display:none; position:absolute; left:10px; right:10px; top:56px; z-index:500; box-shadow:0 4px 16px rgba(0,0,0,0.15); }
 .map-result-item { padding:9px 12px; cursor:pointer; border-bottom:1px solid var(--bd); }
 .map-result-item:last-child { border-bottom:none; }
 .map-result-item:active { background:var(--s3); }
-.map-result-name { font-size:13px; font-weight:600; color:var(--t1); }
-.map-result-addr { font-size:11px; color:var(--t3); margin-top:1px; }
+.map-result-name { font-size:15px; font-weight:600; color:var(--t1); }
+.map-result-addr { font-size:13px; color:var(--t3); margin-top:1px; }
 .map-dist-row { display:flex; gap:5px; align-items:center; }
-.map-dist-sel { flex:1; background:var(--s2); border:1.5px solid var(--bd); border-radius:7px; padding:6px 7px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:11px; outline:none; }
-.map-dist-btn { background:var(--purple); border:none; border-radius:7px; padding:6px 10px; color:#fff; font-family:'Noto Sans KR',sans-serif; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; }
-.map-dist-result { font-size:12px; color:var(--green); font-weight:700; padding:4px 2px 0; }
+.map-dist-sel { flex:1; background:var(--s2); border:1.5px solid var(--bd); border-radius:7px; padding:6px 7px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:13px; outline:none; }
+.map-dist-btn { background:var(--purple); border:none; border-radius:7px; padding:6px 10px; color:#fff; font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; }
+.map-dist-result { font-size:14px; color:var(--green); font-weight:700; padding:4px 2px 0; }
 .map-hosp-list { background:var(--s1); border-top:1px solid var(--bd); flex-shrink:0; max-height:110px; overflow-y:auto; }
 .map-hosp-item { display:flex; align-items:center; gap:8px; padding:7px 12px; border-bottom:1px solid var(--bd); cursor:pointer; }
 .map-hosp-item:last-child { border-bottom:none; }
 .map-hosp-item:active { background:var(--s3); }
-.map-hosp-num { width:20px; height:20px; background:var(--blue); border-radius:50%; color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.map-hosp-num { width:20px; height:20px; background:var(--blue); border-radius:50%; color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .map-hosp-info { flex:1; min-width:0; }
-.map-hosp-name { font-size:12px; font-weight:600; color:var(--t1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.map-hosp-addr { font-size:10px; color:var(--t3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.map-hosp-del { background:none; border:none; color:var(--t3); font-size:16px; cursor:pointer; padding:0 2px; flex-shrink:0; }
+.map-hosp-name { font-size:14px; font-weight:600; color:var(--t1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.map-hosp-addr { font-size:12px; color:var(--t3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.map-hosp-del { background:none; border:none; color:var(--t3); font-size:18px; cursor:pointer; padding:0 2px; flex-shrink:0; }
 #vworld-map-container { flex:1; min-height:0; }
 
 .rec-section-title {
-  font-size:12px; font-weight:700; color:var(--t3);
+  font-size:14px; font-weight:700; color:var(--t3);
   letter-spacing:1px; text-transform:uppercase;
   padding:0 2px; margin-bottom:8px; margin-top:14px;
 }
@@ -257,8 +257,8 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   padding:14px 14px 14px 16px; margin-bottom:10px; box-shadow:var(--shadow);
 }
 .rec-date-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-.rec-date { font-size:15px; font-weight:700; color:var(--t1); }
-.rec-status { font-size:12px; font-weight:600; padding:2px 10px; border-radius:10px; }
+.rec-date { font-size:17px; font-weight:700; color:var(--t1); }
+.rec-status { font-size:14px; font-weight:600; padding:2px 10px; border-radius:10px; }
 .rec-status.done { background:var(--green-lt); color:var(--green); }
 .rec-status.partial { background:#fef9c3; color:#a16207; }
 .rec-status.missing { background:var(--s3); color:var(--t3); }
@@ -273,27 +273,27 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .rec-hosp-item.visited .rec-hosp-name { color:#15803d; }
 .rec-hosp-item.visited .rec-hosp-time { color:#4ade80; }
 .rec-hosp-item:active { background:var(--bd); }
-.rec-hosp-name { font-size:14px; font-weight:500; color:#9ca3af; }
-.rec-hosp-time { font-size:12px; color:#d1d5db; }
+.rec-hosp-name { font-size:16px; font-weight:500; color:#9ca3af; }
+.rec-hosp-time { font-size:14px; color:#d1d5db; }
 .rec-check {
   width:22px; height:22px; border-radius:50%;
   border:2px solid var(--bd2); display:flex; align-items:center; justify-content:center;
   flex-shrink:0; transition:all 0.15s;
 }
 .rec-check.checked { background:var(--green); border-color:var(--green); }
-.rec-check.checked::after { content:'✓'; color:#fff; font-size:12px; font-weight:700; }
+.rec-check.checked::after { content:'✓'; color:#fff; font-size:14px; font-weight:700; }
 
 .rec-memo-area {
   width:100%; margin-top:10px; padding:8px 10px;
   background:var(--s3); border:1px solid var(--bd); border-radius:8px;
-  font-size:12px; color:var(--t1); resize:none; min-height:60px;
+  font-size:14px; color:var(--t1); resize:none; min-height:60px;
   font-family:'Noto Sans KR',sans-serif;
   outline:none;
 }
 .rec-save-btn-unused {
   width:100%; margin-top:10px; padding:10px;
   background:var(--blue); color:#fff; border:none; border-radius:8px;
-  font-size:13px; font-weight:700; cursor:pointer;
+  font-size:15px; font-weight:700; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif;
   box-shadow:0 2px 8px rgba(4,156,183,0.25);
 }
@@ -315,12 +315,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   display:flex; align-items:center; justify-content:space-between;
   border-bottom:1px solid var(--bd); flex-shrink:0;
 }
-.map-modal-title { font-size:15px; font-weight:700; }
+.map-modal-title { font-size:17px; font-weight:700; }
 .map-back-btn {
   display:flex; align-items:center; gap:5px;
   background:var(--blue-lt); color:var(--blue); border:none;
   border-radius:20px; padding:6px 14px;
-  font-size:13px; font-weight:700; cursor:pointer;
+  font-size:15px; font-weight:700; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif;
 }
 .map-back-btn:active { background:var(--bd); }
@@ -332,7 +332,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 }
 .ml-item { display:flex; align-items:center; gap:4px; }
 .ml-dot { width:9px; height:9px; border-radius:50%; }
-.ml-text { font-size:10px; color:var(--t2); }
+.ml-text { font-size:12px; color:var(--t2); }
 
 /* TAB BAR */
 .tabbar { display:flex; background:#fff; border-top:2px solid var(--blue); flex-shrink:0; box-shadow:0 -2px 12px rgba(4,156,183,0.1); position:relative; z-index:200; }
@@ -341,7 +341,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   font-family:'Noto Sans KR',sans-serif; transition:color 0.15s; }
 .tbtn.active { color:var(--navy); }
 .tbtn svg { width:20px; height:20px; }
-.tbtn span { font-size:11px; font-weight:600; }
+.tbtn span { font-size:13px; font-weight:600; }
 
 /* NOTIFICATION TOAST */
 .toast {
@@ -352,12 +352,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   box-shadow:0 4px 16px rgba(0,0,0,0.2);
 }
 .toast.show { display:flex; }
-.toast-title { font-size:14px; font-weight:700; }
-.toast-sub { font-size:12px; opacity:0.85; }
+.toast-title { font-size:16px; font-weight:700; }
+.toast-sub { font-size:14px; opacity:0.85; }
 .toast-actions { display:flex; gap:8px; }
 .toast-btn {
   padding:6px 14px; border-radius:6px; border:none;
-  font-size:12px; font-weight:700; cursor:pointer;
+  font-size:14px; font-weight:700; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif;
 }
 .toast-btn.primary { background:#fff; color:var(--blue); }
@@ -376,28 +376,28 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   box-shadow:0 -4px 24px rgba(0,0,0,0.15);
   max-height:85vh; overflow-y:auto;
 }
-.act-modal-title { font-size:15px; font-weight:700; color:var(--t1); margin-bottom:4px; }
-.act-modal-sub { font-size:11px; color:var(--t3); margin-bottom:16px; }
+.act-modal-title { font-size:17px; font-weight:700; color:var(--t1); margin-bottom:4px; }
+.act-modal-sub { font-size:13px; color:var(--t3); margin-bottom:16px; }
 .act-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
 .act-tag {
   padding:8px 16px; border-radius:20px;
   border:1.5px solid var(--bd2); background:var(--s3);
-  font-size:13px; font-weight:600; color:var(--t2);
+  font-size:15px; font-weight:600; color:var(--t2);
   cursor:pointer; transition:all 0.15s;
 }
 .act-tag.selected { border-color:var(--blue); background:var(--blue-lt); color:var(--blue); }
 .act-memo {
   width:100%; padding:10px 12px;
   background:var(--s3); border:1px solid var(--bd); border-radius:10px;
-  font-size:13px; color:var(--t1); resize:none; min-height:80px;
+  font-size:15px; color:var(--t1); resize:none; min-height:80px;
   font-family:'Noto Sans KR',sans-serif; outline:none; margin-bottom:12px;
 }
 .act-btn-row { display:flex; gap:8px; }
 .act-save { flex:1; padding:12px; background:var(--blue); color:#fff; border:none;
-  border-radius:10px; font-size:14px; font-weight:700; cursor:pointer;
+  border-radius:10px; font-size:16px; font-weight:700; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif; }
 .act-cancel { padding:12px 16px; background:var(--s3); color:var(--t2); border:none;
-  border-radius:10px; font-size:13px; font-weight:600; cursor:pointer;
+  border-radius:10px; font-size:15px; font-weight:600; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif; }
 
 /* BUFFER INPUT */
@@ -405,7 +405,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   display:flex; align-items:center; gap:6px;
   width:100%; padding:12px; margin-bottom:8px;
   background:var(--s1); border:1.5px dashed var(--bd2); border-radius:10px;
-  color:var(--blue); font-size:13px; font-weight:600; cursor:pointer;
+  color:var(--blue); font-size:15px; font-weight:600; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif; justify-content:center;
   box-shadow:var(--shadow);
 }
@@ -415,12 +415,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .buffer-input {
   flex:1; padding:10px 12px; background:var(--s1);
   border:1.5px solid var(--blue); border-radius:10px;
-  font-size:13px; color:var(--t1); outline:none;
+  font-size:15px; color:var(--t1); outline:none;
   font-family:'Noto Sans KR',sans-serif;
 }
 .buffer-input-confirm {
   padding:10px 14px; background:var(--blue); color:#fff; border:none;
-  border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;
+  border-radius:10px; font-size:15px; font-weight:700; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif; white-space:nowrap;
 }
 .buffer-hosp-card {
@@ -428,10 +428,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   padding:12px 14px; margin-bottom:8px; box-shadow:var(--shadow);
   display:flex; align-items:center; justify-content:space-between;
 }
-.buffer-hosp-name { font-size:14px; font-weight:600; color:var(--t1); }
+.buffer-hosp-name { font-size:16px; font-weight:600; color:var(--t1); }
 .buffer-hosp-del {
   background:var(--red-lt); color:var(--red); border:none;
-  border-radius:6px; padding:4px 10px; font-size:11px; font-weight:700;
+  border-radius:6px; padding:4px 10px; font-size:13px; font-weight:700;
   cursor:pointer; font-family:'Noto Sans KR',sans-serif;
 }
 .act-section {
@@ -452,15 +452,15 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .act-section.selected .act-section-check {
   background:var(--blue); border-color:var(--blue);
 }
-.act-section.selected .act-section-check::after { content:'✓'; color:#fff; font-size:11px; font-weight:700; }
-.act-section-label { flex:1; font-size:14px; font-weight:600; color:var(--t1); }
+.act-section.selected .act-section-check::after { content:'✓'; color:#fff; font-size:13px; font-weight:700; }
+.act-section-label { flex:1; font-size:16px; font-weight:600; color:var(--t1); }
 .act-section.selected .act-section-label { color:var(--blue); }
-.act-section-arrow { font-size:18px; color:var(--t3); transition:transform 0.2s; }
+.act-section-arrow { font-size:20px; color:var(--t3); transition:transform 0.2s; }
 .act-section.open .act-section-arrow { transform:rotate(90deg); }
 .act-section-memo {
   display:none; width:100%; padding:10px 14px;
   background:var(--s1); border:none; border-top:1px solid var(--bd);
-  font-size:13px; color:var(--t1); resize:none; min-height:70px;
+  font-size:15px; color:var(--t1); resize:none; min-height:70px;
   font-family:'Noto Sans KR',sans-serif; outline:none;
 }
 .act-section.open .act-section-memo { display:block; }
@@ -469,14 +469,14 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   display:flex; align-items:center; gap:3px;
   background:var(--purple-lt); color:var(--purple);
   border:1px solid #ddd9fe; border-radius:12px;
-  padding:3px 8px; font-size:10px; font-weight:700;
+  padding:3px 8px; font-size:12px; font-weight:700;
   cursor:pointer; white-space:nowrap;
   font-family:'Noto Sans KR',sans-serif; flex-shrink:0;
 }
 .act-btn:active { transform:scale(0.95); }
 .act-done-badge {
   background:var(--green-lt); color:var(--green);
-  border-radius:10px; padding:2px 8px; font-size:10px; font-weight:700;
+  border-radius:10px; padding:2px 8px; font-size:12px; font-weight:700;
 }
 
 
@@ -485,7 +485,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .ac-input {
   width:100%; padding:8px 10px;
   background:var(--s1); border:1.5px solid var(--blue); border-radius:8px;
-  font-size:12px; color:var(--t1); outline:none;
+  font-size:14px; color:var(--t1); outline:none;
   font-family:'Noto Sans KR',sans-serif; box-sizing:border-box;
 }
 .ac-dropdown {
@@ -495,7 +495,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   box-shadow:0 4px 12px rgba(0,0,0,0.12);
 }
 .ac-item {
-  padding:9px 12px; font-size:13px; color:var(--t1); cursor:pointer;
+  padding:9px 12px; font-size:15px; color:var(--t1); cursor:pointer;
   border-bottom:1px solid var(--bd);
 }
 .ac-item:last-child { border-bottom:none; }
@@ -508,7 +508,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .dist-label-map {
   background:rgba(255,255,255,0.95); border:1.5px solid #049cb7;
   border-radius:5px; padding:2px 7px;
-  font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#049cb7;
+  font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:#049cb7;
   white-space:nowrap; box-shadow:0 1px 4px rgba(0,0,0,0.15);
 }
 
@@ -523,9 +523,9 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   padding:11px 14px; display:flex; align-items:center; gap:10px;
   flex-shrink:0; box-shadow:var(--shadow);
 }
-.se-hdr-title { font-size:15px; font-weight:700; color:var(--t1); flex:1; }
+.se-hdr-title { font-size:17px; font-weight:700; color:var(--t1); flex:1; }
 .se-btn {
-  border:none; border-radius:20px; padding:7px 13px; font-size:12px;
+  border:none; border-radius:20px; padding:7px 13px; font-size:14px;
   font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s;
 }
 .se-body { flex:1; overflow:hidden; display:flex; flex-direction:column; }
@@ -534,11 +534,11 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   background:var(--s1); border-bottom:1px solid var(--bd);
   padding:10px 12px 8px; flex-shrink:0; overflow:visible; pointer-events:all; position:relative; z-index:100;
 }
-.se-quota-title { font-size:10px; font-weight:700; color:var(--t3); letter-spacing:1px; margin-bottom:7px; display:flex; align-items:center; justify-content:space-between; }
+.se-quota-title { font-size:12px; font-weight:700; color:var(--t3); letter-spacing:1px; margin-bottom:7px; display:flex; align-items:center; justify-content:space-between; }
 .se-quota-scroll { display:flex; gap:6px; overflow-x:auto; overflow-y:visible; padding-top:6px; scrollbar-width:none; }
 .se-quota-scroll::-webkit-scrollbar { display:none; }
 .se-qchip {
-  flex-shrink:0; border-radius:8px; padding:5px 8px; font-size:11px;
+  flex-shrink:0; border-radius:8px; padding:5px 8px; font-size:13px;
   font-weight:700; text-align:center; min-width:60px; border:1.5px solid transparent;
   cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:rgba(0,0,0,0.1);
 }
@@ -555,24 +555,24 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   display:flex; align-items:center; padding:11px 13px; gap:8px;
   background:var(--s2); border-bottom:1px solid var(--bd);
 }
-.se-day-label { font-size:14px; font-weight:700; color:var(--t1); }
-.se-day-dow { font-size:11px; font-weight:600; color:var(--t3); background:var(--s3); border-radius:5px; padding:2px 7px; }
-.se-day-start { font-size:11px; color:var(--t3); margin-left:auto; }
+.se-day-label { font-size:16px; font-weight:700; color:var(--t1); }
+.se-day-dow { font-size:13px; font-weight:600; color:var(--t3); background:var(--s3); border-radius:5px; padding:2px 7px; }
+.se-day-start { font-size:13px; color:var(--t3); margin-left:auto; }
 .se-visit-list { padding:8px 10px; }
 .se-visit-row {
   display:flex; align-items:center; gap:8px; padding:7px 6px;
   border-radius:9px; margin-bottom:4px; background:var(--s3);
 }
-.se-visit-name { flex:1; font-size:13px; font-weight:600; color:var(--t1); }
-.se-visit-badge { font-size:10px; font-weight:700; padding:2px 7px; border-radius:5px; flex-shrink:0; }
+.se-visit-name { flex:1; font-size:15px; font-weight:600; color:var(--t1); }
+.se-visit-badge { font-size:12px; font-weight:700; padding:2px 7px; border-radius:5px; flex-shrink:0; }
 .se-move-btn {
   background:none; border:none; cursor:pointer; color:var(--t3); padding:2px 4px;
-  font-size:16px; line-height:1; border-radius:5px;
+  font-size:18px; line-height:1; border-radius:5px;
 }
 .se-move-btn:active { background:var(--bd); }
 .se-del-btn {
   background:var(--red-lt); border:none; cursor:pointer; color:var(--red);
-  width:24px; height:24px; border-radius:6px; font-size:14px; font-weight:700;
+  width:24px; height:24px; border-radius:6px; font-size:16px; font-weight:700;
   display:flex; align-items:center; justify-content:center; flex-shrink:0;
 }
 .se-add-hosp {
@@ -580,12 +580,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 }
 .se-add-select {
   flex:1; border:1.5px solid var(--bd2); border-radius:8px; padding:7px 10px;
-  font-size:12px; font-family:'Noto Sans KR',sans-serif; background:var(--s1);
+  font-size:14px; font-family:'Noto Sans KR',sans-serif; background:var(--s1);
   color:var(--t1); outline:none;
 }
 .se-add-confirm {
   background:var(--blue); color:#fff; border:none; border-radius:8px;
-  padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer;
+  padding:7px 14px; font-size:14px; font-weight:700; cursor:pointer;
   font-family:'Noto Sans KR',sans-serif;
 }
 .se-add-date {
@@ -593,10 +593,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 }
 .se-date-input {
   flex:1; border:1.5px solid var(--bd2); border-radius:8px; padding:8px 10px;
-  font-size:13px; font-family:'Noto Sans KR',sans-serif; background:var(--s1);
+  font-size:15px; font-family:'Noto Sans KR',sans-serif; background:var(--s1);
   color:var(--t1); outline:none;
 }
-.se-date-label { font-size:11px; color:var(--t3); margin-bottom:4px; }
+.se-date-label { font-size:13px; color:var(--t3); margin-bottom:4px; }
 
 
 /* ── 병원 상세 모달 ── */
@@ -605,44 +605,44 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .hosp-detail-sheet { background:var(--s1); border-radius:18px 18px 0 0; max-height:88vh; overflow-y:auto; padding:0 0 32px 0; transform:translateY(100%); transition:transform 0.3s cubic-bezier(.4,0,.2,1); }
 .hosp-detail-modal.open .hosp-detail-sheet { transform:translateY(0); }
 .hosp-detail-hdr { display:flex; align-items:center; gap:8px; padding:14px 16px 10px; border-bottom:1px solid var(--bd); position:sticky; top:0; background:var(--s1); z-index:1; }
-.hosp-detail-title { font-size:15px; font-weight:800; color:var(--t1); flex:1; }
+.hosp-detail-title { font-size:17px; font-weight:800; color:var(--t1); flex:1; }
 .hosp-detail-body { padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
-.hosp-detail-photo { width:80px; height:80px; border-radius:12px; object-fit:cover; border:2px solid var(--bd); background:var(--s3); display:flex; align-items:center; justify-content:center; font-size:28px; cursor:pointer; flex-shrink:0; overflow:hidden; }
+.hosp-detail-photo { width:80px; height:80px; border-radius:12px; object-fit:cover; border:2px solid var(--bd); background:var(--s3); display:flex; align-items:center; justify-content:center; font-size:30px; cursor:pointer; flex-shrink:0; overflow:hidden; }
 .hosp-detail-photo img { width:100%; height:100%; object-fit:cover; }
 .hosp-detail-section { background:var(--s2); border-radius:12px; padding:12px 14px; }
-.hosp-detail-section-title { font-size:11px; font-weight:700; color:var(--t3); margin-bottom:8px; letter-spacing:0.5px; }
+.hosp-detail-section-title { font-size:13px; font-weight:700; color:var(--t3); margin-bottom:8px; letter-spacing:0.5px; }
 .hosp-detail-field { display:flex; flex-direction:column; gap:3px; margin-bottom:10px; }
 .hosp-detail-field:last-child { margin-bottom:0; }
-.hosp-detail-label { font-size:11px; color:var(--t3); font-weight:600; }
-.hosp-detail-input { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
-.hosp-detail-textarea { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; min-height:70px; resize:none; }
-.hosp-detail-select { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
+.hosp-detail-label { font-size:13px; color:var(--t3); font-weight:600; }
+.hosp-detail-input { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:15px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
+.hosp-detail-textarea { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:15px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; min-height:70px; resize:none; }
+.hosp-detail-select { background:var(--s1); border:1px solid var(--bd); border-radius:8px; padding:8px 10px; font-size:15px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
 .hosp-sales-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
 .hosp-sales-item { background:var(--s1); border-radius:8px; padding:8px 10px; border:1px solid var(--bd); }
-.hosp-sales-month { font-size:10px; color:var(--t3); font-weight:600; margin-bottom:4px; }
+.hosp-sales-month { font-size:12px; color:var(--t3); font-weight:600; margin-bottom:4px; }
 .hosp-sales-inputs { display:flex; gap:4px; }
-.hosp-sales-input { background:var(--s3); border:none; border-radius:6px; padding:5px 7px; font-size:12px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
-.hosp-detail-save-btn { width:100%; padding:13px; background:var(--blue); color:#fff; border:none; border-radius:12px; font-size:14px; font-weight:700; font-family:'Noto Sans KR',sans-serif; cursor:pointer; margin-top:4px; }
+.hosp-sales-input { background:var(--s3); border:none; border-radius:6px; padding:5px 7px; font-size:14px; color:var(--t1); font-family:'Noto Sans KR',sans-serif; width:100%; box-sizing:border-box; }
+.hosp-detail-save-btn { width:100%; padding:13px; background:var(--blue); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:700; font-family:'Noto Sans KR',sans-serif; cursor:pointer; margin-top:4px; }
 
 
 /* 실적 그래프 */
 .sales-chart-wrap { background:var(--s2); border-radius:12px; padding:12px 14px; }
-.sales-chart-title { font-size:11px; font-weight:700; color:var(--t3); margin-bottom:10px; }
+.sales-chart-title { font-size:13px; font-weight:700; color:var(--t3); margin-bottom:10px; }
 .sales-chart-bars { display:flex; align-items:flex-end; gap:4px; height:80px; }
 .sales-chart-col { display:flex; flex-direction:column; align-items:center; gap:3px; flex:1; }
 .sales-chart-bar-wrap { width:100%; display:flex; align-items:flex-end; height:64px; }
 .sales-chart-bar { width:100%; border-radius:4px 4px 0 0; transition:height 0.3s; min-height:2px; }
-.sales-chart-val { font-size:8px; color:var(--t3); font-weight:600; white-space:nowrap; }
-.sales-chart-label { font-size:9px; color:var(--t3); font-weight:600; }
+.sales-chart-val { font-size:10px; color:var(--t3); font-weight:600; white-space:nowrap; }
+.sales-chart-label { font-size:11px; color:var(--t3); font-weight:600; }
 
 
 /* AI 채팅 */
-.chat-bubble { max-width:88%; padding:10px 13px; border-radius:14px; font-size:13px; line-height:1.55; word-break:break-word; }
+.chat-bubble { max-width:88%; padding:10px 13px; border-radius:14px; font-size:15px; line-height:1.55; word-break:break-word; }
 .ai-bubble { background:#fff; border:1px solid #e2e8f0; color:#1e293b; align-self:flex-start; border-bottom-left-radius:4px; }
 .user-bubble { background:#049cb7; color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
 .chat-bubble.loading { background:#f1f5f9; color:#94a3b8; font-style:italic; }
-.qbtn { background:#e0f5fc; border:1px solid #9dd8ef; color:#049cb7; border-radius:20px; padding:5px 10px; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:'Noto Sans KR',sans-serif; flex-shrink:0; }
-.chat-action-btn { background:#f0fdf4; border:1px solid #bbf7d0; color:#0f9b5a; border-radius:8px; padding:5px 10px; font-size:11px; font-weight:700; cursor:pointer; margin-top:6px; font-family:'Noto Sans KR',sans-serif; }
+.qbtn { background:#e0f5fc; border:1px solid #9dd8ef; color:#049cb7; border-radius:20px; padding:5px 10px; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:'Noto Sans KR',sans-serif; flex-shrink:0; }
+.chat-action-btn { background:#f0fdf4; border:1px solid #bbf7d0; color:#0f9b5a; border-radius:8px; padding:5px 10px; font-size:13px; font-weight:700; cursor:pointer; margin-top:6px; font-family:'Noto Sans KR',sans-serif; }
 #panel-aichat {
   position: fixed !important;
   top: 0; left: 0; right: 0;
@@ -672,20 +672,20 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   box-shadow:0 4px 24px rgba(0,0,0,0.5);
 }
 #splash .sp-name {
-  font-size:13px; font-weight:500; color:rgba(255,255,255,0.6);
+  font-size:15px; font-weight:500; color:rgba(255,255,255,0.6);
   letter-spacing:1px; margin-top:-10px;
 }
 #splash .sp-quote {
-  font-size:16px; font-weight:700; color:#fff;
+  font-size:18px; font-weight:700; color:#fff;
   text-align:center; line-height:1.6; letter-spacing:-0.3px;
   max-width:280px;
 }
 #splash .sp-author {
-  font-size:11px; color:rgba(255,255,255,0.45);
+  font-size:13px; color:rgba(255,255,255,0.45);
   letter-spacing:0.5px;
 }
 #splash .sp-logo {
-  font-size:10px; font-weight:600; color:rgba(255,255,255,0.3);
+  font-size:12px; font-weight:600; color:rgba(255,255,255,0.3);
   letter-spacing:2px; position:absolute; bottom:32px;
 }
 </style>
@@ -703,8 +703,8 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 <!-- HEADER -->
 <div class="hdr">
   <div class="hdr-title" style="display:flex;align-items:flex-start;justify-content:space-between;">
-    <div><div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">CHODANG PHARM.</div><div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.1;">영업활동 관리</div><div style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.8);margin-top:2px;">담당자 · 이상윤 과장</div></div>
-    <button onclick="openEditorCurrent()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:9px;padding:6px 10px;cursor:pointer;color:#fff;font-size:12px;font-weight:700;font-family:'Noto Sans KR',sans-serif;flex-shrink:0;margin-left:8px;">✏️ 편집</button>
+    <div><div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">CHODANG PHARM.</div><div style="font-size:20px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.1;">영업활동 관리</div><div style="font-size:13px;font-weight:400;color:rgba(255,255,255,0.8);margin-top:2px;">담당자 · 이상윤 과장</div></div>
+    <button onclick="openEditorCurrent()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:9px;padding:6px 10px;cursor:pointer;color:#fff;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;flex-shrink:0;margin-left:8px;">✏️ 편집</button>
   </div>
 
   <div class="chips">
@@ -717,10 +717,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 
 <!-- MONTH BAR -->
 <div id="monthBar" style="display:flex;align-items:center;justify-content:center;background:#fff;border-bottom:2px solid var(--bd);flex-shrink:0;padding:8px 12px;gap:6px;">
-  <button onclick="stepMonth(-1)" style="border:none;background:none;padding:2px 6px;font-size:14px;cursor:pointer;color:var(--t3);">◀</button>
-  <span style="font-size:15px;color:var(--t3);font-weight:800;">2026 ·</span>
+  <button onclick="stepMonth(-1)" style="border:none;background:none;padding:2px 6px;font-size:16px;cursor:pointer;color:var(--t3);">◀</button>
+  <span style="font-size:17px;color:var(--t3);font-weight:800;">2026 ·</span>
   <select id="monthSelect" onchange="switchMonthSelect(this.value)"
-    style="border:none;background:none;font-size:14px;font-weight:800;color:var(--blue);font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:0 2px;appearance:none;-webkit-appearance:none;text-align:center;">
+    style="border:none;background:none;font-size:16px;font-weight:800;color:var(--blue);font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:0 2px;appearance:none;-webkit-appearance:none;text-align:center;">
     <option value="3">3월</option>
     <option value="4">4월</option>
     <option value="5">5월</option>
@@ -732,7 +732,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
     <option value="11">11월</option>
     <option value="12">12월</option>
   </select>
-  <button onclick="stepMonth(1)" style="border:none;background:none;padding:2px 6px;font-size:14px;cursor:pointer;color:var(--t3);">▶</button>
+  <button onclick="stepMonth(1)" style="border:none;background:none;padding:2px 6px;font-size:16px;cursor:pointer;color:var(--t3);">▶</button>
 </div>
 
 <!-- CONTENT -->
@@ -747,7 +747,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
     <div id="schDivider" style="height:2px;background:var(--s2);border-top:1px solid var(--bd);flex-shrink:0;">
     </div>
     <div class="sch-scroll" id="schScroll" style="flex:1;overflow-y:auto;min-height:80px;">
-      <div style="color:var(--t3);text-align:center;padding:40px;font-size:13px;">위에서 날짜를 선택하세요</div>
+      <div style="color:var(--t3);text-align:center;padding:40px;font-size:15px;">위에서 날짜를 선택하세요</div>
     </div>
   </div>
 
@@ -764,7 +764,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
       <div id="mapSearchResults" class="map-search-results"></div>
       <div class="map-dist-row">
         <select class="map-dist-sel" id="distFrom"><option value="">출발 선택</option></select>
-        <span style="color:var(--t3);font-size:12px;">→</span>
+        <span style="color:var(--t3);font-size:14px;">→</span>
         <select class="map-dist-sel" id="distTo"><option value="">도착 선택</option></select>
         <button class="map-dist-btn" onclick="calcMapDist()">거리</button>
         <div class="map-dist-result" id="distResult"></div>
@@ -822,25 +822,25 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 
   <!-- API 키 설정 영역 -->
   <div id="apiKeyArea" style="padding:12px 14px;background:#fff;border-bottom:1px solid #e2e8f0;display:none;">
-    <div style="font-size:11px;color:#64748b;margin-bottom:6px;">Anthropic API 키 입력</div>
+    <div style="font-size:13px;color:#64748b;margin-bottom:6px;">Anthropic API 키 입력</div>
     <div style="display:flex;gap:6px;">
-      <input id="apiKeyInput" type="password" placeholder="sk-ant-..." style="flex:1;border:1px solid #e2e8f0;border-radius:8px;padding:7px 10px;font-size:12px;font-family:'Noto Sans KR',sans-serif;"/>
-      <button onclick="saveApiKey()" style="background:#049cb7;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">저장</button>
+      <input id="apiKeyInput" type="password" placeholder="sk-ant-..." style="flex:1;border:1px solid #e2e8f0;border-radius:8px;padding:7px 10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;"/>
+      <button onclick="saveApiKey()" style="background:#049cb7;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">저장</button>
     </div>
   </div>
 
   <!-- 상단 헤더 -->
   <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px;background:#fff;border-bottom:1px solid #e2e8f0;">
     <div style="display:flex;align-items:center;gap:8px;">
-      <div style="width:28px;height:28px;background:linear-gradient(135deg,#049cb7,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;">🤖</div>
+      <div style="width:28px;height:28px;background:linear-gradient(135deg,#049cb7,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">🤖</div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:#1e293b;">Claude AI</div>
-        <div style="font-size:10px;color:#64748b;" id="chatStatusLabel">실적·일정 데이터 연동됨</div>
+        <div style="font-size:15px;font-weight:700;color:#1e293b;">Claude AI</div>
+        <div style="font-size:12px;color:#64748b;" id="chatStatusLabel">실적·일정 데이터 연동됨</div>
       </div>
     </div>
     <div style="display:flex;gap:6px;">
-      <button onclick="clearChatHistory()" style="background:#f1f5f9;border:none;border-radius:7px;padding:5px 9px;font-size:11px;color:#64748b;cursor:pointer;">🗑 초기화</button>
-      <button onclick="toggleApiKey()" style="background:#f1f5f9;border:none;border-radius:7px;padding:5px 9px;font-size:11px;color:#64748b;cursor:pointer;">🔑 API키</button>
+      <button onclick="clearChatHistory()" style="background:#f1f5f9;border:none;border-radius:7px;padding:5px 9px;font-size:13px;color:#64748b;cursor:pointer;">🗑 초기화</button>
+      <button onclick="toggleApiKey()" style="background:#f1f5f9;border:none;border-radius:7px;padding:5px 9px;font-size:13px;color:#64748b;cursor:pointer;">🔑 API키</button>
     </div>
   </div>
 
@@ -857,14 +857,14 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   <div id="chatMessages" style="flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;">
     <div class="chat-bubble ai-bubble">
       안녕하세요! 바이겔 영업 데이터에 연결되어 있어요. 실적 조회, 업데이트, 방문 일정 논의 등 무엇이든 말씀해주세요.<br><br>
-      <span style="color:#94a3b8;font-size:11px;">예시: "시화병원 2월 바이겔 850천원으로 업데이트해줘"</span>
+      <span style="color:#94a3b8;font-size:13px;">예시: "시화병원 2월 바이겔 850천원으로 업데이트해줘"</span>
     </div>
   </div>
 
   <!-- 입력창 -->
   <div style="padding:10px 12px;background:#fff;border-top:1px solid #e2e8f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;">
     <textarea id="chatInput" placeholder="메시지 입력..." rows="1"
-      style="flex:1;border:1px solid #e2e8f0;border-radius:12px;padding:9px 12px;font-size:13px;font-family:'Noto Sans KR',sans-serif;resize:none;line-height:1.4;max-height:100px;overflow-y:auto;outline:none;"
+      style="flex:1;border:1px solid #e2e8f0;border-radius:12px;padding:9px 12px;font-size:15px;font-family:'Noto Sans KR',sans-serif;resize:none;line-height:1.4;max-height:100px;overflow-y:auto;outline:none;"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"
       oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
     <button onclick="sendChat()" id="sendBtn"
@@ -881,7 +881,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   <div class="hosp-detail-sheet" id="hospDetailSheet">
     <div class="hosp-detail-hdr">
       <span class="hosp-detail-title" id="hospDetailTitle">병원명</span>
-      <button onclick="closeHospDetail()" style="background:none;border:none;font-size:20px;color:var(--t3);cursor:pointer;padding:0;">✕</button>
+      <button onclick="closeHospDetail()" style="background:none;border:none;font-size:22px;color:var(--t3);cursor:pointer;padding:0;">✕</button>
     </div>
     <div class="hosp-detail-body">
       <!-- 사진 + 기본정보 -->
@@ -928,20 +928,20 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
       <div class="hosp-detail-section">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
           <div class="hosp-detail-section-title" style="margin:0;">📊 월별 실적</div>
-          <button onclick="toggleSalesEdit()" id="salesEditBtn" style="background:var(--blue-lt);color:var(--blue);border:none;border-radius:7px;padding:4px 11px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">✏️ 편집</button>
+          <button onclick="toggleSalesEdit()" id="salesEditBtn" style="background:var(--blue-lt);color:var(--blue);border:none;border-radius:7px;padding:4px 11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">✏️ 편집</button>
         </div>
         <!-- 3개 차트 영역 -->
         <div id="salesChartArea">
-          <div style="font-size:10px;font-weight:700;color:#049cb7;margin-bottom:3px;">■ 바이겔 (천원)</div>
+          <div style="font-size:12px;font-weight:700;color:#049cb7;margin-bottom:3px;">■ 바이겔 (천원)</div>
           <canvas id="chartBaigel" style="width:100%;display:block;"></canvas>
-          <div style="font-size:10px;font-weight:700;color:#7c3aed;margin:10px 0 3px;">■ 피타바스 2mg (천원)</div>
+          <div style="font-size:12px;font-weight:700;color:#7c3aed;margin:10px 0 3px;">■ 피타바스 2mg (천원)</div>
           <canvas id="chartPita2" style="width:100%;display:block;"></canvas>
-          <div style="font-size:10px;font-weight:700;color:#059669;margin:10px 0 3px;">■ 피타바스 4mg (천원)</div>
+          <div style="font-size:12px;font-weight:700;color:#059669;margin:10px 0 3px;">■ 피타바스 4mg (천원)</div>
           <canvas id="chartPita4" style="width:100%;display:block;"></canvas>
         </div>
         <!-- 편집 영역 (숨김) -->
         <div id="salesEditArea" style="display:none;margin-top:12px;">
-          <div style="display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;align-items:center;font-size:10px;margin-bottom:5px;text-align:center;">
+          <div style="display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;align-items:center;font-size:12px;margin-bottom:5px;text-align:center;">
             <span></span>
             <span style="color:#049cb7;font-weight:700;">바이겔<br>수량</span>
             <span style="color:#049cb7;font-weight:700;">바이겔<br>천원</span>
@@ -1060,14 +1060,14 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
           취소
         </button>
         <div class="map-modal-title">📍 병원 위치 선택</div>
-        <button id="coordConfirmBtn" onclick="confirmCoordPick()" style="margin-left:auto;background:var(--blue);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;opacity:0.4;pointer-events:none;">✅ 이 위치로</button>
+        <button id="coordConfirmBtn" onclick="confirmCoordPick()" style="margin-left:auto;background:var(--blue);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;opacity:0.4;pointer-events:none;">✅ 이 위치로</button>
       </div>
       <div style="display:flex;gap:6px;">
-        <input id="coordSearchInput" class="se-date-input" placeholder="병원명 입력 후 검색" style="flex:1;font-size:12px;" onkeydown="if(event.key==='Enter')coordSearch()"/>
+        <input id="coordSearchInput" class="se-date-input" placeholder="병원명 입력 후 검색" style="flex:1;font-size:14px;" onkeydown="if(event.key==='Enter')coordSearch()"/>
         <button class="se-add-confirm" onclick="coordSearch()" style="padding:8px 14px;">검색</button>
       </div>
       <div id="coordSearchResults" style="display:none;background:var(--s1);border:1.5px solid var(--blue);border-radius:8px;max-height:130px;overflow-y:auto;"></div>
-      <div id="coordPickedInfo" style="display:none;font-size:11px;font-weight:700;color:var(--green);text-align:center;padding:3px 0;">지도를 탭해서 위치를 정확히 조정할 수 있어요</div>
+      <div id="coordPickedInfo" style="display:none;font-size:13px;font-weight:700;color:var(--green);text-align:center;padding:3px 0;">지도를 탭해서 위치를 정확히 조정할 수 있어요</div>
     </div>
     <div id="coordPickerMap" style="flex:1;min-height:0;"></div>
   </div>
@@ -1305,7 +1305,7 @@ function initMap(){
   leafMap=L.map('mapModal',{zoomControl:false,attributionControl:false}).setView([37.48,126.89],10);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:17}).addTo(leafMap);
   L.control.zoom({position:'bottomright'}).addTo(leafMap);
-  const hi=L.divIcon({html:'<div style="background:#fff;border:2px solid #049cb7;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#049cb7;font-weight:900;">H</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
+  const hi=L.divIcon({html:'<div style="background:#fff;border:2px solid #049cb7;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#049cb7;font-weight:900;">H</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
   L.marker([HOME.lat,HOME.lng],{icon:hi}).addTo(leafMap).bindTooltip('🏠 집');
 }
 
@@ -1332,8 +1332,8 @@ function renderMap(dk){
     const short=v.name.replace('정형외과의원','정형').replace('재활의학과의원','재활').replace('마취통증의학과','통증').replace('의원','').replace('정형외과','정형');
     const icon=L.divIcon({
       html:`<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-        <div style="background:${c};border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${i+1}</div>
-        <div style="background:rgba(255,255,255,0.95);border:1.5px solid ${c};border-radius:5px;padding:2px 7px;font-size:11px;font-weight:700;color:${c};white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">${short}</div>
+        <div style="background:${c};border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${i+1}</div>
+        <div style="background:rgba(255,255,255,0.95);border:1.5px solid ${c};border-radius:5px;padding:2px 7px;font-size:13px;font-weight:700;color:${c};white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">${short}</div>
       </div>`,
       className:'',iconSize:[110,50],iconAnchor:[55,14]
     });
@@ -1388,8 +1388,8 @@ function openMapCustomDay(day){
       const short=v.name.replace('정형외과의원','정형').replace('재활의학과의원','재활').replace('마취통증의학과','통증').replace('의원','').replace('정형외과','정형');
       const icon=L.divIcon({
         html:'<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">'
-          +'<div style="background:'+c+';border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:DM Mono,monospace;font-size:13px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">'+(i+1)+'</div>'
-          +'<div style="background:rgba(255,255,255,0.95);border:1.5px solid '+c+';border-radius:5px;padding:2px 7px;font-size:11px;font-weight:700;color:'+c+';white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">'+short+'</div>'
+          +'<div style="background:'+c+';border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:DM Mono,monospace;font-size:15px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">'+(i+1)+'</div>'
+          +'<div style="background:rgba(255,255,255,0.95);border:1.5px solid '+c+';border-radius:5px;padding:2px 7px;font-size:13px;font-weight:700;color:'+c+';white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">'+short+'</div>'
           +'</div>',
         className:'',iconSize:[110,50],iconAnchor:[55,14]
       });
@@ -1438,19 +1438,19 @@ function renderSchCal(m, activeKeys, selectedKey) {
 
   let html='<div style="padding:4px 10px 4px;background:var(--s1);border-bottom:1px solid var(--bd);box-sizing:border-box;height:280px;">';
   html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">';
-  dowKr.forEach(function(d,i){ html+='<div style="text-align:center;font-size:9px;font-weight:700;color:'+(i===0||i===6?'#ef4444':'var(--t3)')+';padding:2px 0;">'+d+'</div>'; });
+  dowKr.forEach(function(d,i){ html+='<div style="text-align:center;font-size:11px;font-weight:700;color:'+(i===0||i===6?'#ef4444':'var(--t3)')+';padding:2px 0;">'+d+'</div>'; });
   for(let e=0;e<firstDay;e++) html+='<div></div>';
   for(let d=1;d<=daysInMonth;d++){
     const dw=new Date(year,m-1,d).getDay(), isWknd=dw===0||dw===6, has=activeSet.has(d), isSel=d===selDay, key=m+'/'+d;
     const info=dayInfoMap[key];
     if(has && info){
       html+='<div onclick="schCalClick(\''+key+'\')" style="text-align:center;padding:4px 1px;border-radius:7px;cursor:pointer;background:'+(isSel?'var(--blue)':'var(--blue-lt)')+';border:1.5px solid var(--blue);user-select:none;">'
-        +'<div style="font-size:12px;font-weight:700;color:'+(isSel?'#fff':'var(--blue)')+';">'+d+'</div>'
-        +'<div style="font-size:9px;font-weight:600;color:'+(isSel?'rgba(255,255,255,0.85)':'var(--blue)')+';">'+info.count+'곳</div></div>';
+        +'<div style="font-size:14px;font-weight:700;color:'+(isSel?'#fff':'var(--blue)')+';">'+d+'</div>'
+        +'<div style="font-size:11px;font-weight:600;color:'+(isSel?'rgba(255,255,255,0.85)':'var(--blue)')+';">'+info.count+'곳</div></div>';
     } else {
       html+='<div style="text-align:center;padding:3px 1px 4px;border-radius:7px;opacity:'+(isWknd?0.3:0.5)+';">'
-        +'<div style="font-size:12px;color:'+(isWknd?'#ef4444':'var(--t2)')+';">'+d+'</div>'
-        +'<div style="font-size:8px;color:var(--t3);">'+dowKr[dw]+'</div></div>';
+        +'<div style="font-size:14px;color:'+(isWknd?'#ef4444':'var(--t2)')+';">'+d+'</div>'
+        +'<div style="font-size:10px;color:var(--t3);">'+dowKr[dw]+'</div></div>';
     }
   }
   html+='</div></div>';
@@ -1503,7 +1503,7 @@ function renderCustomDayDetailGlobal(day, m, data) {
     const actData=vr[dk+'__'+name]||{};
     const tags=actData.tags||[];
     if(tags.length>0){
-      el.innerHTML=tags.map(function(t){return '<span style="background:var(--purple-lt);color:var(--purple);border-radius:6px;padding:1px 5px;font-size:9px;">'+t+'</span>';}).join(' ');
+      el.innerHTML=tags.map(function(t){return '<span style="background:var(--purple-lt);color:var(--purple);border-radius:6px;padding:1px 5px;font-size:11px;">'+t+'</span>';}).join(' ');
     }
   });
 }
@@ -1658,8 +1658,8 @@ function buildDayHtml(dk, dow, hours, visits, cumCount, m, isCustom){
     }
     html += '</div>';
     html += '<div class="vcard-sub2">';
-    html += '<span class="act-tag-display" data-dk="' + dk + '" data-name="' + v.name + '" style="font-size:9px;color:var(--t3);">미기록</span>';
-    if(addrShort) html += '<span style="margin-left:auto;font-size:9px;color:var(--t3);">' + addrShort + '</span>';
+    html += '<span class="act-tag-display" data-dk="' + dk + '" data-name="' + v.name + '" style="font-size:11px;color:var(--t3);">미기록</span>';
+    if(addrShort) html += '<span style="margin-left:auto;font-size:11px;color:var(--t3);">' + addrShort + '</span>';
     html += '</div></div>';
   });
 
@@ -1717,7 +1717,7 @@ function renderSchedule(dk){
       bufHosps.forEach((name,i)=>{
         const actKey=dk+'__'+name;
         const tags=(visitRecords[actKey]||{}).tags||[];
-        alertHtml+=`<div class="buffer-hosp-card"><div><div class="buffer-hosp-name">${name}</div><div style="display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;">${tags.length?tags.map(t=>`<span class="act-done-badge">${t}</span>`).join(''):'<span style="font-size:10px;color:var(--t3)">활동 미기록</span>'}</div></div><div style="display:flex;gap:6px;align-items:center;"><button class="act-btn" onclick="openActModal('${dk}','${name}')">✏️</button><button class="buffer-hosp-del" onclick="deleteBufferHosp('${dk}',${i})">삭제</button></div></div>`;
+        alertHtml+=`<div class="buffer-hosp-card"><div><div class="buffer-hosp-name">${name}</div><div style="display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;">${tags.length?tags.map(t=>`<span class="act-done-badge">${t}</span>`).join(''):'<span style="font-size:12px;color:var(--t3)">활동 미기록</span>'}</div></div><div style="display:flex;gap:6px;align-items:center;"><button class="act-btn" onclick="openActModal('${dk}','${name}')">✏️</button><button class="buffer-hosp-del" onclick="deleteBufferHosp('${dk}',${i})">삭제</button></div></div>`;
       });
       const safeId=dk.replace(/[^\w]/g,'_');
       alertHtml+=`<div id="bufAcContainer_${safeId}" style="padding:4px 4px 2px;"></div></div>`;
@@ -1786,7 +1786,7 @@ function renderRecordContent(){
   if(m !== '3'){
     const saved = loadMonthData(m);
     if(!saved || !saved.dates || !saved.dates.length){
-      scrollEl.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--t3);font-size:13px;">'+m+'월 일정이 없습니다.</div>';
+      scrollEl.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--t3);font-size:15px;">'+m+'월 일정이 없습니다.</div>';
       return;
     }
     renderRecordPanelCustom(scrollEl, m, saved.dates, tab);
@@ -1812,7 +1812,7 @@ function renderRecordContent(){
 
     const allDone = hvs.every(v => rec.checks[v.name]);
     const anyDone = hvs.some(v => rec.checks[v.name] || ((rec.vstatus||{})[v.name]==='failed') || (!rec.checks[v.name] && !!((rec.reasons||{})[v.name])));
-    if(weekMap[dk]) html += '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:14px 2px 6px;">'+weekMap[dk]+'</div>';
+    if(weekMap[dk]) html += '<div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:14px 2px 6px;">'+weekMap[dk]+'</div>';
 
     html += '<div class="rec-card" data-dk="'+dk+'"><div class="rec-date-row">'
       + '<div class="rec-date">'+dk+'('+day.dow+')</div>'
@@ -1837,17 +1837,17 @@ function renderRecordContent(){
         + '<div style="flex:1;min-width:0;"><div class="rec-hosp-name">'+v.name+'</div>'
         + '<div class="rec-hosp-time" style="color:'+subClr+';">'+subTxt+'</div></div>'
         + '<div style="display:flex;gap:4px;flex-shrink:0;">'
-        + '<button onclick="openVisitSheet(this,\''+dk+'\',\''+v.name+'\')" style="font-size:10px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+vBrd+';background:'+vBg+';color:'+vCol+';cursor:pointer;">방문</button>'
-        + '<button onclick="openUnvisitSheet(this,\''+dk+'\',\''+v.name+'\')" style="font-size:10px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+uBrd+';background:'+uBg+';color:'+uCol+';cursor:pointer;">미방문</button>'
+        + '<button onclick="openVisitSheet(this,\''+dk+'\',\''+v.name+'\')" style="font-size:12px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+vBrd+';background:'+vBg+';color:'+vCol+';cursor:pointer;">방문</button>'
+        + '<button onclick="openUnvisitSheet(this,\''+dk+'\',\''+v.name+'\')" style="font-size:12px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+uBrd+';background:'+uBg+';color:'+uCol+';cursor:pointer;">미방문</button>'
         + '</div></div>';
     });
     extraShow.forEach(function(name, i){
       const exChecked = (rec.checks||{})[name]||false;
       html += '<div class="rec-hosp-item'+(exChecked?' visited':'')+'" onclick="toggleCheck(\''+dk+'\',\''+name+'\')"><div>'
-        + '<div><div class="rec-hosp-name" style="color:var(--blue);">'+name+' <span style="font-size:10px;color:var(--t3);">(추가)</span></div></div>'
+        + '<div><div class="rec-hosp-name" style="color:var(--blue);">'+name+' <span style="font-size:12px;color:var(--t3);">(추가)</span></div></div>'
         + '<div style="display:flex;gap:6px;align-items:center;">'
         + '<div class="rec-check'+(exChecked?' checked':'')+'"></div>'
-        + '<button onclick="event.stopPropagation();deleteExtraVisit(\''+dk+'\','+i+')" style="background:var(--red-lt);color:var(--red);border:none;border-radius:5px;padding:3px 7px;font-size:10px;font-weight:700;cursor:pointer;">삭제</button>'
+        + '<button onclick="event.stopPropagation();deleteExtraVisit(\''+dk+'\','+i+')" style="background:var(--red-lt);color:var(--red);border:none;border-radius:5px;padding:3px 7px;font-size:12px;font-weight:700;cursor:pointer;">삭제</button>'
         + '</div></div>';
     });
 
@@ -1859,7 +1859,7 @@ function renderRecordContent(){
     html += '</div>';
   });
 
-  if(!hasAny) html = '<div style="text-align:center;padding:50px 20px;color:var(--t3);font-size:13px;">기록이 없습니다</div>';
+  if(!hasAny) html = '<div style="text-align:center;padding:50px 20px;color:var(--t3);font-size:15px;">기록이 없습니다</div>';
   scrollEl.innerHTML = html;
 
   // 오늘 날짜 카드로 자동 스크롤
@@ -1971,7 +1971,7 @@ function showVisitDropdown(anchorBtn, id, curStatus, curReason, onSelect){
   // 완료
   var doneItem = document.createElement('div');
   var isDone = curStatus==='done';
-  doneItem.style.cssText = 'padding:8px 12px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;border-bottom:1px solid #f3f4f6;color:'+(isDone?'#fff':'#374151')+';background:'+(isDone?'#16a34a':'#fff')+';font-family:Noto Sans KR,sans-serif;';
+  doneItem.style.cssText = 'padding:8px 12px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;border-bottom:1px solid #f3f4f6;color:'+(isDone?'#fff':'#374151')+';background:'+(isDone?'#16a34a':'#fff')+';font-family:Noto Sans KR,sans-serif;';
   if(isDone){ var ck=document.createElement('span'); ck.textContent='✓'; ck.style.fontSize='10px'; doneItem.appendChild(ck); }
   doneItem.appendChild(document.createTextNode('완료'));
   doneItem.onmouseenter=function(){ if(!isDone) this.style.background='#f0fdf4'; };
@@ -1985,13 +1985,13 @@ function showVisitDropdown(anchorBtn, id, curStatus, curReason, onSelect){
 
   var failHeader = document.createElement('div');
   var isFailed = curStatus==='failed';
-  failHeader.style.cssText = 'padding:8px 12px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:space-between;color:'+(isFailed?'#92400e':'#374151')+';background:'+(isFailed?'#fffbeb':'#fff')+';font-family:Noto Sans KR,sans-serif;';
+  failHeader.style.cssText = 'padding:8px 12px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:space-between;color:'+(isFailed?'#92400e':'#374151')+';background:'+(isFailed?'#fffbeb':'#fff')+';font-family:Noto Sans KR,sans-serif;';
   var failLeft = document.createElement('span');
   failLeft.textContent = (isFailed?'🔶 ':'')+'면담 실패';
   failHeader.appendChild(failLeft);
   var arrow = document.createElement('span');
   arrow.textContent = '▸';
-  arrow.style.cssText = 'font-size:9px;color:#9ca3af;';
+  arrow.style.cssText = 'font-size:11px;color:#9ca3af;';
   failHeader.appendChild(arrow);
   failHeader.onmouseenter=function(){ if(!isFailed) this.style.background='#fefce8'; };
   failHeader.onmouseleave=function(){ if(!isFailed) this.style.background=isFailed?'#fffbeb':'#fff'; };
@@ -2006,7 +2006,7 @@ function showVisitDropdown(anchorBtn, id, curStatus, curReason, onSelect){
   VISIT_FAIL_REASONS.forEach(function(r){
     var isSel = isFailed && curReason===r;
     var sub = document.createElement('div');
-    sub.style.cssText = 'padding:7px 12px 7px 20px;font-size:11px;cursor:pointer;color:'+(isSel?'#fff':'#6b7280')+';background:'+(isSel?'#f59e0b':'#fafafa')+';font-family:Noto Sans KR,sans-serif;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;gap:4px;';
+    sub.style.cssText = 'padding:7px 12px 7px 20px;font-size:13px;cursor:pointer;color:'+(isSel?'#fff':'#6b7280')+';background:'+(isSel?'#f59e0b':'#fafafa')+';font-family:Noto Sans KR,sans-serif;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;gap:4px;';
     if(isSel){ var ck2=document.createElement('span'); ck2.textContent='✓'; ck2.style.fontSize='9px'; sub.appendChild(ck2); }
     sub.appendChild(document.createTextNode(r));
     sub.onmouseenter=function(){ if(!isSel) this.style.background='#fef3c7'; };
@@ -2083,7 +2083,7 @@ function showReasonDropdown(anchorBtn, id, onSelect, curReason){
       etcInput.type = 'text';
       etcInput.placeholder = '기타 사유 입력';
       etcInput.value = isEtcSelected ? curReason : '';
-      etcInput.style.cssText = 'flex:1;font-size:11px;border:1px solid #d1d5db;border-radius:4px;padding:4px 6px;outline:none;font-family:Noto Sans KR,sans-serif;color:#374151;min-width:0;';
+      etcInput.style.cssText = 'flex:1;font-size:13px;border:1px solid #d1d5db;border-radius:4px;padding:4px 6px;outline:none;font-family:Noto Sans KR,sans-serif;color:#374151;min-width:0;';
       etcInput.onclick = function(e){ e.stopPropagation(); };
       etcInput.onkeydown = function(e){
         if(e.key==='Enter' && this.value.trim()){
@@ -2093,7 +2093,7 @@ function showReasonDropdown(anchorBtn, id, onSelect, curReason){
       };
       var etcBtn = document.createElement('button');
       etcBtn.textContent = '저장';
-      etcBtn.style.cssText = 'font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;border:none;background:#2563eb;color:#fff;cursor:pointer;flex-shrink:0;font-family:Noto Sans KR,sans-serif;';
+      etcBtn.style.cssText = 'font-size:12px;font-weight:700;padding:3px 7px;border-radius:4px;border:none;background:#2563eb;color:#fff;cursor:pointer;flex-shrink:0;font-family:Noto Sans KR,sans-serif;';
       etcBtn.onclick = function(e){
         e.stopPropagation();
         if(etcInput.value.trim()) onSelect(etcInput.value.trim());
@@ -2105,11 +2105,11 @@ function showReasonDropdown(anchorBtn, id, onSelect, curReason){
     }
     var isSelected = curReason===r;
     var item = document.createElement('div');
-    item.style.cssText = 'padding:8px 12px;font-size:12px;font-weight:500;cursor:pointer;color:'+(isSelected?'#fff':'#374151')+';background:'+(isSelected?'#2563eb':'#fff')+';font-family:Noto Sans KR,sans-serif;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;gap:4px;';
+    item.style.cssText = 'padding:8px 12px;font-size:14px;font-weight:500;cursor:pointer;color:'+(isSelected?'#fff':'#374151')+';background:'+(isSelected?'#2563eb':'#fff')+';font-family:Noto Sans KR,sans-serif;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;gap:4px;';
     if(isSelected){
       var check = document.createElement('span');
       check.textContent = '✓';
-      check.style.cssText = 'font-size:10px;flex-shrink:0;';
+      check.style.cssText = 'font-size:12px;flex-shrink:0;';
       item.appendChild(check);
     }
     item.appendChild(document.createTextNode(r));
@@ -2196,25 +2196,25 @@ function showMissed(){
   });
 
   if(!missed.length){
-    body.innerHTML='<div style="text-align:center;padding:40px;color:var(--green);font-size:15px;font-weight:700;">🎉 미방문 병원 없음<br><span style="font-size:12px;color:var(--t3);font-weight:400;margin-top:8px;display:block;">모든 병원 방문 완료</span></div>';
+    body.innerHTML='<div style="text-align:center;padding:40px;color:var(--green);font-size:17px;font-weight:700;">🎉 미방문 병원 없음<br><span style="font-size:14px;color:var(--t3);font-weight:400;margin-top:8px;display:block;">모든 병원 방문 완료</span></div>';
   } else {
     // Group by date
     const byDate={};
     missed.forEach(m=>{ if(!byDate[m.dk]) byDate[m.dk]=[]; byDate[m.dk].push(m); });
-    let html=`<div style="font-size:12px;color:var(--t3);margin-bottom:12px;">총 <b style="color:var(--orange)">${missed.length}건</b> 미방문</div>`;
+    let html=`<div style="font-size:14px;color:var(--t3);margin-bottom:12px;">총 <b style="color:var(--orange)">${missed.length}건</b> 미방문</div>`;
     DATE_ORDER.forEach(dk=>{
       if(!byDate[dk]) return;
       const day=SCH[dk];
       html+=`<div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow);">
-        <div style="padding:8px 12px;background:var(--orange-lt);border-bottom:1px solid #fed7aa;font-size:12px;font-weight:700;color:var(--orange);">${dk}(${day.dow}) ${day.dow}요일</div>`;
+        <div style="padding:8px 12px;background:var(--orange-lt);border-bottom:1px solid #fed7aa;font-size:14px;font-weight:700;color:var(--orange);">${dk}(${day.dow}) ${day.dow}요일</div>`;
       byDate[dk].forEach(m=>{
         const h=H[m.name];
         html+=`<div style="padding:10px 12px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;">
           <div>
-            <div style="font-size:13px;font-weight:600;color:var(--t1);">${m.name}</div>
-            <div style="font-size:11px;color:var(--t3);">${h?h.addr:''}</div>
+            <div style="font-size:15px;font-weight:600;color:var(--t1);">${m.name}</div>
+            <div style="font-size:13px;color:var(--t3);">${h?h.addr:''}</div>
           </div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);background:var(--blue-lt);padding:2px 8px;border-radius:5px;">${m.time}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--blue);background:var(--blue-lt);padding:2px 8px;border-radius:5px;">${m.time}</div>
         </div>`;
       });
       html+='</div>';
@@ -2246,16 +2246,16 @@ function showMissedForBuffer(dk){
   const panel=document.createElement('div');
 
   if(!unvisited.length){
-    panel.innerHTML='<div style="text-align:center;padding:40px;color:var(--green);font-size:15px;font-weight:700;">🎉 미방문 병원 없음</div>';
+    panel.innerHTML='<div style="text-align:center;padding:40px;color:var(--green);font-size:17px;font-weight:700;">🎉 미방문 병원 없음</div>';
   } else {
     const summary=document.createElement('div');
     summary.style.cssText='background:var(--orange-lt);border-radius:10px;padding:12px;text-align:center;margin-bottom:14px;';
-    summary.innerHTML='<span style="font-size:22px;font-weight:700;color:var(--orange);">'+unvisited.length+'</span>'
-      +'<span style="font-size:13px;color:var(--orange);margin-left:6px;">곳 미방문</span>';
+    summary.innerHTML='<span style="font-size:24px;font-weight:700;color:var(--orange);">'+unvisited.length+'</span>'
+      +'<span style="font-size:15px;color:var(--orange);margin-left:6px;">곳 미방문</span>';
     panel.appendChild(summary);
 
     const hint=document.createElement('div');
-    hint.style.cssText='font-size:11px;color:var(--t3);margin-bottom:10px;';
+    hint.style.cssText='font-size:13px;color:var(--t3);margin-bottom:10px;';
     hint.textContent='+ 버튼으로 '+dk+' 일정에 추가';
     panel.appendChild(hint);
 
@@ -2266,13 +2266,13 @@ function showMissedForBuffer(dk){
       const card=document.createElement('div');
       card.style.cssText='background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--orange);border-radius:10px;margin-bottom:6px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);';
       card.innerHTML='<div style="min-width:0;flex:1;">'
-        +'<div style="font-size:13px;font-weight:700;color:var(--t1);">'+name+'</div>'
-        +'<div style="font-size:11px;color:var(--t3);margin-top:2px;">'+(h?h.addr:'')+'</div>'
-        +'<div style="font-size:11px;color:var(--orange);margin-top:2px;">'+done+'/'+total+'회 완료</div>'
+        +'<div style="font-size:15px;font-weight:700;color:var(--t1);">'+name+'</div>'
+        +'<div style="font-size:13px;color:var(--t3);margin-top:2px;">'+(h?h.addr:'')+'</div>'
+        +'<div style="font-size:13px;color:var(--orange);margin-top:2px;">'+done+'/'+total+'회 완료</div>'
         +'</div>';
       const btn=document.createElement('button');
       btn.textContent='+ 추가';
-      btn.style.cssText='background:var(--blue);color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:"Noto Sans KR",sans-serif;flex-shrink:0;';
+      btn.style.cssText='background:var(--blue);color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:"Noto Sans KR",sans-serif;flex-shrink:0;';
       btn.onclick=function(){
         addBufferHospByName(dk, name);
         btn.textContent='✅ 추가됨';
@@ -2306,7 +2306,7 @@ function refreshActTags(){
     const hasMemo=actData.memo&&actData.memo.trim();
     let html='';
     if(tags.length) html+=tags.map(t=>`<span class="act-done-badge">${t}</span>`).join('');
-    else html='<span style="font-size:11px;color:var(--t3);">활동 미기록</span>';
+    else html='<span style="font-size:13px;color:var(--t3);">활동 미기록</span>';
     if(hasMemo) html+=`<span class="act-done-badge" style="background:##e0f5fc;color:#049cb7;">메모✓</span>`;
     el.innerHTML=html;
   });
@@ -2447,7 +2447,7 @@ function buildAcInput(containerId, confirmFn){
   
   const btn = document.createElement('button');
   btn.textContent = '추가';
-  btn.style.cssText = 'padding:8px 14px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:"Noto Sans KR",sans-serif;flex-shrink:0;';
+  btn.style.cssText = 'padding:8px 14px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:"Noto Sans KR",sans-serif;flex-shrink:0;';
   btn.onclick = function(){ confirmFn(inp.value.trim()); inp.value=''; dropdown.style.display='none'; };
   wrap.appendChild(btn);
   wrap.style.cssText = 'display:flex;gap:6px;align-items:flex-start;margin-top:8px;margin-bottom:6px;';
@@ -2503,29 +2503,29 @@ function makeHospCard(h, tagColors, tagBg){
   header.style.cssText='padding:11px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;';
   header.onclick=function(){ toggleHospExpand(h.name); };
   header.innerHTML='<div style="min-width:0;flex:1;">'
-    +'<div style="font-size:13px;font-weight:700;color:var(--t1);">'+h.name+'</div>'
-    +'<div style="font-size:10px;color:var(--t3);margin-top:2px;">총 '+h.entries.length+'회 방문'+(hasAct?' · 활동 '+actEntries.length+'건':' · 미기록')+'</div>'
+    +'<div style="font-size:15px;font-weight:700;color:var(--t1);">'+h.name+'</div>'
+    +'<div style="font-size:12px;color:var(--t3);margin-top:2px;">총 '+h.entries.length+'회 방문'+(hasAct?' · 활동 '+actEntries.length+'건':' · 미기록')+'</div>'
     +'</div>'
-    +'<span style="font-size:18px;color:var(--t3);display:inline-block;transform:'+arrowTransform+';">›</span>';
+    +'<span style="font-size:20px;color:var(--t3);display:inline-block;transform:'+arrowTransform+';">›</span>';
   div.appendChild(header);
 
   if(isOpen){
     const body=document.createElement('div');
     body.style.cssText='border-top:1px solid var(--bd);padding:10px 12px;';
     if(!hasAct){
-      body.innerHTML='<div style="font-size:12px;color:var(--t3);padding:6px 0;">활동 기록 없음</div>';
+      body.innerHTML='<div style="font-size:14px;color:var(--t3);padding:6px 0;">활동 기록 없음</div>';
     } else {
       let inner='';
       actEntries.forEach(function(e){
         inner+='<div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd);">'
-          +'<div style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:5px;">'+e.dk+'('+e.dow+') '+e.time+'</div>';
+          +'<div style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:5px;">'+e.dk+'('+e.dow+') '+e.time+'</div>';
         e.tags.forEach(function(t){
           const bg=tagBg[t]||'#f1f5f9';
           const col=tagColors[t]||'#475569';
           const memo=(e.memos&&e.memos[t])||'';
           inner+='<div style="margin-bottom:4px;">'
-            +'<span style="background:'+bg+';color:'+col+';border-radius:6px;padding:2px 9px;font-size:11px;font-weight:700;display:inline-block;">'+t+'</span>';
-          if(memo) inner+='<div style="font-size:11px;color:var(--t2);background:var(--s3);border-radius:5px;padding:4px 9px;margin-top:3px;">"'+memo+'"</div>';
+            +'<span style="background:'+bg+';color:'+col+';border-radius:6px;padding:2px 9px;font-size:13px;font-weight:700;display:inline-block;">'+t+'</span>';
+          if(memo) inner+='<div style="font-size:13px;color:var(--t2);background:var(--s3);border-radius:5px;padding:4px 9px;margin-top:3px;">"'+memo+'"</div>';
           inner+='</div>';
         });
         inner+='</div>';
@@ -2561,7 +2561,7 @@ function renderActStats(){
   if(m !== '3'){
     const saved = loadMonthData(m);
     if(!saved || !saved.dates || saved.dates.length===0){
-      panel.innerHTML='<div style="text-align:center;padding:60px 20px;color:var(--t3);font-size:13px;line-height:2;">'+m+'월 일정이 없습니다.<br>일정 탭에서 먼저 일정을 만들어주세요.</div>';
+      panel.innerHTML='<div style="text-align:center;padding:60px 20px;color:var(--t3);font-size:15px;line-height:2;">'+m+'월 일정이 없습니다.<br>일정 탭에서 먼저 일정을 만들어주세요.</div>';
       return;
     }
     renderActStatsCustom(panel, m, saved.dates);
@@ -2630,7 +2630,7 @@ function renderActStats(){
   // ── 통계 섹션 ──
   const statsSection=document.createElement('div');
   statsSection.innerHTML=`
-  <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">📊 이번달 통계</div>
+  <div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">📊 이번달 통계</div>
   <div style="background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:14px 14px 10px;margin-bottom:10px;box-shadow:var(--shadow);">
     <div style="display:flex;align-items:center;gap:14px;">
       <div style="position:relative;width:76px;height:76px;flex-shrink:0;">
@@ -2641,37 +2641,37 @@ function renderActStats(){
             stroke-linecap="round" transform="rotate(-90 38 38)"/>
         </svg>
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-          <span style="font-size:17px;font-weight:800;color:${ringColor};">${pct}%</span>
+          <span style="font-size:19px;font-weight:800;color:${ringColor};">${pct}%</span>
         </div>
       </div>
       <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
         <div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;">
-          <div style="font-size:20px;font-weight:800;color:var(--blue);">${totalChecked}</div>
-          <div style="font-size:10px;color:var(--t3);margin-top:1px;">방문완료</div>
+          <div style="font-size:22px;font-weight:800;color:var(--blue);">${totalChecked}</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:1px;">방문완료</div>
         </div>
         <div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;">
-          <div style="font-size:20px;font-weight:800;color:var(--orange);">${totalVisits-totalChecked}</div>
-          <div style="font-size:10px;color:var(--t3);margin-top:1px;">잔여</div>
+          <div style="font-size:22px;font-weight:800;color:var(--orange);">${totalVisits-totalChecked}</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:1px;">잔여</div>
         </div>
         <div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;">
-          <div style="font-size:20px;font-weight:800;color:var(--purple);">${totalActs}</div>
-          <div style="font-size:10px;color:var(--t3);margin-top:1px;">활동건수</div>
+          <div style="font-size:22px;font-weight:800;color:var(--purple);">${totalActs}</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:1px;">활동건수</div>
         </div>
         <div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;">
-          <div style="font-size:20px;font-weight:800;color:var(--green);">${Object.keys(QUOTA_TOTAL).filter(function(n){const h=hospStats[n];return h&&h.done>=h.total;}).length}</div>
-          <div style="font-size:10px;color:var(--t3);margin-top:1px;">할당완료</div>
+          <div style="font-size:22px;font-weight:800;color:var(--green);">${Object.keys(QUOTA_TOTAL).filter(function(n){const h=hospStats[n];return h&&h.done>=h.total;}).length}</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:1px;">할당완료</div>
         </div>
       </div>
     </div>
   </div>
   <!-- 주차별 -->
   <div style="background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:14px;box-shadow:var(--shadow);">
-    <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">주차별 달성률</div>
+    <div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">주차별 달성률</div>
     ${weekStats.map(function(w){
       const p=w.visit?Math.round(w.checked/w.visit*100):0;
       const col=p>=80?'var(--green)':p>=50?'var(--blue)':'var(--bd2)';
       return '<div style="margin-bottom:7px;">'
-        +'<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;">'
+        +'<div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:3px;">'
         +'<span style="color:var(--t2);">'+w.label+'</span>'
         +'<span style="font-weight:700;color:var(--t1);">'+w.checked+'/'+w.visit+' ('+p+'%)</span></div>'
         +'<div style="height:6px;background:var(--bd2);border-radius:4px;overflow:hidden;">'
@@ -2683,7 +2683,7 @@ function renderActStats(){
 
   // ── 구분선 ──
   const divider=document.createElement('div');
-  divider.style.cssText='font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;';
+  divider.style.cssText='font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;';
   divider.textContent='✏️ 활동 기록';
   wrap.appendChild(divider);
 
@@ -2700,8 +2700,8 @@ function renderActStats(){
     const sel=actFilterTag===a;
     const box=document.createElement('div');
     box.style.cssText='background:'+(sel?tagColors[a]:tagBg[a])+';border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:2px solid '+(sel?tagColors[a]:'transparent')+';';
-    box.innerHTML='<div style="font-family:DM Mono,monospace;font-size:22px;font-weight:700;color:'+(sel?'#fff':tagColors[a])+';">'+totals[a]+'</div>'
-      +'<div style="font-size:12px;font-weight:600;color:'+(sel?'#fff':tagColors[a])+';margin-top:1px;">'+a+'</div>';
+    box.innerHTML='<div style="font-family:DM Mono,monospace;font-size:24px;font-weight:700;color:'+(sel?'#fff':tagColors[a])+';">'+totals[a]+'</div>'
+      +'<div style="font-size:14px;font-weight:600;color:'+(sel?'#fff':tagColors[a])+';margin-top:1px;">'+a+'</div>';
     box.onclick=function(){ actFilterTag=(sel?null:a); renderActStats(); };
     grid.appendChild(box);
   });
@@ -2711,10 +2711,10 @@ function renderActStats(){
   if(actFilterTag){
     const banner=document.createElement('div');
     banner.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px 12px;background:'+tagBg[actFilterTag]+';border-radius:8px;';
-    banner.innerHTML='<span style="font-size:12px;font-weight:700;color:'+tagColors[actFilterTag]+';">'+actFilterTag+' 활동 '+filtered.length+'곳</span>';
+    banner.innerHTML='<span style="font-size:14px;font-weight:700;color:'+tagColors[actFilterTag]+';">'+actFilterTag+' 활동 '+filtered.length+'곳</span>';
     const clr=document.createElement('button');
     clr.textContent='전체보기';
-    clr.style.cssText='margin-left:auto;background:none;border:none;color:'+tagColors[actFilterTag]+';font-size:12px;font-weight:700;cursor:pointer;';
+    clr.style.cssText='margin-left:auto;background:none;border:none;color:'+tagColors[actFilterTag]+';font-size:14px;font-weight:700;cursor:pointer;';
     clr.onclick=function(){ actFilterTag=null; renderActStats(); };
     banner.appendChild(clr);
     wrap.appendChild(banner);
@@ -2722,13 +2722,13 @@ function renderActStats(){
 
   // 병원 목록 헤더
   const listH=document.createElement('div');
-  listH.style.cssText='font-size:11px;font-weight:700;color:var(--t3);margin-bottom:8px;';
+  listH.style.cssText='font-size:13px;font-weight:700;color:var(--t3);margin-bottom:8px;';
   listH.textContent='병원 목록 ('+filtered.length+'곳) — 가나다순';
   wrap.appendChild(listH);
 
   if(filtered.length===0){
     const empty=document.createElement('div');
-    empty.style.cssText='text-align:center;padding:30px;color:var(--t3);font-size:13px;';
+    empty.style.cssText='text-align:center;padding:30px;color:var(--t3);font-size:15px;';
     empty.textContent='해당 활동 기록이 없습니다';
     wrap.appendChild(empty);
   } else {
@@ -2777,7 +2777,7 @@ function initVworldMap(){
     renderMapHospList();
   } catch(e) {
     document.getElementById('vworld-map-container').innerHTML =
-      '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--t3);font-size:13px;padding:20px;">지도 로드 실패 — 인터넷 연결을 확인해주세요</div>';
+      '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--t3);font-size:15px;padding:20px;">지도 로드 실패 — 인터넷 연결을 확인해주세요</div>';
   }
 }
 
@@ -2854,7 +2854,7 @@ function delMapHosp(id){
 function renderMapHospList(){
   const el = document.getElementById('mapHospList');
   if(!el) return;
-  if(!mapHospitals.length){ el.innerHTML='<div style="text-align:center;color:var(--t3);font-size:11px;padding:12px 0;">거래처를 검색해서 추가해주세요</div>'; return; }
+  if(!mapHospitals.length){ el.innerHTML='<div style="text-align:center;color:var(--t3);font-size:13px;padding:12px 0;">거래처를 검색해서 추가해주세요</div>'; return; }
   el.innerHTML = mapHospitals.map(function(h,i){
     return '<div class="map-hosp-item" onclick="focusMapHosp('+h.id+')">'
       +'<div class="map-hosp-num">'+(i+1)+'</div>'
@@ -2963,11 +2963,11 @@ function clAdd(name, addr, x, y){
 function clAddMarker(h){
   const idx = clHospitals.findIndex(i=>i.id===h.id)+1;
   const icon = L.divIcon({
-    html:`<div style="background:var(--blue);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);">${idx}</div>`,
+    html:`<div style="background:var(--blue);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);">${idx}</div>`,
     className:'', iconSize:[26,26], iconAnchor:[13,13]
   });
   const m = L.marker([h.y, h.x], {icon}).addTo(clMap);
-  m.bindPopup(`<b>${h.name}</b><br><span style="font-size:11px;color:#666">${h.addr}</span>`);
+  m.bindPopup(`<b>${h.name}</b><br><span style="font-size:13px;color:#666">${h.addr}</span>`);
   m._hid = h.id;
   clMarkers.push(m);
 }
@@ -2982,7 +2982,7 @@ function clRenderList(){
   const list = document.getElementById('clList');
   document.getElementById('clCount').textContent = clHospitals.length;
   if(!clHospitals.length){
-    list.innerHTML='<div style="text-align:center;color:var(--t3);font-size:11px;padding:16px 0;">거래처를 추가해주세요</div>';
+    list.innerHTML='<div style="text-align:center;color:var(--t3);font-size:13px;padding:16px 0;">거래처를 추가해주세요</div>';
     return;
   }
   list.innerHTML = clHospitals.map((h,i)=>`
@@ -3141,7 +3141,7 @@ function showChipList(type){
     const panel=document.createElement('div');
     const summary=document.createElement('div');
     summary.style.cssText='margin-bottom:14px;background:#ffedd5;border-radius:10px;padding:12px;text-align:center;';
-    summary.innerHTML='<span style="font-size:24px;font-weight:700;color:#ea580c;">61</span><span style="font-size:13px;color:#ea580c;margin-left:6px;">건 예정</span>';
+    summary.innerHTML='<span style="font-size:26px;font-weight:700;color:#ea580c;">61</span><span style="font-size:15px;color:#ea580c;margin-left:6px;">건 예정</span>';
     panel.appendChild(summary);
     let lastWk='';
     entries.forEach(function(e){
@@ -3150,7 +3150,7 @@ function showChipList(type){
       if(wk!==lastWk){
         lastWk=wk;
         const h=document.createElement('div');
-        h.style.cssText='font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:10px 2px 6px;';
+        h.style.cssText='font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:10px 2px 6px;';
         h.textContent=wk;
         panel.appendChild(h);
       }
@@ -3159,10 +3159,10 @@ function showChipList(type){
       const card=document.createElement('div');
       card.style.cssText='background:var(--s1);border:1px solid var(--bd);border-left:4px solid '+(isDone?'var(--green)':'var(--bd2)')+';border-radius:10px;margin-bottom:5px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);';
       card.innerHTML='<div>'
-        +'<div style="font-size:13px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
-        +'<div style="font-size:10px;color:var(--t3);margin-top:1px;">'+e.dk+'('+e.dow+') '+e.time+'</div>'
+        +'<div style="font-size:15px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
+        +'<div style="font-size:12px;color:var(--t3);margin-top:1px;">'+e.dk+'('+e.dow+') '+e.time+'</div>'
         +'</div>'
-        +'<span style="font-size:12px;color:'+(isDone?'var(--green)':'var(--t3)')+';">'+(isDone?'✅':'○')+'</span>';
+        +'<span style="font-size:14px;color:'+(isDone?'var(--green)':'var(--t3)')+';">'+(isDone?'✅':'○')+'</span>';
       panel.appendChild(card);
     });
     body.innerHTML='';
@@ -3183,8 +3183,8 @@ function showChipList(type){
   const col=type==='all'?'#049cb7':type==='remain'?'#7c3aed':'#0f9b5a';
   const bg=type==='all'?'#d0edf8':type==='remain'?'#ede9fe':'#dcfce7';
   summary.style.cssText='margin-bottom:14px;background:'+bg+';border-radius:10px;padding:12px;text-align:center;';
-  summary.innerHTML='<span style="font-size:24px;font-weight:700;color:'+col+';">'+list.length+'</span>'
-    +'<span style="font-size:13px;color:'+col+';margin-left:6px;">곳</span>';
+  summary.innerHTML='<span style="font-size:26px;font-weight:700;color:'+col+';">'+list.length+'</span>'
+    +'<span style="font-size:15px;color:'+col+';margin-left:6px;">곳</span>';
   panel.appendChild(summary);
 
   list.forEach(function(e){
@@ -3192,8 +3192,8 @@ function showChipList(type){
     const card=document.createElement('div');
     card.style.cssText='background:var(--s1);border:1px solid var(--bd);border-left:4px solid '+(e.done>=e.total?'var(--green)':'var(--bd2)')+';border-radius:10px;margin-bottom:6px;padding:11px 14px;box-shadow:var(--shadow);';
     card.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:'+(e.total>1?'6':'0')+'px;">'
-      +'<div style="font-size:13px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
-      +'<div style="font-size:11px;font-weight:700;color:'+col+';">'+e.done+'/'+e.total+'회</div>'
+      +'<div style="font-size:15px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
+      +'<div style="font-size:13px;font-weight:700;color:'+col+';">'+e.done+'/'+e.total+'회</div>'
       +'</div>'
       +(e.total>1?'<div style="height:6px;background:var(--bd2);border-radius:4px;overflow:hidden;">'
         +'<div style="height:100%;width:'+pct+'%;background:'+col+';border-radius:4px;"></div>'
@@ -3242,29 +3242,29 @@ function showDoneList(){
   // 요약
   const summary=document.createElement('div');
   summary.style.cssText='margin-bottom:14px;background:var(--green-lt);border-radius:10px;padding:14px;text-align:center;';
-  summary.innerHTML='<span style="font-size:26px;font-weight:700;color:var(--green);">'+completed.length+'</span>'
-    +'<span style="font-size:13px;color:var(--green);margin-left:6px;">/ 30개 병원 할당량 완료</span>';
+  summary.innerHTML='<span style="font-size:28px;font-weight:700;color:var(--green);">'+completed.length+'</span>'
+    +'<span style="font-size:15px;color:var(--green);margin-left:6px;">/ 30개 병원 할당량 완료</span>';
   panel.appendChild(summary);
 
   // 완료 병원 목록
   if(completed.length){
     const h1=document.createElement('div');
-    h1.style.cssText='font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:4px 2px 8px;';
+    h1.style.cssText='font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:4px 2px 8px;';
     h1.textContent='✅ 할당량 완료 ('+completed.length+'곳)';
     panel.appendChild(h1);
     completed.forEach(function(e){
       const card=document.createElement('div');
       card.style.cssText='background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--green);border-radius:10px;margin-bottom:6px;padding:11px 14px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);';
-      card.innerHTML='<div style="width:22px;height:22px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#fff;font-size:12px;">✓</span></div>'
+      card.innerHTML='<div style="width:22px;height:22px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#fff;font-size:14px;">✓</span></div>'
         +'<div style="flex:1;">'
-        +'<div style="font-size:13px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
-        +'<div style="font-size:11px;color:var(--t3);margin-top:2px;">'+e.done+'/'+e.total+'회 완료</div>'
+        +'<div style="font-size:15px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
+        +'<div style="font-size:13px;color:var(--t3);margin-top:2px;">'+e.done+'/'+e.total+'회 완료</div>'
         +'</div>';
       panel.appendChild(card);
     });
   } else {
     const empty=document.createElement('div');
-    empty.style.cssText='text-align:center;padding:30px;color:var(--t3);font-size:13px;';
+    empty.style.cssText='text-align:center;padding:30px;color:var(--t3);font-size:15px;';
     empty.textContent='아직 할당량을 완료한 병원이 없습니다';
     panel.appendChild(empty);
   }
@@ -3272,7 +3272,7 @@ function showDoneList(){
   // 진행 중 병원 목록
   if(inProgress.length){
     const h2=document.createElement('div');
-    h2.style.cssText='font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:14px 2px 8px;';
+    h2.style.cssText='font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:14px 2px 8px;';
     h2.textContent='🔄 진행 중 ('+inProgress.length+'곳)';
     panel.appendChild(h2);
     inProgress.forEach(function(e){
@@ -3280,8 +3280,8 @@ function showDoneList(){
       const card=document.createElement('div');
       card.style.cssText='background:var(--s1);border:1px solid var(--bd);border-radius:10px;margin-bottom:6px;padding:11px 14px;box-shadow:var(--shadow);';
       card.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'
-        +'<div style="font-size:13px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
-        +'<div style="font-size:11px;font-weight:700;color:var(--blue);">'+e.done+'/'+e.total+'회</div>'
+        +'<div style="font-size:15px;font-weight:700;color:var(--t1);">'+e.name+'</div>'
+        +'<div style="font-size:13px;font-weight:700;color:var(--blue);">'+e.done+'/'+e.total+'회</div>'
         +'</div>'
         +'<div style="height:6px;background:var(--bd2);border-radius:4px;overflow:hidden;">'
         +'<div style="height:100%;width:'+pct+'%;background:var(--blue);border-radius:4px;transition:width 0.3s;"></div>'
@@ -3327,7 +3327,7 @@ function renderRecordPanelCustom(panel, m, dates, tab){
     var allDone=day.visits.every(function(v){ return rec.checks[v.name]; });
     var anyDone=day.visits.some(function(v){ return rec.checks[v.name] || (rec.vstatus[v.name]==='failed') || (!rec.checks[v.name] && !!rec.reasons[v.name]); });
 
-    if(weekLabels[day.key]) html+='<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:14px 2px 6px;">'+weekLabels[day.key]+'</div>';
+    if(weekLabels[day.key]) html+='<div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:14px 2px 6px;">'+weekLabels[day.key]+'</div>';
 
     html+='<div class="rec-card" data-dk="'+day.key+'"><div class="rec-date-row">'
       +'<div class="rec-date">'+day.key+'('+day.dow+')</div>'
@@ -3349,12 +3349,12 @@ function renderRecordPanelCustom(panel, m, dates, tab){
       var uBg=isUnv?'#fee2e2':'#fff';
       var uBrd=isUnv?'#dc2626':'var(--bd)';
       var uCol=isUnv?'#dc2626':'var(--t3)';
-      html+='<div class="rec-hosp-item'+(isDone?' visited':'')+'">'        +'<div style="flex:1;min-width:0;"><div class="rec-hosp-name">'+v.name+'</div>'        +'<div class="rec-hosp-time" style="color:'+subClr+';">'+subTxt+'</div></div>'        +'<div style="display:flex;gap:4px;flex-shrink:0;">'        +'<button onclick="openVisitSheetCustom(this,\''+storKey+'\',\''+day.key+'\',\''+v.name+'\')" style="font-size:10px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+vBrd+';background:'+vBg+';color:'+vCol+';cursor:pointer;">방문</button>'        +'<button onclick="openUnvisitSheetCustom(this,\''+storKey+'\',\''+day.key+'\',\''+v.name+'\')" style="font-size:10px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+uBrd+';background:'+uBg+';color:'+uCol+';cursor:pointer;">미방문</button>'        +'</div></div>';
+      html+='<div class="rec-hosp-item'+(isDone?' visited':'')+'">'        +'<div style="flex:1;min-width:0;"><div class="rec-hosp-name">'+v.name+'</div>'        +'<div class="rec-hosp-time" style="color:'+subClr+';">'+subTxt+'</div></div>'        +'<div style="display:flex;gap:4px;flex-shrink:0;">'        +'<button onclick="openVisitSheetCustom(this,\''+storKey+'\',\''+day.key+'\',\''+v.name+'\')" style="font-size:12px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+vBrd+';background:'+vBg+';color:'+vCol+';cursor:pointer;">방문</button>'        +'<button onclick="openUnvisitSheetCustom(this,\''+storKey+'\',\''+day.key+'\',\''+v.name+'\')" style="font-size:12px;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid '+uBrd+';background:'+uBg+';color:'+uCol+';cursor:pointer;">미방문</button>'        +'</div></div>';
     });
     html+='</div></div>';
   });
 
-  if(!hasAny) html='<div style="text-align:center;padding:50px 20px;color:var(--t3);font-size:13px;">기록이 없습니다</div>';
+  if(!hasAny) html='<div style="text-align:center;padding:50px 20px;color:var(--t3);font-size:15px;">기록이 없습니다</div>';
   panel.innerHTML = html;
 
   (function(){
@@ -3408,20 +3408,20 @@ function renderActStatsCustom(panel, m, dates){
   panel.innerHTML='';
   const wrap=document.createElement('div');
   wrap.style.cssText='padding:16px 14px 80px;';
-  wrap.innerHTML='<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">📊 '+m+'월 통계</div>'
+  wrap.innerHTML='<div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">📊 '+m+'월 통계</div>'
     +'<div style="background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;">'
     +'<div style="position:relative;width:76px;height:76px;flex-shrink:0;">'
     +'<svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="30" fill="none" stroke="var(--bd2)" stroke-width="8"/>'
     +'<circle cx="38" cy="38" r="30" fill="none" stroke="'+ringColor+'" stroke-width="8" stroke-dasharray="'+Math.round(188.4*pct/100)+' 188.4" stroke-linecap="round" transform="rotate(-90 38 38)"/></svg>'
-    +'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span style="font-size:17px;font-weight:800;color:'+ringColor+';">'+pct+'%</span></div>'
+    +'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span style="font-size:19px;font-weight:800;color:'+ringColor+';">'+pct+'%</span></div>'
     +'</div>'
     +'<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;">'
-    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:20px;font-weight:800;color:var(--blue);">'+totalC+'</div><div style="font-size:10px;color:var(--t3);">방문완료</div></div>'
-    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:20px;font-weight:800;color:var(--orange);">'+(totalV-totalC)+'</div><div style="font-size:10px;color:var(--t3);">잔여</div></div>'
-    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:20px;font-weight:800;color:var(--purple);">'+totalActs+'</div><div style="font-size:10px;color:var(--t3);">활동건수</div></div>'
-    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:20px;font-weight:800;color:var(--green);">'+Object.values(hospStats).filter(function(h){return h.done>=h.total;}).length+'</div><div style="font-size:10px;color:var(--t3);">할당완료</div></div>'
+    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:22px;font-weight:800;color:var(--blue);">'+totalC+'</div><div style="font-size:12px;color:var(--t3);">방문완료</div></div>'
+    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:22px;font-weight:800;color:var(--orange);">'+(totalV-totalC)+'</div><div style="font-size:12px;color:var(--t3);">잔여</div></div>'
+    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:22px;font-weight:800;color:var(--purple);">'+totalActs+'</div><div style="font-size:12px;color:var(--t3);">활동건수</div></div>'
+    +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:22px;font-weight:800;color:var(--green);">'+Object.values(hospStats).filter(function(h){return h.done>=h.total;}).length+'</div><div style="font-size:12px;color:var(--t3);">할당완료</div></div>'
     +'</div></div>'
-    +'<div style="text-align:center;padding:20px;color:var(--t3);font-size:12px;">활동 기록은 방문기록 탭에서 입력하세요</div>';
+    +'<div style="text-align:center;padding:20px;color:var(--t3);font-size:14px;">활동 기록은 방문기록 탭에서 입력하세요</div>';
   panel.appendChild(wrap);
 }
 
@@ -3454,7 +3454,7 @@ async function osmSearch(){
   if(q.length<2) return;
   const resultsEl = document.getElementById('osmResults');
   resultsEl.style.display='block';
-  resultsEl.innerHTML='<div style="padding:10px;color:var(--t3);font-size:12px;">검색 중...</div>';
+  resultsEl.innerHTML='<div style="padding:10px;color:var(--t3);font-size:14px;">검색 중...</div>';
   document.getElementById('newHospPreview').style.display='none';
 
   try{
@@ -3464,7 +3464,7 @@ async function osmSearch(){
     const data = await res.json();
 
     if(!data||data.length===0){
-      resultsEl.innerHTML='<div style="padding:12px;color:var(--t3);font-size:12px;text-align:center;">검색 결과 없음<br><span style="font-size:11px;">구글지도에서 직접 좌표 확인 후 수동 입력도 가능합니다</span></div>';
+      resultsEl.innerHTML='<div style="padding:12px;color:var(--t3);font-size:14px;text-align:center;">검색 결과 없음<br><span style="font-size:13px;">구글지도에서 직접 좌표 확인 후 수동 입력도 가능합니다</span></div>';
       return;
     }
 
@@ -3473,9 +3473,9 @@ async function osmSearch(){
       const name = item.namedetails && item.namedetails.name ? item.namedetails.name : (item.display_name.split(',')[0]);
       const addr = item.display_name.split(',').slice(1,4).join(',').trim();
       const row = document.createElement('div');
-      row.style.cssText='padding:9px 12px;border-bottom:1px solid var(--bd);cursor:pointer;font-size:12px;';
+      row.style.cssText='padding:9px 12px;border-bottom:1px solid var(--bd);cursor:pointer;font-size:14px;';
       row.innerHTML='<div style="font-weight:700;color:var(--t1);">'+name+'</div>'
-        +'<div style="color:var(--t3);font-size:11px;margin-top:2px;">'+addr+'</div>';
+        +'<div style="color:var(--t3);font-size:13px;margin-top:2px;">'+addr+'</div>';
       row.onmouseenter=function(){ this.style.background='var(--s3)'; };
       row.onmouseleave=function(){ this.style.background=''; };
       row.onclick=function(){
@@ -3489,7 +3489,7 @@ async function osmSearch(){
       resultsEl.appendChild(row);
     });
   }catch(e){
-    resultsEl.innerHTML='<div style="padding:10px;color:var(--red);font-size:12px;">검색 오류: '+e.message+'</div>';
+    resultsEl.innerHTML='<div style="padding:10px;color:var(--red);font-size:14px;">검색 오류: '+e.message+'</div>';
   }
 }
 
@@ -3509,7 +3509,7 @@ async function photonSearch(){
   if(q.length < 2){ resultsEl.style.display='none'; return; }
   resultsEl.style.display='block';
   
-  resultsEl.innerHTML='<div style="padding:8px 12px;color:var(--t3);font-size:12px;">검색 중...</div>';
+  resultsEl.innerHTML='<div style="padding:8px 12px;color:var(--t3);font-size:14px;">검색 중...</div>';
 
   function pickResult(name, addr, lat, lng){
     selectedNewHosp={name:name, lat:lat, lng:lng, addr:addr};
@@ -3526,8 +3526,8 @@ async function photonSearch(){
     items.forEach(function(item){
       const row=document.createElement('div');
       row.style.cssText='padding:9px 12px;border-bottom:1px solid var(--bd);cursor:pointer;';
-      row.innerHTML='<div style="font-size:12px;font-weight:700;color:var(--t1);">'+item.name+'</div>'
-        +'<div style="font-size:10px;color:var(--t3);margin-top:1px;">'+item.addr+'</div>';
+      row.innerHTML='<div style="font-size:14px;font-weight:700;color:var(--t1);">'+item.name+'</div>'
+        +'<div style="font-size:12px;color:var(--t3);margin-top:1px;">'+item.addr+'</div>';
       row.onmouseenter=function(){this.style.background='var(--s3)';};
       row.onmouseleave=function(){this.style.background='';};
       row.onclick=function(){ pickResult(item.name, item.addr, item.lat, item.lng); };
@@ -3636,18 +3636,18 @@ function coordSearchByQuery(q){
   const resultsEl = document.getElementById('coordSearchResults');
   if(!q){ return; }
   resultsEl.style.display='block';
-  resultsEl.innerHTML='<div style="padding:8px;color:var(--t3);font-size:12px;">검색 중...</div>';
+  resultsEl.innerHTML='<div style="padding:8px;color:var(--t3);font-size:14px;">검색 중...</div>';
 
   // 결과를 지도에 표시하는 함수
   function showResults(items){
     if(!items||!items.length){
-      resultsEl.innerHTML='<div style="padding:8px;color:var(--t3);font-size:11px;text-align:center;">결과 없음<br>지도를 직접 탭해서 위치 선택</div>';
+      resultsEl.innerHTML='<div style="padding:8px;color:var(--t3);font-size:13px;text-align:center;">결과 없음<br>지도를 직접 탭해서 위치 선택</div>';
       return;
     }
     resultsEl.innerHTML='';
     items.forEach(function(item){
       const row = document.createElement('div');
-      row.style.cssText='padding:8px 10px;border-bottom:1px solid var(--bd);cursor:pointer;font-size:11px;';
+      row.style.cssText='padding:8px 10px;border-bottom:1px solid var(--bd);cursor:pointer;font-size:13px;';
       row.innerHTML='<b style="color:var(--t1);">'+item.name+'</b>'
         +(item.addr?'<span style="color:var(--t3);margin-left:5px;">'+item.addr+'</span>':'');
       row.onmouseenter=function(){this.style.background='var(--s3)';};
@@ -3677,7 +3677,7 @@ function coordSearchByQuery(q){
     delete window[cbName];
     const s = document.getElementById('coordPickerScript');
     if(s) s.remove();
-    resultsEl.innerHTML='<div style="padding:10px;text-align:center;color:var(--t3);font-size:11px;">검색 불가 — 지도를 직접 탭해서 위치 선택</div>';
+    resultsEl.innerHTML='<div style="padding:10px;text-align:center;color:var(--t3);font-size:13px;">검색 불가 — 지도를 직접 탭해서 위치 선택</div>';
   }, 8000);
 
   window[cbName] = function(data){
@@ -3687,7 +3687,7 @@ function coordSearchByQuery(q){
     if(s) s.remove();
     const items = (data&&data.response&&data.response.result&&data.response.result.items)||[];
     if(!items.length){
-      resultsEl.innerHTML='<div style="padding:8px;color:var(--t3);font-size:11px;text-align:center;">결과 없음<br>지도를 직접 탭해서 위치 선택</div>';
+      resultsEl.innerHTML='<div style="padding:8px;color:var(--t3);font-size:13px;text-align:center;">결과 없음<br>지도를 직접 탭해서 위치 선택</div>';
       return;
     }
     showResults(items.map(function(item){
@@ -3709,7 +3709,7 @@ function coordSearchByQuery(q){
   script.onerror = function(){
     clearTimeout(timeout);
     delete window[cbName];
-    resultsEl.innerHTML='<div style="padding:10px;text-align:center;color:var(--t3);font-size:11px;">검색 불가 — 지도를 직접 탭해서 위치 선택</div>';
+    resultsEl.innerHTML='<div style="padding:10px;text-align:center;color:var(--t3);font-size:13px;">검색 불가 — 지도를 직접 탭해서 위치 선택</div>';
   };
   document.head.appendChild(script);
 }
@@ -3770,15 +3770,15 @@ function openExtraHospModal(){
     const extras = JSON.parse(localStorage.getItem('extraHospitals')||'{}');
     const names = Object.keys(extras);
     if(names.length===0){
-      list.innerHTML='<div style="text-align:center;color:#94a3b8;padding:20px;font-size:13px;">추가된 신규병원 없음</div>';
+      list.innerHTML='<div style="text-align:center;color:#94a3b8;padding:20px;font-size:15px;">추가된 신규병원 없음</div>';
     } else {
       names.forEach(function(n){
         const row = document.createElement('div');
         row.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;margin-bottom:8px;';
-        row.innerHTML='<div><div style="font-size:14px;font-weight:700;color:#1e293b;">'+n+'</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">월 '+extras[n].quota+'회</div></div>';
+        row.innerHTML='<div><div style="font-size:16px;font-weight:700;color:#1e293b;">'+n+'</div><div style="font-size:13px;color:#94a3b8;margin-top:2px;">월 '+extras[n].quota+'회</div></div>';
         const btn = document.createElement('button');
         btn.textContent = '삭제';
-        btn.style.cssText='padding:8px 16px;background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;touch-action:manipulation;';
+        btn.style.cssText='padding:8px 16px;background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;touch-action:manipulation;';
         btn.addEventListener('click', (function(name, b){ return function(){
           if(b.dataset.confirm==='1'){
             deleteExtraHospital(name);
@@ -3818,17 +3818,17 @@ function renderExtraHospList(){
     const extras=JSON.parse(localStorage.getItem('extraHospitals')||'{}');
     const names=Object.keys(extras);
     if(names.length===0){
-      el.innerHTML='<div style="font-size:11px;color:var(--t3);text-align:center;padding:8px;">추가된 신규병원 없음</div>';
+      el.innerHTML='<div style="font-size:13px;color:var(--t3);text-align:center;padding:8px;">추가된 신규병원 없음</div>';
       return;
     }
     names.forEach(function(n){
       const row=document.createElement('div');
       row.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;margin-bottom:5px;';
       const info=document.createElement('div');
-      info.innerHTML='<div style="font-size:12px;font-weight:700;color:var(--t1);">'+n+'</div><div style="font-size:10px;color:var(--t3);">월 '+extras[n].quota+'회</div>';
+      info.innerHTML='<div style="font-size:14px;font-weight:700;color:var(--t1);">'+n+'</div><div style="font-size:12px;color:var(--t3);">월 '+extras[n].quota+'회</div>';
       const btn=document.createElement('button');
       btn.textContent='삭제';
-      btn.style.cssText='padding:4px 10px;background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;';
+      btn.style.cssText='padding:4px 10px;background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;';
       btn.onclick=(function(name){ return function(){ deleteExtraHospital(name); }; })(n);
       row.appendChild(info);
       row.appendChild(btn);
@@ -3936,9 +3936,9 @@ function renderEditorQuotaBar(dates){
     chip.style.borderColor = rc.border;
     chip.style.color = rc.text;
     chip.style.opacity = (assigned>=quota) ? '1' : (assigned>0 ? '0.85' : '0.5');
-    chip.innerHTML = '<div style="font-size:8px;font-weight:800;margin-bottom:1px;opacity:0.75;">'+( REGION_LABEL[regionKey]||'' )+'</div>'
-      +'<div style="font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;">'+name.replace('병원','').replace('정형외과','').replace('의원','').replace('재활의학과','재활')+'</div>'
-      +'<div style="font-size:13px;font-weight:800;">'+assigned+'/'+quota+'</div>';
+    chip.innerHTML = '<div style="font-size:10px;font-weight:800;margin-bottom:1px;opacity:0.75;">'+( REGION_LABEL[regionKey]||'' )+'</div>'
+      +'<div style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;">'+name.replace('병원','').replace('정형외과','').replace('의원','').replace('재활의학과','재활')+'</div>'
+      +'<div style="font-size:15px;font-weight:800;">'+assigned+'/'+quota+'</div>';
     chip.title = name + ' ('+assigned+'/'+quota+')';
     chip.style.cursor = 'pointer';
     try{
@@ -3987,7 +3987,7 @@ function openEditor(m, initData){
   editorSelectedDate = null;
   overlay.classList.add('open');
   renderEditorCalendar();
-  document.getElementById('editorScroll').innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3);font-size:13px;">날짜를 클릭해서 병원을 추가하세요</div>';
+  document.getElementById('editorScroll').innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3);font-size:15px;">날짜를 클릭해서 병원을 추가하세요</div>';
   renderEditorQuotaBar((editorData[m]||{dates:[]}).dates);
 }
 
@@ -4019,7 +4019,7 @@ function clearEditorMonth(){
   editorData[m] = { dates:[] };
   editorSelectedDate = null;
   renderEditorCalendar();
-  document.getElementById('editorScroll').innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3);font-size:13px;">날짜를 클릭해서 병원을 추가하세요</div>';
+  document.getElementById('editorScroll').innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3);font-size:15px;">날짜를 클릭해서 병원을 추가하세요</div>';
   renderEditorQuotaBar([]);
 }
 
@@ -4085,7 +4085,7 @@ function copyPrevMonth(){
   editorData[currentEditMonth] = { dates: newDates };
   editorSelectedDate=null;
   renderEditorCalendar();
-  document.getElementById('editorScroll').innerHTML='<div style="text-align:center;padding:30px;color:var(--t3);font-size:13px;">날짜를 클릭해서 병원을 추가하세요</div>';
+  document.getElementById('editorScroll').innerHTML='<div style="text-align:center;padding:30px;color:var(--t3);font-size:15px;">날짜를 클릭해서 병원을 추가하세요</div>';
   renderEditorQuotaBar((editorData[currentEditMonth]||{dates:[]}).dates);
   const totalAssigned = newDates.reduce(function(s,d){return s+(d.visits?d.visits.length:0);},0);
   var skipMsg = skipped.length>0 ? '\n⚠️ 날짜 충돌로 제외: '+skipped.join(', ') : '';
@@ -4213,7 +4213,7 @@ function renderEditorDates(){
   const count = calcEditorQuota(data.dates);
 
   if(data.dates.length===0){
-    scroll.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3);font-size:13px;">날짜를 추가해서 일정을 만들어주세요.</div>';
+    scroll.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3);font-size:15px;">날짜를 추가해서 일정을 만들어주세요.</div>';
     return;
   }
 
@@ -4231,7 +4231,7 @@ function renderEditorDates(){
     hdr.innerHTML = '<span class="se-day-label">'+day.key+'</span>'
       +'<span class="se-day-dow">'+day.dow+'</span>'
       +'<span class="se-day-start">'+day.hours+'</span>'
-      +'<button onclick="editorDeleteDate(this)" data-key="'+day.key+'" style="margin-left:auto;background:var(--red-lt);border:none;border-radius:7px;padding:4px 9px;color:var(--red);font-size:11px;font-weight:700;cursor:pointer;">날짜삭제</button>';
+      +'<button onclick="editorDeleteDate(this)" data-key="'+day.key+'" style="margin-left:auto;background:var(--red-lt);border:none;border-radius:7px;padding:4px 9px;color:var(--red);font-size:13px;font-weight:700;cursor:pointer;">날짜삭제</button>';
     card.appendChild(hdr);
 
     // 방문 병원 목록
@@ -4285,8 +4285,8 @@ function renderCustomMonth(m, data){
   renderSchCal(m, activeKeys, firstKey);
 
   if(!data||!data.dates||data.dates.length===0){
-    schScroll.innerHTML='<div style="text-align:center;padding:30px 20px 16px;color:var(--t3);font-size:13px;">날짜를 클릭해서 일정을 추가하세요</div>'
-      +'<div style="text-align:center;"><button onclick="openEditor(\''+ m +'\',null)" style="background:var(--blue);color:#fff;border:none;border-radius:12px;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;">✏️ '+m+'월 일정 만들기</button></div>';
+    schScroll.innerHTML='<div style="text-align:center;padding:30px 20px 16px;color:var(--t3);font-size:15px;">날짜를 클릭해서 일정을 추가하세요</div>'
+      +'<div style="text-align:center;"><button onclick="openEditor(\''+ m +'\',null)" style="background:var(--blue);color:#fff;border:none;border-radius:12px;padding:10px 22px;font-size:15px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;">✏️ '+m+'월 일정 만들기</button></div>';
     return;
   }
   renderCustomDayDetailGlobal(data.dates[0], m, data);
@@ -4369,7 +4369,7 @@ function renderEditorCalendar(){
   let html = '<div style="padding:3px 8px 3px;background:var(--s1);box-sizing:border-box;">';
   html += '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">';
   dowKr.forEach(function(d,i){
-    html += '<div style="text-align:center;font-size:8px;font-weight:700;color:'+(i===0||i===6?'#ef4444':'var(--t3)')+';padding:1px 0;">'+d+'</div>';
+    html += '<div style="text-align:center;font-size:10px;font-weight:700;color:'+(i===0||i===6?'#ef4444':'var(--t3)')+';padding:1px 0;">'+d+'</div>';
   });
   for(var e=0;e<firstDay;e++) html += '<div></div>';
   for(var d2=1;d2<=daysInMonth;d2++){
@@ -4379,11 +4379,11 @@ function renderEditorCalendar(){
     if(isAdded){
       html += '<div onclick="editorCalendarClickDay('+d2+')" style="text-align:center;padding:2px 1px;border-radius:5px;cursor:pointer;'
         +'background:'+(isSel?'var(--blue)':'var(--blue-lt)')+';border:1.5px solid var(--blue);user-select:none;">'
-        +'<div style="font-size:11px;font-weight:700;color:'+(isSel?'#fff':'var(--blue)')+';">'+d2+'</div>'
-        +'<div style="font-size:8px;font-weight:600;color:'+(isSel?'rgba(255,255,255,0.85)':'var(--blue)')+';">'+cnt+'곳</div></div>';
+        +'<div style="font-size:13px;font-weight:700;color:'+(isSel?'#fff':'var(--blue)')+';">'+d2+'</div>'
+        +'<div style="font-size:10px;font-weight:600;color:'+(isSel?'rgba(255,255,255,0.85)':'var(--blue)')+';">'+cnt+'곳</div></div>';
     } else {
       html += '<div onclick="editorCalendarClickDay('+d2+')" style="text-align:center;padding:2px 1px;border-radius:5px;cursor:'+(isWknd?'default':'pointer')+';opacity:'+(isWknd?0.3:0.6)+';">'
-        +'<div style="font-size:11px;color:'+(isWknd?'#ef4444':'var(--t2)')+';">'+d2+'</div></div>';
+        +'<div style="font-size:13px;color:'+(isWknd?'#ef4444':'var(--t2)')+';">'+d2+'</div></div>';
     }
   }
   html += '</div></div>';
@@ -4428,7 +4428,7 @@ function renderEditorDayDetail(key){
   var dowStr = dowKr[dow];
 
   if(!day){
-    scroll.innerHTML = '<div style="text-align:center;padding:30px 16px;color:var(--t3);font-size:13px;">이 날짜에 일정이 없습니다.<br><button onclick="editorCalendarClickDay('+di+')" style="margin-top:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;padding:8px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;">+ 이 날짜 추가</button></div>';
+    scroll.innerHTML = '<div style="text-align:center;padding:30px 16px;color:var(--t3);font-size:15px;">이 날짜에 일정이 없습니다.<br><button onclick="editorCalendarClickDay('+di+')" style="margin-top:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;padding:8px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;">+ 이 날짜 추가</button></div>';
     return;
   }
 
@@ -4499,7 +4499,7 @@ function editorDeleteDateByKey(key){
   editorData[m].dates = editorData[m].dates.filter(function(d){return d.key!==key;});
   editorSelectedDate = null;
   renderEditorCalendar();
-  document.getElementById('editorScroll').innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3);font-size:13px;">날짜를 선택하세요</div>';
+  document.getElementById('editorScroll').innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3);font-size:15px;">날짜를 선택하세요</div>';
   renderEditorQuotaBar(editorData[m].dates);
 }
 
@@ -4583,12 +4583,12 @@ function openHospDetail(name){
   var hdr = document.createElement('div');
   hdr.style.cssText = 'display:grid;grid-template-columns:34px 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;margin-bottom:4px;';
   hdr.innerHTML = '<span></span>'
-    +'<span style="font-size:10px;color:#049cb7;font-weight:700;text-align:center;">바이겔<br>수량</span>'
-    +'<span style="font-size:10px;color:#049cb7;font-weight:700;text-align:center;">바이겔<br>천원</span>'
-    +'<span style="font-size:10px;color:#0f9b5a;font-weight:700;text-align:center;">피타2mg<br>수량</span>'
-    +'<span style="font-size:10px;color:#0f9b5a;font-weight:700;text-align:center;">피타2mg<br>천원</span>'
-    +'<span style="font-size:10px;color:#0891b2;font-weight:700;text-align:center;">피타4mg<br>수량</span>'
-    +'<span style="font-size:10px;color:#0891b2;font-weight:700;text-align:center;">피타4mg<br>천원</span>';
+    +'<span style="font-size:12px;color:#049cb7;font-weight:700;text-align:center;">바이겔<br>수량</span>'
+    +'<span style="font-size:12px;color:#049cb7;font-weight:700;text-align:center;">바이겔<br>천원</span>'
+    +'<span style="font-size:12px;color:#0f9b5a;font-weight:700;text-align:center;">피타2mg<br>수량</span>'
+    +'<span style="font-size:12px;color:#0f9b5a;font-weight:700;text-align:center;">피타2mg<br>천원</span>'
+    +'<span style="font-size:12px;color:#0891b2;font-weight:700;text-align:center;">피타4mg<br>수량</span>'
+    +'<span style="font-size:12px;color:#0891b2;font-weight:700;text-align:center;">피타4mg<br>천원</span>';
   inputRows.appendChild(hdr);
   months.forEach(function(m){
     var s = (info.sales&&info.sales[m])||{};
@@ -4596,7 +4596,7 @@ function openHospDetail(name){
     var p4 = (info.pita4&&info.pita4[m])||{};
     var row = document.createElement('div');
     row.style.cssText = 'display:grid;grid-template-columns:34px 1fr 1fr 1fr 1fr 1fr 1fr;gap:3px;align-items:center;margin-bottom:4px;';
-    row.innerHTML = '<span style="font-size:11px;font-weight:700;color:var(--t2);">'+monthLabels[m]+'</span>'
+    row.innerHTML = '<span style="font-size:13px;font-weight:700;color:var(--t2);">'+monthLabels[m]+'</span>'
       +'<input class="hosp-sales-input" id="hd_s'+m+'_qty" value="'+(s.qty||'')+'" placeholder="수량"/>'
       +'<input class="hosp-sales-input" id="hd_s'+m+'_amt" value="'+(s.amt||'')+'" placeholder="천원"/>'
       +'<input class="hosp-sales-input" id="hd_p2_'+m+'_qty" value="'+(p2.qty||'')+'" placeholder="수량"/>'
@@ -5239,7 +5239,7 @@ async function sendChat(){
       // 업데이트 됐으면 알림
       if(applied > 0){
         var noti = document.createElement('div');
-        noti.style.cssText = 'font-size:11px;color:#0f9b5a;text-align:center;padding:4px;';
+        noti.style.cssText = 'font-size:13px;color:#0f9b5a;text-align:center;padding:4px;';
         noti.textContent = '✅ ' + applied + '개 항목이 저장되었습니다';
         document.getElementById('chatMessages').appendChild(noti);
         document.getElementById('chatMessages').scrollTop = 99999;
@@ -5354,11 +5354,11 @@ function exportPdfReport(){
     hospRows += '<tr><td>'+h+'</td><td>'+(jan.amt||0)+'</td><td>'+(feb.amt||0)+'</td><td>'+(mar.amt||0)+'</td></tr>';
   });
 
-  var html = '<html><head><meta charset="utf-8"><title>월간 보고서</title><style>body{font-family:sans-serif;padding:30px;font-size:13px;}h1{font-size:18px;color:#049cb7;}h2{font-size:14px;margin-top:24px;color:#334155;}table{width:100%;border-collapse:collapse;margin-top:10px;}th{background:#049cb7;color:#fff;padding:7px 10px;text-align:left;}td{padding:6px 10px;border-bottom:1px solid #e2e8f0;}.stat{display:inline-block;margin-right:24px;font-size:16px;font-weight:700;color:#049cb7;}</style></head><body>'
+  var html = '<html><head><meta charset="utf-8"><title>월간 보고서</title><style>body{font-family:sans-serif;padding:30px;font-size:15px;}h1{font-size:20px;color:#049cb7;}h2{font-size:16px;margin-top:24px;color:#334155;}table{width:100%;border-collapse:collapse;margin-top:10px;}th{background:#049cb7;color:#fff;padding:7px 10px;text-align:left;}td{padding:6px 10px;border-bottom:1px solid #e2e8f0;}.stat{display:inline-block;margin-right:24px;font-size:18px;font-weight:700;color:#049cb7;}</style></head><body>'
     +'<h1>📊 영업 월간 보고서</h1>'
     +'<p style="color:#64748b;">작성일: '+today+' | 담당: 이상윤 과장</p>'
     +'<h2>이달 방문 현황</h2>'
-    +'<p><span class="stat">'+doneV+'/'+totalV+'</span> 방문 완료 <span style="font-size:12px;color:#64748b;">('+Math.round(doneV/totalV*100||0)+'%)</span></p>'
+    +'<p><span class="stat">'+doneV+'/'+totalV+'</span> 방문 완료 <span style="font-size:14px;color:#64748b;">('+Math.round(doneV/totalV*100||0)+'%)</span></p>'
     +'<h2>병원별 바이겔 실적 (천원)</h2>'
     +'<table><tr><th>병원명</th><th>1월</th><th>2월</th><th>3월</th></tr>'+hospRows+'</table>'
 
@@ -5564,7 +5564,7 @@ document.addEventListener('click', function(e){
     <!-- 달력 영역 (일정탭과 동일) -->
     <div id="editorCalendar" style="flex-shrink:0;background:var(--s1);border-bottom:1px solid var(--bd);box-sizing:border-box;"></div>
     <!-- 선택 날짜 안내 -->
-    <div id="editorDayHint" style="padding:4px 10px 2px;font-size:10px;color:var(--t3);text-align:center;flex-shrink:0;">날짜 클릭 → 병원 추가/관리 · 파란색=일정있음</div>
+    <div id="editorDayHint" style="padding:4px 10px 2px;font-size:12px;color:var(--t3);text-align:center;flex-shrink:0;">날짜 클릭 → 병원 추가/관리 · 파란색=일정있음</div>
     <div id="editorSubTab2" style="display:none;position:fixed;bottom:60px;left:0;right:0;z-index:9100;background:#fff;border-top:2px solid var(--bd);max-height:60vh;overflow-y:auto;padding:10px 12px 10px;">
       <div class="se-date-label" style="margin-bottom:6px;">🏥 병원명 입력 → 🗺 지도에서 위치 선택</div>
 
@@ -5577,20 +5577,20 @@ document.addEventListener('click', function(e){
 
       <!-- 수동 좌표 입력 -->
       <div style="background:#fef9c3;border:1px solid #fbbf24;border-radius:10px;padding:9px 11px;margin-bottom:8px;">
-        <div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:6px;">또는 좌표 직접 입력</div>
+        <div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:6px;">또는 좌표 직접 입력</div>
         <div style="display:flex;gap:6px;margin-bottom:6px;">
-          <input id="fallbackLat" class="se-date-input" placeholder="위도 (예: 37.4688)" style="flex:1;font-family:'DM Mono',monospace;font-size:12px;"/>
-          <input id="fallbackLng" class="se-date-input" placeholder="경도 (예: 126.6988)" style="flex:1;font-family:'DM Mono',monospace;font-size:12px;"/>
+          <input id="fallbackLat" class="se-date-input" placeholder="위도 (예: 37.4688)" style="flex:1;font-family:'DM Mono',monospace;font-size:14px;"/>
+          <input id="fallbackLng" class="se-date-input" placeholder="경도 (예: 126.6988)" style="flex:1;font-family:'DM Mono',monospace;font-size:14px;"/>
         </div>
-        <button onclick="applyManualCoord()" style="width:100%;padding:7px;background:var(--blue);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;">📌 좌표 입력</button>
-        <div style="font-size:10px;color:#92400e;margin-top:4px;">구글지도 → 병원 검색 → 하단 좌표 숫자 복사</div>
+        <button onclick="applyManualCoord()" style="width:100%;padding:7px;background:var(--blue);color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;">📌 좌표 입력</button>
+        <div style="font-size:12px;color:#92400e;margin-top:4px;">구글지도 → 병원 검색 → 하단 좌표 숫자 복사</div>
       </div>
 
       <!-- 선택된 병원 미리보기 -->
       <div id="newHospPreviewBox" style="display:none;background:var(--blue-lt);border:1px solid var(--blue);border-radius:10px;padding:9px 12px;margin-bottom:8px;">
-        <div style="font-size:12px;font-weight:700;color:var(--blue);" id="newHospPreviewName"></div>
-        <div style="font-size:10px;color:var(--t3);margin-top:2px;" id="newHospPreviewAddr"></div>
-        <div style="font-size:10px;color:var(--green);margin-top:2px;font-weight:600;" id="newHospPreviewCoord"></div>
+        <div style="font-size:14px;font-weight:700;color:var(--blue);" id="newHospPreviewName"></div>
+        <div style="font-size:12px;color:var(--t3);margin-top:2px;" id="newHospPreviewAddr"></div>
+        <div style="font-size:12px;color:var(--green);margin-top:2px;font-weight:600;" id="newHospPreviewCoord"></div>
       </div>
 
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
@@ -5599,7 +5599,7 @@ document.addEventListener('click', function(e){
           <option value="1">월1회</option><option value="2">격주</option><option value="4">주1회</option>
         </select>
       </div>
-      <button class="se-add-confirm" onclick="addNewHospManual()" style="width:100%;padding:10px;font-size:13px;">+ 담당 목록에 추가</button>
+      <button class="se-add-confirm" onclick="addNewHospManual()" style="width:100%;padding:10px;font-size:15px;">+ 담당 목록에 추가</button>
     </div>
 
     <!-- 선택 날짜 병원 목록 -->
@@ -5640,67 +5640,67 @@ document.addEventListener('click', function(e){
   <div onclick="event.stopPropagation()" style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;padding-bottom:40px;">
     <!-- 헤더 -->
     <div style="padding:18px 16px 0;display:flex;align-items:center;justify-content:space-between;">
-      <div style="font-size:16px;font-weight:800;color:#1e293b;">🗂 자료 관리</div>
-      <button onclick="closeDataManager()" style="background:none;border:none;font-size:22px;color:#94a3b8;cursor:pointer;">✕</button>
+      <div style="font-size:18px;font-weight:800;color:#1e293b;">🗂 자료 관리</div>
+      <button onclick="closeDataManager()" style="background:none;border:none;font-size:24px;color:#94a3b8;cursor:pointer;">✕</button>
     </div>
 
     <!-- 탭 -->
     <div style="display:flex;gap:0;padding:12px 16px 0;border-bottom:1px solid #e2e8f0;">
-      <button class="dm-tab active" onclick="switchDmTab('export',this)" style="flex:1;padding:9px 4px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;border-bottom:2px solid #049cb7;color:#049cb7;font-family:Noto Sans KR,sans-serif;">📤 내보내기</button>
-      <button class="dm-tab" onclick="switchDmTab('import',this)" style="flex:1;padding:9px 4px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;color:#94a3b8;font-family:Noto Sans KR,sans-serif;">📥 업로드</button>
+      <button class="dm-tab active" onclick="switchDmTab('export',this)" style="flex:1;padding:9px 4px;font-size:14px;font-weight:700;border:none;background:none;cursor:pointer;border-bottom:2px solid #049cb7;color:#049cb7;font-family:Noto Sans KR,sans-serif;">📤 내보내기</button>
+      <button class="dm-tab" onclick="switchDmTab('import',this)" style="flex:1;padding:9px 4px;font-size:14px;font-weight:700;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;color:#94a3b8;font-family:Noto Sans KR,sans-serif;">📥 업로드</button>
     </div>
 
     <!-- 내보내기 탭 -->
     <div id="dm-export" style="padding:16px;">
-      <div style="font-size:12px;color:#64748b;margin-bottom:14px;">앱에 저장된 데이터를 파일로 내보냅니다.</div>
+      <div style="font-size:14px;color:#64748b;margin-bottom:14px;">앱에 저장된 데이터를 파일로 내보냅니다.</div>
 
       <div style="display:flex;flex-direction:column;gap:10px;">
         <button onclick="exportSalesExcel()" style="width:100%;padding:14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#15803d;">📊 병원별 실적 엑셀 (.xlsx)</div>
-          <div style="font-size:11px;color:#4ade80;margin-top:3px;">전 병원 × 월별 바이겔/피타바스 실적</div>
+          <div style="font-size:15px;font-weight:700;color:#15803d;">📊 병원별 실적 엑셀 (.xlsx)</div>
+          <div style="font-size:13px;color:#4ade80;margin-top:3px;">전 병원 × 월별 바이겔/피타바스 실적</div>
         </button>
         <button onclick="exportVisitExcel()" style="width:100%;padding:14px;background:#f0f9ff;border:1.5px solid #7dd3fc;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#0369a1;">📅 방문 일정 엑셀 (.xlsx)</div>
-          <div style="font-size:11px;color:#38bdf8;margin-top:3px;">3월 전체 방문 일정 + 방문 체크 현황</div>
+          <div style="font-size:15px;font-weight:700;color:#0369a1;">📅 방문 일정 엑셀 (.xlsx)</div>
+          <div style="font-size:13px;color:#38bdf8;margin-top:3px;">3월 전체 방문 일정 + 방문 체크 현황</div>
         </button>
         <button onclick="exportHospInfoExcel()" style="width:100%;padding:14px;background:#faf5ff;border:1.5px solid #c4b5fd;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#7c3aed;">🏥 병원 기본정보 엑셀 (.xlsx)</div>
-          <div style="font-size:11px;color:#a78bfa;margin-top:3px;">원장명, 전화, 주소, 메모</div>
+          <div style="font-size:15px;font-weight:700;color:#7c3aed;">🏥 병원 기본정보 엑셀 (.xlsx)</div>
+          <div style="font-size:13px;color:#a78bfa;margin-top:3px;">원장명, 전화, 주소, 메모</div>
         </button>
         <button onclick="exportPdfReport()" style="width:100%;padding:14px;background:#fff7ed;border:1.5px solid #fdba74;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#c2410c;">📄 월간 보고서 PDF</div>
-          <div style="font-size:11px;color:#fb923c;margin-top:3px;">이번 달 방문현황 + 실적 요약 보고서</div>
+          <div style="font-size:15px;font-weight:700;color:#c2410c;">📄 월간 보고서 PDF</div>
+          <div style="font-size:13px;color:#fb923c;margin-top:3px;">이번 달 방문현황 + 실적 요약 보고서</div>
         </button>
       </div>
     </div>
 
     <!-- 업로드 탭 -->
     <div id="dm-import" style="padding:16px;display:none;">
-      <div style="font-size:12px;color:#64748b;margin-bottom:14px;">엑셀 파일을 업로드해서 앱 데이터를 업데이트합니다.</div>
+      <div style="font-size:14px;color:#64748b;margin-bottom:14px;">엑셀 파일을 업로드해서 앱 데이터를 업데이트합니다.</div>
 
       <div style="display:flex;flex-direction:column;gap:10px;">
         <label style="width:100%;padding:14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#15803d;">📊 실적 엑셀 업로드</div>
-          <div style="font-size:11px;color:#4ade80;margin-top:3px;">병원명 | 월 | 수량 | 금액 형식</div>
+          <div style="font-size:15px;font-weight:700;color:#15803d;">📊 실적 엑셀 업로드</div>
+          <div style="font-size:13px;color:#4ade80;margin-top:3px;">병원명 | 월 | 수량 | 금액 형식</div>
           <input type="file" accept=".xlsx,.xls,.csv" onchange="importSalesExcel(this)" style="display:none;">
         </label>
         <label style="width:100%;padding:14px;background:#f0f9ff;border:1.5px solid #7dd3fc;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#0369a1;">🏥 병원 기본정보 업로드</div>
-          <div style="font-size:11px;color:#38bdf8;margin-top:3px;">병원명 | 원장 | 전화 | 주소 | 메모 형식</div>
+          <div style="font-size:15px;font-weight:700;color:#0369a1;">🏥 병원 기본정보 업로드</div>
+          <div style="font-size:13px;color:#38bdf8;margin-top:3px;">병원명 | 원장 | 전화 | 주소 | 메모 형식</div>
           <input type="file" accept=".xlsx,.xls,.csv" onchange="importHospInfoExcel(this)" style="display:none;">
         </label>
         <label style="width:100%;padding:14px;background:#faf5ff;border:1.5px solid #c4b5fd;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#7c3aed;">📅 방문 일정 업로드</div>
-          <div style="font-size:11px;color:#a78bfa;margin-top:3px;">날짜 | 병원명 | 시간 형식</div>
+          <div style="font-size:15px;font-weight:700;color:#7c3aed;">📅 방문 일정 업로드</div>
+          <div style="font-size:13px;color:#a78bfa;margin-top:3px;">날짜 | 병원명 | 시간 형식</div>
           <input type="file" accept=".xlsx,.xls,.csv" onchange="importScheduleExcel(this)" style="display:none;">
         </label>
         <label style="width:100%;padding:14px;background:#fff1f2;border:1.5px solid #fca5a5;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
-          <div style="font-size:13px;font-weight:700;color:#dc2626;">📎 기타 회사 자료</div>
-          <div style="font-size:11px;color:#f87171;margin-top:3px;">자유 형식 (AI채팅에서 참조 가능)</div>
+          <div style="font-size:15px;font-weight:700;color:#dc2626;">📎 기타 회사 자료</div>
+          <div style="font-size:13px;color:#f87171;margin-top:3px;">자유 형식 (AI채팅에서 참조 가능)</div>
           <input type="file" accept=".xlsx,.xls,.csv,.pdf,.txt" onchange="importMiscFile(this)" style="display:none;">
         </label>
       </div>
-      <div id="importStatus" style="margin-top:12px;font-size:12px;text-align:center;color:#049cb7;min-height:20px;"></div>
+      <div id="importStatus" style="margin-top:12px;font-size:14px;text-align:center;color:#049cb7;min-height:20px;"></div>
     </div>
   </div>
 </div>
@@ -5708,9 +5708,9 @@ document.addEventListener('click', function(e){
 <!-- 신규병원 관리 모달 -->
 <div id="extraHospModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.5);" onclick="document.getElementById('extraHospModal').style.display='none';">
   <div onclick="event.stopPropagation()" style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:16px 16px 0 0;padding:20px 16px 40px;max-height:60vh;overflow-y:auto;">
-    <div style="font-size:15px;font-weight:800;color:#1e293b;margin-bottom:16px;">🏥 신규병원 관리</div>
+    <div style="font-size:17px;font-weight:800;color:#1e293b;margin-bottom:16px;">🏥 신규병원 관리</div>
     <div id="extraHospModalList"></div>
-    <button onclick="document.getElementById('extraHospModal').style.display='none'" style="width:100%;padding:12px;margin-top:12px;background:#f1f5f9;border:none;border-radius:10px;font-size:14px;font-weight:700;color:#64748b;cursor:pointer;font-family:Noto Sans KR,sans-serif;">닫기</button>
+    <button onclick="document.getElementById('extraHospModal').style.display='none'" style="width:100%;padding:12px;margin-top:12px;background:#f1f5f9;border:none;border-radius:10px;font-size:16px;font-weight:700;color:#64748b;cursor:pointer;font-family:Noto Sans KR,sans-serif;">닫기</button>
   </div>
 </div>
 
