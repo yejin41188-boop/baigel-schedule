@@ -66,7 +66,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .panel.active { display:flex; }
 
 /* WEEK TABS */
-.week-tabs { display:block; background:var(--s1); border-bottom:1px solid var(--bd); flex-shrink:0; height:125px; overflow-y:auto; transition:height 0.3s ease; }
+.week-tabs { display:block; background:var(--s1); border-bottom:1px solid var(--bd); flex-shrink:0; overflow:visible; }
 .week-tabs::-webkit-scrollbar { display:none; }
 .wtab { background:none; border:none; color:var(--t3); padding:4px 12px; font-size:11px; font-weight:600;
   white-space:nowrap; cursor:pointer; border-bottom:2px solid transparent;
@@ -106,22 +106,30 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 /* DAY TITLE */
 .day-title-row {
   display:flex; align-items:center; justify-content:space-between;
-  margin-bottom:12px; gap:8px;
+  margin-bottom:4px; gap:6px; padding:4px 10px 0;
 }
-.day-title-left { display:flex; align-items:center; gap:10px; }
-.day-main { font-size:18px; font-weight:700; color:var(--t1); }
-.day-sub { font-size:11px; color:var(--t3); margin-top:2px; }
+.day-title-left { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
+.day-main { font-size:15px; font-weight:700; color:var(--t1); }
+.day-sub { font-size:10px; color:var(--t3); margin-top:1px; }
+.day-btns { display:flex; align-items:center; gap:4px; flex-shrink:0; }
 .map-btn {
-  display:flex; align-items:center; gap:5px;
+  display:flex; align-items:center; gap:4px;
   background:var(--blue); color:#fff; border:none;
-  border-radius:20px; padding:6px 12px; font-size:12px; font-weight:600;
-  cursor:pointer; white-space:nowrap; flex-shrink:0;
+  border-radius:16px; padding:5px 9px; font-size:11px; font-weight:600;
+  cursor:pointer; white-space:nowrap;
   font-family:'Noto Sans KR',sans-serif;
-  box-shadow:0 2px 8px rgba(0,130,184,0.3);
   transition:all 0.15s;
 }
 .map-btn:active { transform:scale(0.95); background:#007aab; }
-.map-btn svg { width:14px; height:14px; }
+.map-btn { font-size:12px; }
+.edit-btn-sm {
+  display:flex; align-items:center; gap:3px;
+  background:var(--blue-lt); color:var(--blue); border:1px solid var(--blue);
+  border-radius:16px; padding:5px 9px; font-size:11px; font-weight:600;
+  cursor:pointer; white-space:nowrap;
+  font-family:'Noto Sans KR',sans-serif;
+  transition:all 0.15s;
+}
 .miss-btn {
   display:flex; align-items:center; gap:5px;
   background:var(--orange-lt); color:var(--orange); border:1px solid #fed7aa;
@@ -133,15 +141,15 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 
 .day-count-badge {
   background:var(--blue-lt); color:var(--blue);
-  border-radius:8px; padding:4px 10px;
-  font-family:'DM Mono',monospace; font-size:13px; font-weight:600;
+  border-radius:8px; padding:3px 8px;
+  font-family:'DM Mono',monospace; font-size:11px; font-weight:600;
   white-space:nowrap;
 }
 
 /* VISIT CARD */
 .vcard {
-  background:var(--s1); border:1px solid var(--bd); border-radius:12px;
-  margin-bottom:8px; overflow:hidden; box-shadow:var(--shadow);
+  background:var(--s1); border:1px solid var(--bd); border-radius:10px;
+  margin-bottom:3px; overflow:hidden;
   border-left:4px solid var(--bd2);
 }
 .vcard.weekly { border-left-color:var(--blue); }
@@ -149,48 +157,31 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .vcard.monthly { border-left-color:var(--green); }
 .vcard.univ { border-left-color:var(--orange); }
 .vcard.alert { border-left-color:var(--red); background:var(--red-lt); }
+.vcard.visited { background:#f0faf3; border-left-color:#22c55e; }
+.vcard.unvisited { background:#f5f5f5; border-left-color:#d1d5db; opacity:0.7; }
+.vcard.unvisited .vcard-name,.vcard.unvisited .vcard-time,.vcard.unvisited .vcard-sub { color:#9ca3af; }
 
-.vcard-inner { padding:12px 14px; }
-.vcard-seq { font-size:10px; color:var(--t3); margin-bottom:4px; font-weight:500; }
-.vcard-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
-.vcard-name { font-size:15px; font-weight:700; color:var(--t1); line-height:1.3; }
-.vcard-time { font-family:'DM Mono',monospace; font-size:12px; color:var(--blue);
-  white-space:nowrap; flex-shrink:0; font-weight:600; background:var(--blue-lt);
-  padding:2px 7px; border-radius:6px; }
-
-.vcard-badges { display:flex; gap:4px; flex-wrap:wrap; margin-top:6px; }
-.badge { font-size:9px; padding:2px 8px; border-radius:5px; font-weight:700; }
+/* 메인 한줄 */
+.vcard-row { display:flex; align-items:center; gap:5px; padding:7px 8px 4px 10px; }
+.vcard-seq { font-size:9px; color:var(--t3); font-weight:600; flex-shrink:0; min-width:16px; }
+.vcard-name { font-size:13px; font-weight:700; color:var(--t1); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; }
+.vcard-time { font-family:"DM Mono",monospace; font-size:10px; color:var(--blue); white-space:nowrap; flex-shrink:0; font-weight:600; background:var(--blue-lt); padding:2px 5px; border-radius:5px; }
+.badge { font-size:9px; padding:2px 6px; border-radius:5px; font-weight:700; flex-shrink:0; }
 .badge-univ { background:var(--orange-lt); color:var(--orange); }
 .badge-weekly { background:var(--blue-lt); color:var(--blue); }
 .badge-biweekly { background:var(--purple-lt); color:var(--purple); }
 .badge-monthly { background:var(--green-lt); color:var(--green); }
 .badge-done { background:var(--green-lt); color:var(--green); }
 
-.vcard-addr { font-size:11px; color:var(--t3); margin-top:4px; }
-.vcard-note { font-size:11px; color:var(--orange); margin-top:3px; font-weight:500; }
+/* 서브 한줄 (주소+이동+할당) */
+.vcard-sub { display:flex; align-items:center; gap:5px; padding:0 8px 4px 30px; font-size:10px; color:var(--t3); flex-wrap:wrap; }
+.vcard-note { font-size:10px; color:var(--orange); font-weight:500; }
+.dist-pill { background:var(--blue-lt); color:var(--blue); border-radius:4px; padding:1px 5px; font-family:"DM Mono",monospace; font-size:10px; font-weight:600; }
+.qval-inline { font-family:"DM Mono",monospace; font-size:10px; font-weight:600; color:var(--t2); }
 
-/* DISTANCE ROW */
-.dist-row {
-  display:flex; align-items:center; gap:8px;
-  padding:6px 14px;
-  background:var(--s3); border-top:1px solid var(--bd);
-  font-size:11px; color:var(--t2);
-}
-.dist-row span { color:var(--t3); }
-.dist-pill {
-  background:var(--blue-lt); color:var(--blue);
-  border-radius:5px; padding:1px 7px;
-  font-family:'DM Mono',monospace; font-size:11px; font-weight:600;
-}
-
-/* QUOTA ROW */
-.qrow { display:flex; align-items:center; gap:8px; margin-top:8px; padding-top:8px; border-top:1px solid var(--bd); }
-.qlabel { font-size:10px; color:var(--t3); font-weight:500; }
-.qbar { flex:1; height:5px; background:var(--s3); border-radius:3px; overflow:hidden; }
-.qfill { height:100%; border-radius:3px; transition:width 0.4s; }
-.qfill.done { background:var(--green); }
-.qfill.progress { background:var(--blue); }
-.qval { font-family:'DM Mono',monospace; font-size:11px; font-weight:600; color:var(--t2); }
+/* 활동 하단 줄 */
+.vcard-act-row { display:flex; align-items:center; gap:6px; padding:4px 8px 5px 30px; border-top:1px solid var(--bd); }
+.vcard-sub2 { display:flex; align-items:center; gap:6px; padding:0 8px 5px 28px; }
 
 /* MOVE ARROW */
 .move-arrow {
@@ -270,12 +261,15 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .rec-hospitals { display:flex; flex-direction:column; gap:6px; }
 .rec-hosp-item {
   display:flex; align-items:center; justify-content:space-between;
-  padding:8px 10px; background:var(--s3); border-radius:8px;
-  cursor:pointer; transition:background 0.15s;
+  padding:8px 10px; background:#f3f4f6; border-radius:8px;
+  cursor:pointer; transition:background 0.15s; border:1.5px solid #e5e7eb;
 }
+.rec-hosp-item.visited { background:#f0faf3; border-color:#86efac; }
+.rec-hosp-item.visited .rec-hosp-name { color:#15803d; }
+.rec-hosp-item.visited .rec-hosp-time { color:#4ade80; }
 .rec-hosp-item:active { background:var(--bd); }
-.rec-hosp-name { font-size:13px; font-weight:500; color:var(--t1); }
-.rec-hosp-time { font-size:11px; color:var(--t3); }
+.rec-hosp-name { font-size:13px; font-weight:500; color:#9ca3af; }
+.rec-hosp-time { font-size:11px; color:#d1d5db; }
 .rec-check {
   width:22px; height:22px; border-radius:50%;
   border:2px solid var(--bd2); display:flex; align-items:center; justify-content:center;
@@ -467,10 +461,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .act-section.open .act-section-memo { display:block; }
 
 .act-btn {
-  display:flex; align-items:center; gap:4px;
+  display:flex; align-items:center; gap:3px;
   background:var(--purple-lt); color:var(--purple);
-  border:1px solid #ddd9fe; border-radius:14px;
-  padding:5px 10px; font-size:11px; font-weight:700;
+  border:1px solid #ddd9fe; border-radius:12px;
+  padding:3px 8px; font-size:10px; font-weight:700;
   cursor:pointer; white-space:nowrap;
   font-family:'Noto Sans KR',sans-serif; flex-shrink:0;
 }
@@ -526,7 +520,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 }
 .se-hdr-title { font-size:15px; font-weight:700; color:var(--t1); flex:1; }
 .se-btn {
-  border:none; border-radius:9px; padding:7px 13px; font-size:12px;
+  border:none; border-radius:20px; padding:7px 13px; font-size:12px;
   font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s;
 }
 .se-body { flex:1; overflow:hidden; display:flex; flex-direction:column; }
@@ -739,9 +733,9 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
       <div class="week-tabs" id="weekTabs"></div>
       <div class="date-strip" id="dateStrip"></div>
     </div>
-    <div id="schDivider" style="height:6px;background:var(--s2);border-top:1px solid var(--bd);flex-shrink:0;">
+    <div id="schDivider" style="height:2px;background:var(--s2);border-top:1px solid var(--bd);flex-shrink:0;">
     </div>
-    <div class="sch-scroll" id="schScroll" style="flex:1;overflow-y:auto;min-height:80px;">
+    <div class="sch-scroll" id="schScroll" style="flex:1;overflow-y:auto;min-height:80px;padding-bottom:8px;">
       <div style="color:var(--t3);text-align:center;padding:40px;font-size:13px;">위에서 날짜를 선택하세요</div>
     </div>
   </div>
@@ -799,6 +793,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
       <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
     </svg>
     <span>AI채팅</span>
+  </button>
+  <button class="tbtn" onclick="openDataManager()">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+    </svg>
+    <span>자료관리</span>
   </button>
 
 </div>
@@ -1473,7 +1473,7 @@ function renderCustomDayDetailGlobal(day, m, data) {
   Object.keys(QUOTA_TOTAL).forEach(function(n){ const q=QUOTA_TOTAL[n]; typeMap[n]=q>=4?'weekly':q>=2?'biweekly':'monthly'; });
   schScroll.innerHTML='';
   const wrap=document.createElement('div');
-  wrap.style.cssText='padding:12px 12px 80px;';
+  wrap.style.cssText='padding:0 0 68px;';
   const editBtn=document.createElement('button');
   editBtn.innerHTML='✏️ '+m+'월 일정 편집';
   editBtn.style.cssText='width:100%;background:var(--blue-lt);color:var(--blue);border:1.5px solid var(--blue);border-radius:10px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;margin-bottom:4px;';
@@ -1484,7 +1484,7 @@ function renderCustomDayDetailGlobal(day, m, data) {
   dayTitleRow.innerHTML='<div class="day-title-left"><div><div class="day-main">'+day.key+'('+day.dow+') '+day.dow+'요일</div>'
     +'<div class="day-sub">출발 '+day.hours+'</div></div>'
     +'<button class="map-btn" onclick="openMapCustomDay(currentCustomDay)">'
-    +'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>지도</button></div>'
+    +'📍 지도</button></div>'
     +'<div class="day-count-badge">'+((day.visits||[]).filter(v=>v.name).length)+'곳</div>';
   wrap.appendChild(dayTitleRow);
   // 이 날까지 누적 카운트
@@ -1562,17 +1562,15 @@ function renderSchedule(dk){
   html=`<div class="day-title-row">
     <div class="day-title-left">
       <div>
-        <div class="day-main">${dk}(${day.dow}) ${day.dow}요일</div>
+        <div class="day-main">${dk}(${day.dow})</div>
         <div class="day-sub">출발 ${day.hours}</div>
       </div>
-      <button class="map-btn" onclick="openMap('${dk}')">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
-        </svg>
-        지도
-      </button>
-      </div>
-    <div class="day-count-badge">${hvs.length}곳</div>
+    </div>
+    <div class="day-btns">
+      <button class="map-btn" onclick="openMap('${dk}')">📍 지도</button>
+      <button class="edit-btn-sm" onclick="openEditorCurrent()">✏️편집</button>
+
+    </div>
   </div>` + html;
 
   let order=0;
@@ -1613,42 +1611,27 @@ function renderSchedule(dk){
     const schedNth = schedUpTo[v.name]||order;
     const pct=q?Math.round(schedNth/q.total*100):0;
     const isDone=q&&schedNth>=q.total;
-
+    const addrShort=h&&h.addr?(h.addr.replace('경기 ','').replace('서울 ','')):'' ;
     html+=`<div class="vcard ${typeClass}">
-      <div class="vcard-inner">
-        <div class="vcard-seq">${order}번째 방문</div>
-        <div class="vcard-top">
-          <div class="vcard-name" onclick="openHospDetail('${v.name}')" style="cursor:pointer;">${v.name}</div>
-          <div class="vcard-time">${v.time}</div>
-        </div>
-        <div class="vcard-badges">
-          ${isUniv?'<span class="badge badge-univ">🏥 대학</span>':''}
-          <span class="badge badge-${v.type}">${typeMap[v.type]||''}</span>
-          ${isDone?'<span class="badge badge-done">완료 ✓</span>':''}
-        </div>
-        <div class="vcard-addr">${h?h.addr:''}</div>
-        ${v.note?`<div class="vcard-note">⏱ ${v.note}</div>`:''}
-        ${q?`<div class="qrow">
-          <span class="qlabel">할당</span>
-          <div class="qbar"><div class="qfill ${isDone?'done':'progress'}" style="width:${pct}%"></div></div>
-          <span class="qval">${schedNth}/${q.total}</span>
-        </div>`:''}
+      <div class="vcard-row">
+        <span class="vcard-seq">${order}</span>
+        <span class="vcard-name" onclick="openHospDetail('${v.name}')">${v.name}</span>
+        ${isUniv?'<span class="badge badge-univ">대</span>':''}
+        <span class="badge badge-${v.type}">${typeMap[v.type]||''}</span>
+        ${isDone?'<span class="badge badge-done">✓</span>':''}
+        ${q?`<span class="qval-inline">${schedNth}/${q.total}</span>`:''}
+
+        <button class="act-btn" data-dk="${dk}" data-name="${v.name}" onclick="openActModalByBtn(this)">✏️</button>
       </div>
-      ${v.dist?`<div class="dist-row">
-        <span>이동</span><div class="dist-pill">${v.dist}</div>
-        <span>·</span><div class="dist-pill">${v.move}</div>
-        <span style="margin-left:auto;font-size:10px;color:var(--t3)">주차 포함</span>
-      </div>`:''}
-      <div style="padding:8px 14px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <div style="display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:0;" class="act-tag-display" data-dk="${dk}" data-name="${v.name}">
-          <span style="font-size:11px;color:var(--t3);">활동 미기록</span>
-        </div>
-        <button class="act-btn" data-dk="${dk}" data-name="${v.name}" onclick="openActModalByBtn(this)">✏️ 활동</button>
+      <div class="vcard-sub2" id="">
+        <span class="act-tag-display" data-dk="${dk}" data-name="${v.name}" style="font-size:9px;color:var(--t3);">미기록</span>
+        ${addrShort?`<span style="margin-left:auto;font-size:9px;color:var(--t3);">${addrShort}</span>`:''}
+        ${v.note?`<span class="vcard-note" style="font-size:9px;">⏱${v.note}</span>`:''}
       </div>
     </div>`;
   });
 
-  var editBtnHtml='<div style="padding:12px 12px 0 12px;"><button onclick="openEditorCurrent()" style="width:100%;background:var(--blue-lt);color:var(--blue);border:1.5px solid var(--blue);border-radius:10px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;margin-bottom:4px;">✏️ 3월 일정 편집</button></div>'; document.getElementById('schScroll').innerHTML=editBtnHtml+html;
+  document.getElementById('schScroll').innerHTML=html;
   document.getElementById('schScroll').scrollTop=0;
   setTimeout(refreshActTags,0);
   // init buffer autocomplete
@@ -1671,6 +1654,13 @@ function loadRecords(){
   try{ const s=localStorage.getItem('visitRecords'); if(s) visitRecords=JSON.parse(s); }catch(e){}
 }
 function saveRecords(){ try{ localStorage.setItem('visitRecords',JSON.stringify(visitRecords)); }catch(e){} sbSet('visitRecords', visitRecords); }
+function toggleVisit(dk, name){
+  if(!visitRecords[dk]) visitRecords[dk]={checks:{},memo:"",extraVisits:[]};
+  if(!visitRecords[dk].checks) visitRecords[dk].checks={};
+  visitRecords[dk].checks[name]=!visitRecords[dk].checks[name];
+  saveRecords();
+  renderSchedule(dk);
+}
 
 function renderRecordPanel(){
   const panel=document.getElementById('panel-record');
@@ -1713,7 +1703,7 @@ function renderRecordPanel(){
 
     hvs.forEach(v=>{
       const checked=rec.checks[v.name]||false;
-      html+=`<div class="rec-hosp-item" onclick="toggleCheck('${dk}','${v.name}')">
+      html+=`<div class="rec-hosp-item${checked?' visited':''}" onclick="toggleCheck('${dk}','${v.name}')">
         <div>
           <div class="rec-hosp-name">${v.name}</div>
           <div class="rec-hosp-time">${v.time}</div>
@@ -1727,7 +1717,7 @@ function renderRecordPanel(){
     let extraHtml='';
     extraVisits.forEach(function(name,i){
       const exChecked=(rec.checks||{})[name]||false;
-      extraHtml+=`<div class="rec-hosp-item" style="background:var(--blue-lt);" onclick="toggleCheck('${dk}','${name}')">
+      extraHtml+=`<div class="rec-hosp-item${exChecked?' visited':''}" onclick="toggleCheck('${dk}','${name}')">
         <div>
           <div class="rec-hosp-name" style="color:var(--blue);">${name} <span style="font-size:10px;color:var(--t3);">(추가)</span></div>
           <div class="rec-hosp-time">임시 방문</div>
@@ -4334,16 +4324,9 @@ function quickAsk(text){
 function buildSystemPrompt(){
   loadHospInfo();
 
-  // 현재 월 일정 추출
-  var scheduleData = {};
-  try {
-    var stored = JSON.parse(localStorage.getItem('scheduleDB') || '{}');
-    scheduleData = stored;
-  } catch(e){}
-
-  // 병원 실적 요약 (텍스트로 압축)
+  // 1. 병원 실적 + 기본정보 요약
   var hospSummary = '';
-  var months = ['8','9','10','11','12','1'];
+  var months = ['8','9','10','11','12','1','2','3'];
   Object.keys(hospInfoDB).forEach(function(h){
     var info = hospInfoDB[h];
     var lines = [];
@@ -4355,32 +4338,105 @@ function buildSystemPrompt(){
         lines.push(m+'월:바이겔'+(b.amt||0)+'천원/'+(b.qty||0)+'개,피타2mg'+(p2.amt||0)+'천원/'+(p2.qty||0)+'개,피타4mg'+(p4.amt||0)+'천원/'+(p4.qty||0)+'개');
       }
     });
-    if(lines.length){
-      hospSummary += h+'['+lines.join('|')+']\n';
-    }
-    // 기본정보
+    if(lines.length) hospSummary += h+'['+lines.join('|')+']\n';
     if(info.doctor) hospSummary += h+' 원장:'+info.doctor+'\n';
+    if(info.tel) hospSummary += h+' 전화:'+info.tel+'\n';
     if(info.memo) hospSummary += h+' 메모:'+info.memo+'\n';
+    if(info.recent) hospSummary += h+' 최근동향:'+info.recent+'\n';
   });
 
-  return `당신은 초당제약 이상윤 과장의 영업 어시스턴트입니다. 담당 제품은 바이겔(외용 인도메타신), 피타바스 2mg, 피타바스 4mg입니다.
+  // 2. 방문 일정 전체 (잘림 없이)
+  // 3월 하드코딩 일정 텍스트 변환
+  var march3Summary = '';
+  Object.keys(SCH).forEach(function(dk){
+    var day = SCH[dk];
+    if(!day.visits||day.visits.length===0) return;
+    var names = day.visits.filter(function(v){return v.name;}).map(function(v){return v.name+'('+v.time+')';});
+    if(names.length) march3Summary += dk+'('+day.dow+') 출발'+day.hours+' ['+names.join(',')+']\n';
+  });
 
-【현재 병원별 월별 실적 데이터 (8~1월)】
+  // 4월 이후 저장된 일정
+  var scheduleData = {};
+  try { scheduleData = JSON.parse(localStorage.getItem('scheduleDB') || '{}'); } catch(e){}
+  var scheduleSummary = JSON.stringify(scheduleData);
+
+  // 3. 방문 체크 기록 (3월)
+  var visitSummary = '';
+  Object.keys(visitRecords).forEach(function(dk){
+    var rec = visitRecords[dk];
+    if(!rec) return;
+    var checked = Object.keys(rec.checks||{}).filter(function(n){ return rec.checks[n]; });
+    var unchecked = Object.keys(rec.checks||{}).filter(function(n){ return !rec.checks[n]; });
+    var acts = rec.activities || {};
+    if(checked.length) visitSummary += dk+' 방문완료:['+checked.join(',')+']\n';
+    if(unchecked.length) visitSummary += dk+' 미방문:['+unchecked.join(',')+']\n';
+    Object.keys(acts).forEach(function(hosp){
+      var a = acts[hosp];
+      var tags = Object.keys(a).filter(function(k){ return a[k] && k !== 'memo'; });
+      var memo = a.memo||'';
+      if(tags.length) visitSummary += dk+' '+hosp+' 활동:['+tags.join(',')+']\n';
+      if(memo) visitSummary += dk+' '+hosp+' 메모:'+memo+'\n';
+    });
+    if(rec.memo) visitSummary += dk+' 일간메모:'+rec.memo+'\n';
+  });
+
+  // 4. 4월 이후 방문기록
+  var customVisitSummary = '';
+  for(var i=2; i<=12; i++){
+    var key = 'visitRecords_'+i;
+    try {
+      var cvr = JSON.parse(localStorage.getItem(key)||'{}');
+      Object.keys(cvr).forEach(function(dk){
+        var rec = cvr[dk];
+        var checked = Object.keys(rec.checks||{}).filter(function(n){ return rec.checks[n]; });
+        if(checked.length) customVisitSummary += i+'월 '+dk+' 방문완료:['+checked.join(',')+']\n';
+      });
+    } catch(e){}
+  }
+
+  // 5. 기타 회사 자료
+  var miscSummary = '';
+  try {
+    var miscDocs = JSON.parse(localStorage.getItem('miscDocs')||'[]');
+    miscDocs.forEach(function(d){ miscSummary += '['+d.name+' ('+d.date+')]\n'+d.content+'\n\n'; });
+  } catch(e){}
+
+  return `당신은 초당제약 이상윤 과장의 영업 어시스턴트입니다. 담당 제품은 바이겔(외용 인도메타신), 피타바스 2mg, 피타바스 4mg입니다.
+오직 앱에 저장된 데이터만 기반으로 답하세요. 모르면 "데이터 없음"이라고 하세요.
+오늘 날짜: ${new Date().toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"})}
+
+【병원별 실적 및 기본정보】
 ${hospSummary}
 
-【방문 일정 데이터】
-${JSON.stringify(scheduleData).slice(0,3000)}
+【3월 방문 일정 (하드코딩)】
+${march3Summary}
+
+【4월 이후 방문 일정】
+${scheduleSummary||"없음"}
+
+【3월 방문기록 및 활동내용】
+${visitSummary||'기록 없음'}
+
+【4월 이후 방문기록】
+${customVisitSummary||'기록 없음'}
+
+【기타 회사 자료】
+${miscSummary||'없음'}
 
 【가능한 작업】
-1. 실적 조회·분석·비교
-2. 실적 데이터 업데이트 요청 시 → 반드시 JSON 명령 포함
-3. 방문 일정 조회·제안·논의
-4. 병원 정보(원장명, 전화, 메모 등) 수정
+1. 모든 데이터 조회·분석 (실적, 일정, 방문기록)
+2. 실적 업데이트 (모든 월 가능)
+3. 병원 정보 수정 (원장명, 전화, 메모 등)
+4. 방문 체크 업데이트 (방문완료/미방문 처리)
 5. 방문 메모 저장
+6. 4월 이후 일정 추가/수정/삭제 (3월은 하드코딩으로 수정 불가)
 
-【데이터 업데이트 규칙】
-실적이나 병원정보를 수정해야 할 때는 반드시 응답 맨 끝에 아래 형식의 JSON 블록을 포함하세요:
+【중요 규칙】
+- 데이터 변경 요청이 오면 반드시 JSON 블록을 응답 맨 끝에 포함하세요
+- JSON 블록 없으면 실제 저장이 안 됩니다
+- 3월 일정은 수정 불가, 조회만 가능
 
+【JSON 액션 형식】
 \`\`\`json
 {
   "actions": [
@@ -4399,19 +4455,36 @@ ${JSON.stringify(scheduleData).slice(0,3000)}
       "value": "홍길동"
     },
     {
-      "type": "updateMemo",
+      "type": "updateVisit",
+      "month": 3,
+      "date": "3/11",
+      "hospital": "원광대산본병원",
+      "checked": true
+    },
+    {
+      "type": "updateVisitMemo",
+      "date": "3/11",
+      "memo": "오늘 방문 특이사항 없음"
+    },
+    {
+      "type": "updateSchedule",
+      "month": 4,
+      "date": "4/15",
+      "dow": "화",
+      "action": "add_visit",
       "hospital": "병원명",
-      "field": "memo",
-      "value": "메모 내용"
+      "time": "10:00-11:00",
+      "visit_type": "monthly"
     }
   ]
 }
 \`\`\`
 
-drug 값: "baigel" | "pita2" | "pita4"
-field 값: "doctor" | "tel" | "addr" | "memo" | "recent" | "type" | "dept"
+updateSales: drug = "baigel" | "pita2" | "pita4"
+updateInfo field: "doctor" | "tel" | "addr" | "memo" | "recent" | "type" | "dept"
+updateSchedule action: "add_visit" | "delete_visit" | "update_time" | "update_hours"
+visit_type: "weekly" | "biweekly" | "monthly"
 
-JSON 블록이 없으면 데이터가 업데이트되지 않습니다.
 응답은 반드시 한국어로 하세요.`;
 }
 
@@ -4442,15 +4515,12 @@ function parseAndApplyActions(responseText){
     var obj = JSON.parse(match[1].trim());
     var actions = obj.actions || [];
     loadHospInfo();
+
     actions.forEach(function(action){
-      var h = action.hospital;
-      if(!hospInfoDB[h]){
-        hospInfoDB[h] = {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',
-          sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},
-          pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},
-          pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}};
-      }
+      // ── 1. 실적 업데이트 (전월 가능) ──
       if(action.type === 'updateSales'){
+        var h = action.hospital;
+        if(!hospInfoDB[h]) hospInfoDB[h] = {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}};
         var m = String(action.month);
         var drugMap = {baigel:'sales', pita2:'pita2', pita4:'pita4'};
         var key = drugMap[action.drug];
@@ -4461,11 +4531,90 @@ function parseAndApplyActions(responseText){
           if(action.amt !== undefined) hospInfoDB[h][key][m].amt = String(action.amt);
           applied++;
         }
+
+      // ── 2. 병원 정보/메모 수정 ──
       } else if(action.type === 'updateInfo' || action.type === 'updateMemo'){
+        var h = action.hospital;
+        if(!hospInfoDB[h]) hospInfoDB[h] = {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}};
         hospInfoDB[h][action.field] = action.value;
         applied++;
+
+      // ── 3. 방문 체크 업데이트 ──
+      } else if(action.type === 'updateVisit'){
+        var m = String(action.month||'3');
+        var dk = action.date; // 예: "3/11"
+        var hosp = action.hospital;
+        var checked = action.checked !== false;
+        if(m === '3'){
+          if(!visitRecords[dk]) visitRecords[dk] = {checks:{},memo:'',extraVisits:[]};
+          if(!visitRecords[dk].checks) visitRecords[dk].checks = {};
+          visitRecords[dk].checks[hosp] = checked;
+          saveRecords();
+        } else {
+          var storKey = 'visitRecords_'+m;
+          var recs = {};
+          try { recs = JSON.parse(localStorage.getItem(storKey)||'{}'); } catch(e){}
+          if(!recs[dk]) recs[dk] = {checks:{}};
+          recs[dk].checks[hosp] = checked;
+          try { localStorage.setItem(storKey, JSON.stringify(recs)); } catch(e){}
+        }
+        applied++;
+
+      // ── 4. 방문 메모 저장 ──
+      } else if(action.type === 'updateVisitMemo'){
+        var dk = action.date;
+        var memo = action.memo||'';
+        if(!visitRecords[dk]) visitRecords[dk] = {checks:{},memo:'',extraVisits:[]};
+        visitRecords[dk].memo = memo;
+        saveRecords();
+        applied++;
+
+      // ── 5. 4월 이후 일정 추가/수정 ──
+      } else if(action.type === 'updateSchedule'){
+        var m = String(action.month);
+        if(m === '3'){ return; } // 3월은 하드코딩이라 불가
+        var data = loadMonthData(m) || {month:m, dates:[]};
+        var dk = action.date; // 예: "4/15"
+        var dayIdx = data.dates.findIndex(function(d){ return d.key === dk; });
+
+        if(action.action === 'delete_visit'){
+          // 특정 날짜에서 병원 삭제
+          if(dayIdx >= 0){
+            data.dates[dayIdx].visits = data.dates[dayIdx].visits.filter(function(v){ return v.name !== action.hospital; });
+            applied++;
+          }
+        } else if(action.action === 'add_visit'){
+          // 병원 추가
+          if(dayIdx < 0){
+            var dow = action.dow||'';
+            data.dates.push({key:dk, dow:dow, visits:[], hours:action.hours||'09:00~'});
+            dayIdx = data.dates.length - 1;
+          }
+          data.dates[dayIdx].visits.push({
+            name: action.hospital,
+            time: action.time||'',
+            type: action.visit_type||'monthly'
+          });
+          applied++;
+        } else if(action.action === 'update_time'){
+          // 방문 시간 수정
+          if(dayIdx >= 0){
+            data.dates[dayIdx].visits.forEach(function(v){
+              if(v.name === action.hospital) v.time = action.time;
+            });
+            applied++;
+          }
+        } else if(action.action === 'update_hours'){
+          // 출발 시간 수정
+          if(dayIdx >= 0){
+            data.dates[dayIdx].hours = action.hours;
+            applied++;
+          }
+        }
+        saveMonthData(m, data);
       }
     });
+
     if(applied > 0) saveHospInfoDB();
   } catch(e){ console.error('Action parse error:', e); }
   return applied;
@@ -4540,6 +4689,237 @@ async function sendChat(){
   document.getElementById('chatMessages').scrollTop = 99999;
 }
 
+
+// ── 자료관리 ──
+function openDataManager(){ document.getElementById('dataManagerModal').style.display='block'; }
+function closeDataManager(){ document.getElementById('dataManagerModal').style.display='none'; }
+function switchDmTab(tab, btn){
+  document.querySelectorAll('.dm-tab').forEach(function(b){
+    b.style.borderBottomColor='transparent'; b.style.color='#94a3b8';
+  });
+  btn.style.borderBottomColor='#0082b8'; btn.style.color='#0082b8';
+  document.getElementById('dm-export').style.display = tab==='export'?'block':'none';
+  document.getElementById('dm-import').style.display = tab==='import'?'block':'none';
+}
+
+// ── 내보내기: 실적 엑셀 ──
+function exportSalesExcel(){
+  loadHospInfo();
+  var months = ['8','9','10','11','12','1','2','3'];
+  var rows = [['병원명','구분','8월수량','8월금액','9월수량','9월금액','10월수량','10월금액','11월수량','11월금액','12월수량','12월금액','1월수량','1월금액','2월수량','2월금액','3월수량','3월금액']];
+  var drugs = [{key:'sales',label:'바이겔'},{key:'pita2',label:'피타바스2mg'},{key:'pita4',label:'피타바스4mg'}];
+  Object.keys(hospInfoDB).sort().forEach(function(h){
+    var info = hospInfoDB[h];
+    drugs.forEach(function(d){
+      var row = [h, d.label];
+      months.forEach(function(m){
+        var v = (info[d.key]&&info[d.key][m])||{};
+        row.push(v.qty||0, v.amt||0);
+      });
+      var hasData = row.slice(2).some(function(v){ return v && v!==0; });
+      if(hasData) rows.push(row);
+    });
+  });
+  downloadCsvAsExcel(rows, '바이겔_실적_'+new Date().toLocaleDateString('ko-KR').replace(/\. /g,'-').replace('.',''));
+}
+
+// ── 내보내기: 방문 일정 엑셀 ──
+function exportVisitExcel(){
+  var rows = [['날짜','요일','병원명','방문시간','방문완료']];
+  DATE_ORDER.forEach(function(dk){
+    var day = SCH[dk]; if(!day||day.buffer) return;
+    var rec = visitRecords[dk]||{checks:{}};
+    day.visits.filter(function(v){return v.name;}).forEach(function(v){
+      rows.push([dk, day.dow, v.name, v.time, rec.checks[v.name]?'O':'']);
+    });
+  });
+  downloadCsvAsExcel(rows, '방문일정_3월');
+}
+
+// ── 내보내기: 병원 기본정보 엑셀 ──
+function exportHospInfoExcel(){
+  loadHospInfo();
+  var rows = [['병원명','유형','과','원장','전화','주소','메모','최근동향']];
+  Object.keys(hospInfoDB).sort().forEach(function(h){
+    var i = hospInfoDB[h];
+    rows.push([h, i.type||'', i.dept||'', i.doctor||'', i.tel||'', i.addr||'', i.memo||'', i.recent||'']);
+  });
+  downloadCsvAsExcel(rows, '병원기본정보');
+}
+
+// ── CSV → 다운로드 (엑셀 호환) ──
+function downloadCsvAsExcel(rows, filename){
+  var bom = '﻿';
+  var csv = bom + rows.map(function(r){
+    return r.map(function(c){
+      var s = String(c==null?'':c);
+      if(s.includes(',') || s.includes('"') || s.includes('\n')) s = '"'+s.replace(/"/g,'""')+'"';
+      return s;
+    }).join(',');
+  }).join('\n');
+  var blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename + '.csv';
+  a.click();
+}
+
+// ── 내보내기: PDF 보고서 ──
+function exportPdfReport(){
+  loadHospInfo();
+  var today = new Date().toLocaleDateString('ko-KR');
+  var totalH = DATE_ORDER.filter(function(dk){ return SCH[dk]&&!SCH[dk].buffer; }).length;
+  var totalV = 0, doneV = 0;
+  DATE_ORDER.forEach(function(dk){
+    var day=SCH[dk]; if(!day||day.buffer) return;
+    var rec=visitRecords[dk]||{checks:{}};
+    day.visits.filter(function(v){return v.name;}).forEach(function(v){
+      totalV++;
+      if(rec.checks[v.name]) doneV++;
+    });
+  });
+
+  var hospRows = '';
+  Object.keys(QUOTA_TOTAL).sort().forEach(function(h){
+    var info = hospInfoDB[h]||{};
+    var jan = (info.sales&&info.sales['1'])||{};
+    var feb = (info.sales&&info.sales['2'])||{};
+    var mar = (info.sales&&info.sales['3'])||{};
+    hospRows += '<tr><td>'+h+'</td><td>'+(jan.amt||0)+'</td><td>'+(feb.amt||0)+'</td><td>'+(mar.amt||0)+'</td></tr>';
+  });
+
+  var html = '<html><head><meta charset="utf-8"><title>월간 보고서</title><style>body{font-family:sans-serif;padding:30px;font-size:13px;}h1{font-size:18px;color:#0082b8;}h2{font-size:14px;margin-top:24px;color:#334155;}table{width:100%;border-collapse:collapse;margin-top:10px;}th{background:#0082b8;color:#fff;padding:7px 10px;text-align:left;}td{padding:6px 10px;border-bottom:1px solid #e2e8f0;}.stat{display:inline-block;margin-right:24px;font-size:16px;font-weight:700;color:#0082b8;}</style></head><body>'
+    +'<h1>📊 영업 월간 보고서</h1>'
+    +'<p style="color:#64748b;">작성일: '+today+' | 담당: 이상윤 과장</p>'
+    +'<h2>이달 방문 현황</h2>'
+    +'<p><span class="stat">'+doneV+'/'+totalV+'</span> 방문 완료 <span style="font-size:12px;color:#64748b;">('+Math.round(doneV/totalV*100||0)+'%)</span></p>'
+    +'<h2>병원별 바이겔 실적 (천원)</h2>'
+    +'<table><tr><th>병원명</th><th>1월</th><th>2월</th><th>3월</th></tr>'+hospRows+'</table>'
+    +'</body></html>';
+
+  var w = window.open('','_blank');
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){ w.print(); }, 500);
+}
+
+// ── 업로드: 실적 엑셀 (CSV 파싱) ──
+function importSalesExcel(input){
+  var file = input.files[0]; if(!file) return;
+  var st = document.getElementById('importStatus');
+  st.textContent = '읽는 중...';
+  var reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      var lines = e.target.result.split('\n').filter(function(l){return l.trim();});
+      loadHospInfo();
+      var count = 0;
+      lines.slice(1).forEach(function(line){
+        var cols = line.split(',').map(function(c){return c.trim().replace(/^"|"$/g,'');});
+        var hosp=cols[0], month=cols[1], drug=cols[2]||'baigel', qty=cols[3]||'', amt=cols[4]||'';
+        if(!hosp||!month) return;
+        var m = String(parseInt(month));
+        var dk = drug.includes('pita2')||drug.includes('피타2')?'pita2':drug.includes('pita4')||drug.includes('피타4')?'pita4':'sales';
+        if(!hospInfoDB[hosp]) hospInfoDB[hosp]={type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}};
+        if(!hospInfoDB[hosp][dk]) hospInfoDB[hosp][dk]={};
+        if(!hospInfoDB[hosp][dk][m]) hospInfoDB[hosp][dk][m]={};
+        if(qty) hospInfoDB[hosp][dk][m].qty = qty;
+        if(amt) hospInfoDB[hosp][dk][m].amt = amt;
+        count++;
+      });
+      saveHospInfoDB();
+      st.textContent = '✅ '+count+'개 실적 데이터 저장 완료';
+    }catch(e){ st.textContent = '❌ 오류: '+e.message; }
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+// ── 업로드: 병원 기본정보 ──
+function importHospInfoExcel(input){
+  var file = input.files[0]; if(!file) return;
+  var st = document.getElementById('importStatus');
+  st.textContent = '읽는 중...';
+  var reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      var lines = e.target.result.split('\n').filter(function(l){return l.trim();});
+      loadHospInfo();
+      var count = 0;
+      lines.slice(1).forEach(function(line){
+        var cols = line.split(',').map(function(c){return c.trim().replace(/^"|"$/g,'');});
+        var hosp=cols[0];
+        if(!hosp) return;
+        if(!hospInfoDB[hosp]) hospInfoDB[hosp]={type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}};
+        if(cols[1]) hospInfoDB[hosp].type=cols[1];
+        if(cols[2]) hospInfoDB[hosp].dept=cols[2];
+        if(cols[3]) hospInfoDB[hosp].doctor=cols[3];
+        if(cols[4]) hospInfoDB[hosp].tel=cols[4];
+        if(cols[5]) hospInfoDB[hosp].addr=cols[5];
+        if(cols[6]) hospInfoDB[hosp].memo=cols[6];
+        if(cols[7]) hospInfoDB[hosp].recent=cols[7];
+        count++;
+      });
+      saveHospInfoDB();
+      st.textContent = '✅ '+count+'개 병원 정보 저장 완료';
+    }catch(e){ st.textContent = '❌ 오류: '+e.message; }
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+// ── 업로드: 방문 일정 ──
+function importScheduleExcel(input){
+  var file = input.files[0]; if(!file) return;
+  var st = document.getElementById('importStatus');
+  st.textContent = '읽는 중...';
+  var reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      var lines = e.target.result.split('\n').filter(function(l){return l.trim();});
+      var monthMap = {};
+      lines.slice(1).forEach(function(line){
+        var cols = line.split(',').map(function(c){return c.trim().replace(/^"|"$/g,'');});
+        var date=cols[0], dow=cols[1]||'', hosp=cols[2], time=cols[3]||'', type=cols[4]||'monthly';
+        if(!date||!hosp) return;
+        var parts = date.split('/');
+        var m = parts[0]; if(m==='3') return; // 3월은 하드코딩
+        if(!monthMap[m]) monthMap[m] = {};
+        if(!monthMap[m][date]) monthMap[m][date] = {key:date, dow:dow, visits:[], hours:'09:00~'};
+        monthMap[m][date].visits.push({name:hosp, time:time, type:type});
+      });
+      var count = 0;
+      Object.keys(monthMap).forEach(function(m){
+        var existing = loadMonthData(m)||{month:m,dates:[]};
+        Object.keys(monthMap[m]).forEach(function(dk){
+          var idx = existing.dates.findIndex(function(d){return d.key===dk;});
+          if(idx>=0) existing.dates[idx].visits = existing.dates[idx].visits.concat(monthMap[m][dk].visits);
+          else existing.dates.push(monthMap[m][dk]);
+          count++;
+        });
+        saveMonthData(m, existing);
+      });
+      st.textContent = '✅ '+count+'일 일정 저장 완료';
+    }catch(e){ st.textContent = '❌ 오류: '+e.message; }
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+// ── 업로드: 기타 자료 (텍스트로 저장) ──
+function importMiscFile(input){
+  var file = input.files[0]; if(!file) return;
+  var st = document.getElementById('importStatus');
+  st.textContent = '읽는 중...';
+  var reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      var existing = JSON.parse(localStorage.getItem('miscDocs')||'[]');
+      existing.push({name:file.name, date:new Date().toLocaleDateString('ko-KR'), content:e.target.result.slice(0,5000)});
+      localStorage.setItem('miscDocs', JSON.stringify(existing));
+      st.textContent = '✅ '+file.name+' 저장 완료 (AI채팅에서 참조 가능)';
+    }catch(e){ st.textContent = '❌ 오류: '+e.message; }
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
 // ── RERENDER CURRENT TAB ──
 function rerenderCurrentTab(){
   const activePanel = document.querySelector('.panel.active');
@@ -4601,18 +4981,7 @@ updateStats();
     <button class="se-btn" onclick="saveEditorMonth()" style="background:var(--blue);color:#fff;margin-left:4px;">💾 저장</button>
   </div>
   <div class="se-body">
-    <!-- 할당량 현황 -->
-    <div class="se-quota">
-      <div class="se-quota-title">
-        <span>📊 할당량 현황 (배정 기준)</span>
-        <span id="editorQuotaSummary" style="font-size:11px;color:var(--t1);font-weight:700;"></span>
-      </div>
-      <div style="display:flex;align-items:center;gap:4px;">
-        <button onclick="document.getElementById('editorQuotaBar').scrollBy({left:-120,behavior:'smooth'})" style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--bd);background:var(--s2);color:var(--t2);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">&#8249;</button>
-        <div class="se-quota-scroll" id="editorQuotaBar" style="flex:1;"></div>
-        <button onclick="document.getElementById('editorQuotaBar').scrollBy({left:120,behavior:'smooth'})" style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--bd);background:var(--s2);color:var(--t2);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">&#8250;</button>
-      </div>
-    </div>
+
     <!-- 날짜 추가 + 신규병원 추가 -->
     <div style="display:flex;gap:0;border-bottom:1px solid var(--bd);flex-shrink:0;">
       <button id="editorTab1" onclick="switchEditorSubTab(1)" style="flex:1;padding:9px;font-size:12px;font-weight:700;border:none;background:var(--blue);color:#fff;cursor:pointer;font-family:Noto Sans KR,sans-serif;">📅 날짜 추가</button>
@@ -4693,6 +5062,77 @@ updateStats();
 
 </div>
 
+
+
+<!-- 자료관리 모달 -->
+<div id="dataManagerModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.5);" onclick="closeDataManager()">
+  <div onclick="event.stopPropagation()" style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;padding-bottom:40px;">
+    <!-- 헤더 -->
+    <div style="padding:18px 16px 0;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-size:16px;font-weight:800;color:#1e293b;">🗂 자료 관리</div>
+      <button onclick="closeDataManager()" style="background:none;border:none;font-size:22px;color:#94a3b8;cursor:pointer;">✕</button>
+    </div>
+
+    <!-- 탭 -->
+    <div style="display:flex;gap:0;padding:12px 16px 0;border-bottom:1px solid #e2e8f0;">
+      <button class="dm-tab active" onclick="switchDmTab('export',this)" style="flex:1;padding:9px 4px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;border-bottom:2px solid #0082b8;color:#0082b8;font-family:Noto Sans KR,sans-serif;">📤 내보내기</button>
+      <button class="dm-tab" onclick="switchDmTab('import',this)" style="flex:1;padding:9px 4px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;color:#94a3b8;font-family:Noto Sans KR,sans-serif;">📥 업로드</button>
+    </div>
+
+    <!-- 내보내기 탭 -->
+    <div id="dm-export" style="padding:16px;">
+      <div style="font-size:12px;color:#64748b;margin-bottom:14px;">앱에 저장된 데이터를 파일로 내보냅니다.</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button onclick="exportSalesExcel()" style="width:100%;padding:14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#15803d;">📊 병원별 실적 엑셀 (.xlsx)</div>
+          <div style="font-size:11px;color:#4ade80;margin-top:3px;">전 병원 × 월별 바이겔/피타바스 실적</div>
+        </button>
+        <button onclick="exportVisitExcel()" style="width:100%;padding:14px;background:#f0f9ff;border:1.5px solid #7dd3fc;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#0369a1;">📅 방문 일정 엑셀 (.xlsx)</div>
+          <div style="font-size:11px;color:#38bdf8;margin-top:3px;">3월 전체 방문 일정 + 방문 체크 현황</div>
+        </button>
+        <button onclick="exportHospInfoExcel()" style="width:100%;padding:14px;background:#faf5ff;border:1.5px solid #c4b5fd;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#7c3aed;">🏥 병원 기본정보 엑셀 (.xlsx)</div>
+          <div style="font-size:11px;color:#a78bfa;margin-top:3px;">원장명, 전화, 주소, 메모</div>
+        </button>
+        <button onclick="exportPdfReport()" style="width:100%;padding:14px;background:#fff7ed;border:1.5px solid #fdba74;border-radius:12px;text-align:left;cursor:pointer;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#c2410c;">📄 월간 보고서 PDF</div>
+          <div style="font-size:11px;color:#fb923c;margin-top:3px;">이번 달 방문현황 + 실적 요약 보고서</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- 업로드 탭 -->
+    <div id="dm-import" style="padding:16px;display:none;">
+      <div style="font-size:12px;color:#64748b;margin-bottom:14px;">엑셀 파일을 업로드해서 앱 데이터를 업데이트합니다.</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <label style="width:100%;padding:14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#15803d;">📊 실적 엑셀 업로드</div>
+          <div style="font-size:11px;color:#4ade80;margin-top:3px;">병원명 | 월 | 수량 | 금액 형식</div>
+          <input type="file" accept=".xlsx,.xls,.csv" onchange="importSalesExcel(this)" style="display:none;">
+        </label>
+        <label style="width:100%;padding:14px;background:#f0f9ff;border:1.5px solid #7dd3fc;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#0369a1;">🏥 병원 기본정보 업로드</div>
+          <div style="font-size:11px;color:#38bdf8;margin-top:3px;">병원명 | 원장 | 전화 | 주소 | 메모 형식</div>
+          <input type="file" accept=".xlsx,.xls,.csv" onchange="importHospInfoExcel(this)" style="display:none;">
+        </label>
+        <label style="width:100%;padding:14px;background:#faf5ff;border:1.5px solid #c4b5fd;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#7c3aed;">📅 방문 일정 업로드</div>
+          <div style="font-size:11px;color:#a78bfa;margin-top:3px;">날짜 | 병원명 | 시간 형식</div>
+          <input type="file" accept=".xlsx,.xls,.csv" onchange="importScheduleExcel(this)" style="display:none;">
+        </label>
+        <label style="width:100%;padding:14px;background:#fff1f2;border:1.5px solid #fca5a5;border-radius:12px;cursor:pointer;display:block;font-family:Noto Sans KR,sans-serif;">
+          <div style="font-size:13px;font-weight:700;color:#dc2626;">📎 기타 회사 자료</div>
+          <div style="font-size:11px;color:#f87171;margin-top:3px;">자유 형식 (AI채팅에서 참조 가능)</div>
+          <input type="file" accept=".xlsx,.xls,.csv,.pdf,.txt" onchange="importMiscFile(this)" style="display:none;">
+        </label>
+      </div>
+      <div id="importStatus" style="margin-top:12px;font-size:12px;text-align:center;color:#0082b8;min-height:20px;"></div>
+    </div>
+  </div>
+</div>
 
 <!-- 신규병원 관리 모달 -->
 <div id="extraHospModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.5);" onclick="document.getElementById('extraHospModal').style.display='none';">
