@@ -1547,7 +1547,7 @@ function inlineMoveHosp3(dk, idx, dir){
 }
 
 function inlineAddHosp3(dk){
-  const sel=document.getElementById('inlineAddSel_'+dk);
+  const sel=document.getElementById('inlineAddSel_'+dk.replace('/','_'));
   if(!sel||!sel.value) return;
   const name=sel.value;
   const day=SCH[dk]; if(!day) return;
@@ -2579,14 +2579,12 @@ function buildFailedSection(failedList) {
 
   function makeBanner(items, type) {
     var isFailed = type === 'failed';
-    var bg = isFailed ? '#fef3c7' : '#fee2e2';
-    var color = isFailed ? '#92400e' : '#b91c1c';
-    var activeBg = isFailed ? '#f59e0b' : '#ef4444';
+    var color = isFailed ? '#f59e0b' : '#ef4444';
     var icon = isFailed ? '🔶' : '❌';
     var label = isFailed ? '면담실패' : '미방문';
 
     var box = document.createElement('div');
-    box.style.cssText = 'background:'+bg+';border-radius:12px;padding:12px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all 0.2s;';
+    box.style.cssText = 'background:var(--s3);border-radius:12px;padding:12px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all 0.2s;';
     box.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:28px;font-weight:800;color:'+color+';">'+items.length+'</div>'
       + '<div style="font-size:13px;font-weight:700;color:'+color+';margin-top:3px;">'+icon+' '+label+'</div>';
 
@@ -2598,8 +2596,7 @@ function buildFailedSection(failedList) {
         var t = b.dataset.pane;
         var iF = t==='failed';
         b.style.borderColor = (activePane===t) ? (iF?'#f59e0b':'#ef4444') : 'transparent';
-        b.style.background = (activePane===t) ? (iF?'#f59e0b':'#ef4444') : (iF?'#fef3c7':'#fee2e2');
-        b.querySelectorAll('div').forEach(function(d){ d.style.color = (activePane===t) ? '#fff' : ''; });
+        b.style.background = 'var(--s3)';
       });
       renderPane();
     };
@@ -2805,7 +2802,7 @@ function renderActStats(){
   </div>
   <!-- 주차별 -->
   <div style="background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:14px;box-shadow:var(--shadow);">
-    <div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">주차별 달성률</div>
+    <div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">📈 주차별 달성률</div>
     ${weekStats.map(function(w){
       const p=w.visit?Math.round(w.checked/w.visit*100):0;
       const col=p>=80?'var(--green)':p>=50?'var(--blue)':'var(--bd2)';
@@ -2857,15 +2854,15 @@ function renderActStats(){
   ACTS.forEach(function(a){
     const sel=actFilterTag===a;
     const box=document.createElement('div');
-    box.style.cssText='background:'+(sel?tagColors[a]:tagBg[a])+';border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:2px solid '+(sel?tagColors[a]:'transparent')+';';
-    box.innerHTML='<div style="font-family:DM Mono,monospace;font-size:24px;font-weight:700;color:'+(sel?'#fff':tagColors[a])+';">'+totals[a]+'</div>'
-      +'<div style="font-size:14px;font-weight:600;color:'+(sel?'#fff':tagColors[a])+';margin-top:1px;">'+a+'</div>';
+    box.style.cssText='background:var(--s3);border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:2px solid '+(sel?tagColors[a]:'transparent')+';';
+    box.innerHTML='<div style="font-family:DM Mono,monospace;font-size:24px;font-weight:700;color:'+tagColors[a]+';">'+totals[a]+'</div>'
+      +'<div style="font-size:14px;font-weight:600;color:'+tagColors[a]+';margin-top:1px;">'+a+'</div>';
     box.onclick=function(){ actFilterTag=(sel?null:a); renderActStats(); };
     grid.appendChild(box);
   });
   wrap.appendChild(grid);
 
-  // 필터 배너
+  // 필터 배너 + 병원목록
   if(actFilterTag){
     const banner=document.createElement('div');
     banner.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px 12px;background:'+tagBg[actFilterTag]+';border-radius:8px;';
@@ -2876,21 +2873,15 @@ function renderActStats(){
     clr.onclick=function(){ actFilterTag=null; renderActStats(); };
     banner.appendChild(clr);
     wrap.appendChild(banner);
-  }
-
-  // 병원 목록 헤더
-  const listH=document.createElement('div');
-  listH.style.cssText='font-size:13px;font-weight:700;color:var(--t3);margin-bottom:8px;';
-  listH.textContent='병원 목록 ('+filtered.length+'곳) — 가나다순';
-  wrap.appendChild(listH);
-
-  if(filtered.length===0){
-    const empty=document.createElement('div');
-    empty.style.cssText='text-align:center;padding:30px;color:var(--t3);font-size:15px;';
-    empty.textContent='해당 활동 기록이 없습니다';
-    wrap.appendChild(empty);
-  } else {
-    filtered.forEach(function(h){ wrap.appendChild(makeHospCard(h,tagColors,tagBg)); });
+    // 병원 목록
+    if(filtered.length===0){
+      const empty=document.createElement('div');
+      empty.style.cssText='text-align:center;padding:20px;color:var(--t3);font-size:15px;';
+      empty.textContent='해당 활동 기록이 없습니다';
+      wrap.appendChild(empty);
+    } else {
+      filtered.forEach(function(h){ wrap.appendChild(makeHospCard(h,tagColors,tagBg)); });
+    }
   }
 
   panel.innerHTML='';
@@ -3645,7 +3636,7 @@ function renderActStatsCustom(panel, m, dates){
     +'<div style="text-align:center;padding:8px;background:var(--s3);border-radius:10px;"><div style="font-size:22px;font-weight:800;color:var(--green);">'+Object.values(hospStats).filter(function(h){return h.done>=h.total;}).length+'</div><div style="font-size:12px;color:var(--t3);margin-top:1px;">할당완료</div></div>'
     +'</div></div></div>'
     +'<div style="background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:14px;box-shadow:var(--shadow);">'
-    +'<div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">주차별 달성률</div>'
+    +'<div style="font-size:13px;font-weight:700;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">📈 주차별 달성률</div>'
     +weekStats.map(function(w){
       var p=w.visit?Math.round(w.checked/w.visit*100):0;
       var col=p>=80?'var(--green)':p>=50?'var(--blue)':'var(--bd2)';
@@ -3696,9 +3687,9 @@ function renderActStatsCustom(panel, m, dates){
   ACTS.forEach(function(a){
     var sel=actFilterTag===a;
     var box=document.createElement('div');
-    box.style.cssText='background:'+(sel?tagColors[a]:tagBg[a])+';border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:2px solid '+(sel?tagColors[a]:'transparent')+';';
-    box.innerHTML='<div style="font-family:DM Mono,monospace;font-size:24px;font-weight:700;color:'+(sel?'#fff':tagColors[a])+';">'+totals[a]+'</div>'
-      +'<div style="font-size:14px;font-weight:600;color:'+(sel?'#fff':tagColors[a])+';margin-top:1px;">'+a+'</div>';
+    box.style.cssText='background:var(--s3);border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:2px solid '+(sel?tagColors[a]:'transparent')+';';
+    box.innerHTML='<div style="font-family:DM Mono,monospace;font-size:24px;font-weight:700;color:'+tagColors[a]+';">'+totals[a]+'</div>'
+      +'<div style="font-size:14px;font-weight:600;color:'+tagColors[a]+';margin-top:1px;">'+a+'</div>';
     box.onclick=function(){ actFilterTag=(sel?null:a); renderActStats(); };
     gridC.appendChild(box);
   });
@@ -3715,21 +3706,15 @@ function renderActStatsCustom(panel, m, dates){
     clr.onclick=function(){ actFilterTag=null; renderActStats(); };
     banner.appendChild(clr);
     wrap.appendChild(banner);
-  }
-
-  // 병원 목록 헤더
-  var listH=document.createElement('div');
-  listH.style.cssText='font-size:13px;font-weight:700;color:var(--t3);margin-bottom:8px;';
-  listH.textContent='병원 목록 ('+filtered.length+'곳) — 가나다순';
-  wrap.appendChild(listH);
-
-  if(filtered.length===0){
-    var empty=document.createElement('div');
-    empty.style.cssText='text-align:center;padding:30px;color:var(--t3);font-size:15px;';
-    empty.textContent='해당 활동 기록이 없습니다';
-    wrap.appendChild(empty);
-  } else {
-    filtered.forEach(function(h){ wrap.appendChild(makeHospCard(h,tagColors,tagBg)); });
+    // 병원 목록
+    if(filtered.length===0){
+      var empty=document.createElement('div');
+      empty.style.cssText='text-align:center;padding:20px;color:var(--t3);font-size:15px;';
+      empty.textContent='해당 활동 기록이 없습니다';
+      wrap.appendChild(empty);
+    } else {
+      filtered.forEach(function(h){ wrap.appendChild(makeHospCard(h,tagColors,tagBg)); });
+    }
   }
 
   panel.appendChild(wrap);
@@ -4494,6 +4479,8 @@ function refreshEditorView(){
   renderEditorCalendar();
   if(editorSelectedDate){
     renderEditorDayDetail(editorSelectedDate);
+  } else {
+    renderEditorDates();
   }
   renderEditorQuotaBar((editorData[currentEditMonth]||{dates:[]}).dates);
 }
@@ -4629,8 +4616,20 @@ function editorAddHospBtn(btn){
   if(!sel||!sel.value) return;
   const name = sel.value;
   const m = currentEditMonth;
+  if(!editorData[m] || !editorData[m].dates) { alert('편집 데이터가 없습니다. 다시 열어주세요.'); return; }
   const day = editorData[m].dates.find(function(d){return d.key===key;});
-  if(!day) return;
+  if(!day){
+    // 날짜가 없으면 새로 추가
+    var di=parseInt(key.split('/')[1]), mi=parseInt(m);
+    var dowKr=['일','월','화','수','목','금','토'];
+    var dowStr=dowKr[new Date(2026,mi-1,di).getDay()];
+    editorData[m].dates.push({key:key,dow:dowStr,week:'',hours:'10:00~',visits:[]});
+    editorData[m].dates.sort(function(a,b){ return parseInt(a.key.split('/')[1])-parseInt(b.key.split('/')[1]); });
+    var day2=editorData[m].dates.find(function(d){return d.key===key;}); if(!day2) return;
+    if(day2.visits.find(function(v){return v.name===name;})){ alert('이미 배정된 병원입니다.'); return; }
+    day2.visits.push({name:name});
+    refreshEditorView(); return;
+  }
   if(day.visits.find(function(v){return v.name===name;})){
     alert('이미 배정된 병원입니다.');
     return;
