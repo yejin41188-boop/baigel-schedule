@@ -862,9 +862,9 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
   </div>
 
   <!-- 입력창 -->
-  <div style="padding:10px 12px;background:#fff;border-top:1px solid #e2e8f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;">
+  <div style="padding:10px 12px;background:#fff;border-top:1px solid #e2e8f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;position:relative;z-index:10;">
     <textarea id="chatInput" placeholder="메시지 입력..." rows="1"
-      style="flex:1;border:1px solid #e2e8f0;border-radius:12px;padding:9px 12px;font-size:15px;font-family:'Noto Sans KR',sans-serif;resize:none;line-height:1.4;max-height:100px;overflow-y:auto;outline:none;"
+      style="flex:1;border:1px solid #e2e8f0;border-radius:12px;padding:9px 12px;font-size:16px;font-family:'Noto Sans KR',sans-serif;resize:none;line-height:1.4;max-height:100px;overflow-y:auto;outline:none;-webkit-user-select:text;user-select:text;touch-action:manipulation;position:relative;z-index:10;"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"
       oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
     <button onclick="sendChat()" id="sendBtn"
