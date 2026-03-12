@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="바이겔 일정">
   <meta name="theme-color" content="#1B4E9A">
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIuuwlOydtOqylCDsmIHsl4Ug64yA7Iuc67O065OcIiwgInNob3J0X25hbWUiOiAi67CU7J206rKUIiwgInN0YXJ0X3VybCI6ICIuIiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGNEY3RkIiLCAidGhlbWVfY29sb3IiOiAiIzFCNEU5QSIsICJpY29ucyI6IFt7InNyYyI6ICJodHRwczovL3ZpYS5wbGFjZWhvbGRlci5jb20vMTkyIiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9wbmcifSwgeyJzcmMiOiAiaHR0cHM6Ly92aWEucGxhY2Vob2xkZXIuY29tLzUxMiIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2UvcG5nIn1dfQ==">
+  <link rel="manifest" href="/baigel-schedule/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -6478,6 +6478,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
+
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/baigel-schedule/sw.js', {scope: '/baigel-schedule/'})
+      .then(() => console.log('[PWA] SW registered'))
+      .catch(e => console.warn('[PWA] SW failed:', e));
+  });
+}
+</script>
 
 </body>
 </html>
