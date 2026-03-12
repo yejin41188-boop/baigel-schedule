@@ -1,7 +1,7 @@
 {
-  "name": "바이겔 영업 대시보드",
-  "short_name": "바이겔",
-  "description": "바이겔 병원 방문 일정 및 영업 활동 관리",
+  "name": "초당제약 영업관리",
+  "short_name": "초당영업",
+  "description": "초당제약 영업활동 관리",
   "start_url": "/baigel-schedule/index.html",
   "scope": "/baigel-schedule/",
   "display": "standalone",
@@ -10,13 +10,13 @@
   "theme_color": "#1B4E9A",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/baigel-schedule/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "/baigel-schedule/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
