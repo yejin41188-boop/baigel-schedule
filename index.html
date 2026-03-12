@@ -138,21 +138,20 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 .app { display:flex; flex-direction:column; height:100vh; height:100dvh; }
 
 /* HEADER */
-.hdr { background:linear-gradient(180deg,#2A63B8 0%,#1F57A6 45%,#173F80 100%); border-bottom:none; position:relative; padding:10px 14px 10px; flex-shrink:0; box-shadow:none; transform:translateZ(0); }
+.hdr { background:#FFFFFF; border-bottom:1px solid #E5E7EB; position:relative; padding:12px 24px; flex-shrink:0; box-shadow:none; transform:translateZ(0); }
 .hdr-row { display:flex; align-items:center; justify-content:space-between; gap:clamp(4px,2vw,10px); flex-wrap:nowrap; overflow:hidden; min-width:0; }
-.hdr::after { content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:rgba(255,255,255,0.25); }
+
 .hdr-title { font-size:var(--font-title); font-weight:700; color:#fff; letter-spacing:0.2px; line-height:1.2; }
 .hdr-title em { color:rgba(255,255,255,0.85); font-style:normal; font-size:16px; font-weight:700; letter-spacing:0.3px; }
 .hdr-sub { font-size:var(--font-secondary); color:rgba(255,255,255,0.85); margin-top:2px; font-weight:400; }
 .chips { display:flex; gap:10px; margin-top:10px; overflow-x:auto; scrollbar-width:none; padding-bottom:12px; }
 .chips::-webkit-scrollbar { display:none; }
-.chip { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.15); border-radius:14px; padding:3px clamp(5px,2vw,10px);
-  display:flex; align-items:center; gap:4px; white-space:nowrap; flex-shrink:0; font-size:var(--font-caption); color:rgba(255,255,255,0.8); font-weight:500;
-  backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+.chip { background:#EFF6FF; border:none; border-radius:10px; padding:4px 10px;
+  display:flex; align-items:center; gap:6px; white-space:nowrap; flex-shrink:0; font-size:var(--font-caption); color:#1D4ED8; font-weight:500;
   transition:transform 0.1s,opacity 0.1s;
 }
 .chip:active { transform:scale(0.95); opacity:0.85; transition:transform 0.08s,opacity 0.08s; }
-.chip .n { font-family:'DM Mono',monospace; font-size:clamp(12px, 3.5vw, 20px); font-weight:800; color:#fff; letter-spacing:-0.4px; line-height:1; }
+.chip .n { font-family:'DM Mono',monospace; font-size:clamp(12px, 3.5vw, 20px); font-weight:800; color:#1D4ED8; letter-spacing:-0.4px; line-height:1; }
 .chip.bl .n { color:#7dd3ea; } .chip.or .n { color:#fdba74; }
 .chip.gr .n { color:#86efac; } .chip.pu .n { color:#c4b5fd; }
 
@@ -961,20 +960,14 @@ button:active { transform:scale(0.96); }
 <div class="hdr" style="padding:clamp(8px,2vw,14px) clamp(10px,3vw,16px);box-sizing:border-box;width:100%;">
   <div class="hdr-row">
     <div style="line-height:1.2;flex-shrink:0;">
-        <div style="font-size:clamp(8px,2vw,10px);font-weight:600;color:rgba(255,255,255,0.55);letter-spacing:clamp(1px,1vw,2.5px);text-transform:uppercase;margin-bottom:3px;white-space:nowrap;">CHODANG PHARM.</div>
+        
         <div style="font-size:clamp(16px, 4.5vw, 24px);font-weight:800;letter-spacing:-0.2px;line-height:1.1;white-space:nowrap;">
-          <span style="color:#fff;">초당제약</span><span style="
-            background:linear-gradient(90deg,#7DD3FC,#38BDF8);
-            -webkit-background-clip:text;
-            -webkit-text-fill-color:transparent;
-            background-clip:text;
-            margin-left:5px;
-          ">영업관리</span>
+          <span style="color:#1A3A6B;font-weight:700;">CHODANG</span><span style="color:#2563EB;font-weight:600;margin-left:6px;">PHARM.</span>
         </div>
       </div>
-    <div class="chips" style="margin-top:0;gap:5px;padding-bottom:0;overflow-x:auto;scrollbar-width:none;flex-shrink:1;min-width:0;max-width:60vw;">
-      <div class="chip bl" onclick="showChipList('all')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:13px;">30</span>담당병원</div>
-      <div class="chip or" onclick="showChipList('total')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:13px;">61</span>월총방문</div>
+    <div class="chips" style="margin-top:0;gap:8px;padding-bottom:0;overflow-x:auto;scrollbar-width:none;flex-shrink:1;min-width:0;max-width:60vw;">
+      <div class="chip bl" onclick="showChipList('all')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:13px;">30</span>병원</div>
+      <div class="chip or" onclick="showChipList('total')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:13px;">61</span>총방문</div>
       <div class="chip gr" onclick="showDoneList()" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:14px;" id="stat-done">0</span>완료</div>
       <div class="chip pu" onclick="showChipList('remain')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:14px;" id="stat-remain">61</span>잔여</div>
     </div>
@@ -982,7 +975,7 @@ button:active { transform:scale(0.96); }
 </div>
 
 <!-- MONTH BAR -->
-<div id="monthBar" style="display:flex;align-items:center;justify-content:center;background:#fff;border-bottom:1px solid var(--bd);flex-shrink:0;padding:6px 12px;gap:6px;">
+<div id="monthBar" style="display:flex;align-items:center;justify-content:center;background:#F3F4F6;border-bottom:1px solid #E5E7EB;flex-shrink:0;padding:8px 24px;gap:10px;">
   <button onclick="stepMonth(-1)" style="border:none;background:none;padding:2px 6px;font-size:16px;cursor:pointer;color:var(--t3);">◀</button>
   <span style="font-size:17px;color:var(--t3);font-weight:800;">2026 ·</span>
   <select id="monthSelect" onchange="switchMonthSelect(this.value)"
@@ -3591,13 +3584,13 @@ function showChipList(type){
   const tagBg={'bl':'#d0edf8','or':'#ffedd5','gr':'#dcfce7','pu':'#ede9fe'};
 
   if(type==='all'){
-    titleEl.textContent='🏥 담당병원 (30곳)';
+    titleEl.textContent='🏥 병원 (30곳)';
     list=allHosps.map(function(name){
       const info=hospChecked[name]||{done:0,total:QUOTA_TOTAL[name]};
       return {name,done:info.done,total:info.total,color:'#049cb7',bg:'#d0edf8'};
     });
   } else if(type==='total'){
-    titleEl.textContent='📅 월총방문 (61건)';
+    titleEl.textContent='📅 총방문 (61건)';
     // 날짜×병원 전체
     const entries=[];
     DATE_ORDER.forEach(function(dk){
