@@ -139,14 +139,14 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1);
 
 /* HEADER */
 .hdr { background:linear-gradient(180deg,#2A63B8 0%,#1F57A6 45%,#173F80 100%); border-bottom:none; position:relative; padding:10px 14px 10px; flex-shrink:0; box-shadow:none; transform:translateZ(0); }
-.hdr-row { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:nowrap; overflow:hidden; }
+.hdr-row { display:flex; align-items:center; justify-content:space-between; gap:clamp(4px,2vw,10px); flex-wrap:nowrap; overflow:hidden; min-width:0; }
 .hdr::after { content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:rgba(255,255,255,0.25); }
 .hdr-title { font-size:var(--font-title); font-weight:700; color:#fff; letter-spacing:0.2px; line-height:1.2; }
 .hdr-title em { color:rgba(255,255,255,0.85); font-style:normal; font-size:16px; font-weight:700; letter-spacing:0.3px; }
 .hdr-sub { font-size:var(--font-secondary); color:rgba(255,255,255,0.85); margin-top:2px; font-weight:400; }
 .chips { display:flex; gap:10px; margin-top:10px; overflow-x:auto; scrollbar-width:none; padding-bottom:12px; }
 .chips::-webkit-scrollbar { display:none; }
-.chip { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.15); border-radius:14px; padding:4px 10px;
+.chip { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.15); border-radius:14px; padding:3px clamp(5px,2vw,10px);
   display:flex; align-items:center; gap:4px; white-space:nowrap; flex-shrink:0; font-size:var(--font-caption); color:rgba(255,255,255,0.8); font-weight:500;
   backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
   transition:transform 0.1s,opacity 0.1s;
@@ -958,10 +958,10 @@ button:active { transform:scale(0.96); }
 <div class="app">
 
 <!-- HEADER -->
-<div class="hdr" style="padding:14px 16px 14px;">
+<div class="hdr" style="padding:clamp(8px,2vw,14px) clamp(10px,3vw,16px);box-sizing:border-box;width:100%;">
   <div class="hdr-row">
-    <div style="line-height:1.2;">
-        <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.55);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:3px;">CHODANG PHARM.</div>
+    <div style="line-height:1.2;flex-shrink:0;">
+        <div style="font-size:clamp(8px,2vw,10px);font-weight:600;color:rgba(255,255,255,0.55);letter-spacing:clamp(1px,1vw,2.5px);text-transform:uppercase;margin-bottom:3px;white-space:nowrap;">CHODANG PHARM.</div>
         <div style="font-size:clamp(16px, 4.5vw, 24px);font-weight:800;letter-spacing:-0.2px;line-height:1.1;white-space:nowrap;">
           <span style="color:#fff;">초당제약</span><span style="
             background:linear-gradient(90deg,#7DD3FC,#38BDF8);
@@ -972,7 +972,7 @@ button:active { transform:scale(0.96); }
           ">영업관리</span>
         </div>
       </div>
-    <div class="chips" style="margin-top:0;gap:5px;padding-bottom:0;overflow-x:auto;scrollbar-width:none;flex-shrink:1;min-width:0;">
+    <div class="chips" style="margin-top:0;gap:5px;padding-bottom:0;overflow-x:auto;scrollbar-width:none;flex-shrink:1;min-width:0;max-width:60vw;">
       <div class="chip bl" onclick="showChipList('all')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:13px;">30</span>담당병원</div>
       <div class="chip or" onclick="showChipList('total')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:13px;">61</span>월총방문</div>
       <div class="chip gr" onclick="showDoneList()" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:14px;" id="stat-done">0</span>완료</div>
