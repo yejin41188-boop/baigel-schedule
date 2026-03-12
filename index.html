@@ -951,14 +951,14 @@ button:active { transform:scale(0.96); }
 
 /* 달력 월 전환 애니메이션 */
 #calPane { will-change: transform; }
-.cal-slide-out-left  { animation: slideOutLeft  0.18s cubic-bezier(0.4,0,0.2,1) forwards; }
-.cal-slide-out-right { animation: slideOutRight 0.18s cubic-bezier(0.4,0,0.2,1) forwards; }
-.cal-slide-in-left   { animation: slideInLeft   0.18s cubic-bezier(0.4,0,0.2,1) forwards; }
-.cal-slide-in-right  { animation: slideInRight  0.18s cubic-bezier(0.4,0,0.2,1) forwards; }
-@keyframes slideOutLeft  { from{transform:translateX(0);opacity:1} to{transform:translateX(-24px);opacity:0} }
-@keyframes slideOutRight { from{transform:translateX(0);opacity:1} to{transform:translateX(24px);opacity:0} }
-@keyframes slideInLeft   { from{transform:translateX(24px);opacity:0} to{transform:translateX(0);opacity:1} }
-@keyframes slideInRight  { from{transform:translateX(-24px);opacity:0} to{transform:translateX(0);opacity:1} }
+.cal-slide-out-left  { animation: slideOutLeft  0.12s ease-out forwards; }
+.cal-slide-out-right { animation: slideOutRight 0.12s ease-out forwards; }
+.cal-slide-in-left   { animation: slideInLeft   0.12s ease-out forwards; }
+.cal-slide-in-right  { animation: slideInRight  0.12s ease-out forwards; }
+@keyframes slideOutLeft  { from{transform:translateX(0);opacity:1} to{transform:translateX(-12px);opacity:0} }
+@keyframes slideOutRight { from{transform:translateX(0);opacity:1} to{transform:translateX(12px);opacity:0} }
+@keyframes slideInLeft   { from{transform:translateX(12px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes slideInRight  { from{transform:translateX(-12px);opacity:0} to{transform:translateX(0);opacity:1} }
 </style>
 </head>
 <body>
@@ -3532,8 +3532,8 @@ function stepMonth(dir){
       pane.classList.remove(outCls);
       _doStepMonth(dir);
       pane.classList.add(inCls);
-      setTimeout(function(){ pane.classList.remove(inCls); }, 200);
-    }, 160);
+      setTimeout(function(){ pane.classList.remove(inCls); }, 130);
+    }, 100);
     return;
   }
   _doStepMonth(dir);
