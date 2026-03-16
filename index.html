@@ -134,11 +134,11 @@
   --shadow-hdr:  none;
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:17px; }
-.app { display:flex; flex-direction:column; height:100vh; height:100dvh; }
+html,body { height:100%; overflow:hidden; background:linear-gradient(135deg,#e0e7ff 0%,#f0f9ff 50%,#ecfdf5 100%); color:var(--t1); font-family:'Noto Sans KR',sans-serif; font-size:17px; }
+.app { display:flex; flex-direction:column; height:100vh; height:100dvh; max-width:600px; margin:0 auto; box-shadow:0 0 60px rgba(0,0,0,0.12); }
 
 /* HEADER */
-.hdr { background:#FFFFFF; border-bottom:1px solid #E5E7EB; position:relative; padding:12px 20px; flex-shrink:0; box-shadow:none; transform:translateZ(0); }
+.hdr { background:rgba(255,255,255,0.82); border-bottom:1px solid rgba(229,231,235,0.6); position:sticky; top:0; z-index:300; padding:12px 20px; flex-shrink:0; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); transform:translateZ(0); }
 .hdr-row { display:flex; align-items:center; justify-content:space-between; gap:clamp(4px,2vw,10px); flex-wrap:nowrap; overflow:hidden; min-width:0; height:100%; }
 
 .hdr-title { font-size:var(--font-title); font-weight:700; color:#fff; letter-spacing:0.2px; line-height:1.2; }
@@ -460,7 +460,7 @@ button:active { transform:scale(0.96); }
 .ml-text { font-size:12px; color:var(--t2); }
 
 /* TAB BAR */
-.tabbar { display:flex; background:#ffffff; border-top:1px solid var(--color-border); flex-shrink:0; box-shadow:none; position:relative; z-index:200; transform:translateZ(0); }
+.tabbar { display:flex; background:rgba(255,255,255,0.88); border-top:1px solid rgba(229,231,235,0.5); flex-shrink:0; position:sticky; bottom:0; z-index:300; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); transform:translateZ(0); }
 .tbtn { flex:1; background:none; border:none; color:#6B7280; padding:9px 4px 7px;
   cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px;
   font-family:'Noto Sans KR',sans-serif; transition:color 0.15s; }
@@ -883,85 +883,196 @@ button:active { transform:scale(0.96); }
 /* ── 캘린더 그리드 내 색상 override (JS inline style 대응) ── */
 
 /* ── 캘린더 그리드 다크 카드 (일정 탭) ── */
+
+/* ════ 캘린더 HD 리디자인 ════ */
 .cal-grid-wrap {
-  margin: var(--sp-sm) var(--sp-md) var(--sp-xs);
-  background: var(--color-surface);
-  border-radius: var(--r-xl);
-  padding: 20px;
-  border: 1px solid #E3ECF4;
+  margin: 8px 14px 6px;
+  background: transparent;
+  border-radius: 0;
   box-shadow: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: geometricPrecision;
 }
 .cal-grid-wrap > div {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 2px;
 }
-/* 요일 헤더 */
 .cal-grid-wrap .cal-dow-hdr {
   text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: #6B7C8F;
-  padding: 0 0 var(--sp-sm);
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  padding: 4px 0 6px;
+  letter-spacing: 0.03em;
 }
-.cal-grid-wrap .cal-dow-hdr.wknd { color: var(--color-danger); opacity: 0.55; }
-/* 활성 셀 */
-.cal-grid-wrap .cal-cell-on {
-  text-align: center; padding: 6px 4px;
-  border-radius: var(--r-md);
-  cursor: pointer; user-select: none;
-  background: var(--calendar-cell-bg);
-  border: 1px solid #C9D6E4;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: background 0.15s ease, transform 0.1s;
-}
-.cal-grid-wrap .cal-cell-on:hover  { background: var(--calendar-hover-bg); }
-.cal-cell-on:active { transform: scale(0.9); }
-.cal-grid-wrap .cal-cell-on.sel {
-  background: var(--color-primary);
-  border: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
-.cal-grid-wrap .cal-cell-on .cn { font-size:17px; font-weight:700; color:var(--color-text-primary); line-height:1.1; }
-.cal-grid-wrap .cal-cell-on.sel .cn { color:#ffffff; font-weight:700; font-size:17px; }
-.cal-grid-wrap .cal-cell-on .cc { font-size:10px; font-weight:500; color:#9CA3AF; margin-top:3px; }
-.cal-grid-wrap .cal-cell-on.sel .cc { color:rgba(255,255,255,0.9); font-size:var(--font-caption); }
-/* 비활성 셀 */
+.cal-grid-wrap .cal-dow-hdr.wknd { color: #f87171; }
+
+/* 공통 셀 */
+.cal-grid-wrap .cal-cell-on,
 .cal-grid-wrap .cal-cell-off {
-  text-align: center; padding: 6px 4px;
-  border-radius: var(--r-md);
-  opacity: 1;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
-.cal-grid-wrap .cal-cell-off .cn { font-size:13px; font-weight:400; color:var(--color-text-muted); line-height:1.1; }
-.cal-grid-wrap .cal-cell-off.wknd .cn { color:#dc2626; opacity:0.5; }
-.cal-grid-wrap .cal-cell-off .cd { font-size:9px; color:#111827; margin-top:1px; opacity:0.6; }
-/* week-tabs 배경 투명화 */
-#panel-sch .week-tabs {
-  background: var(--color-bg) !important;
-  border-bottom: 1px solid var(--color-border) !important;
-  padding: var(--sp-sm) 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 2px 4px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  min-height: 44px;
+  position: relative;
 }
 
-/* 달력 월 전환 애니메이션 */
-#calPane { will-change: transform; }
-.cal-slide-out-left  { animation: slideOutLeft  0.12s ease-out forwards; }
-.cal-slide-out-right { animation: slideOutRight 0.12s ease-out forwards; }
-.cal-slide-in-left   { animation: slideInLeft   0.12s ease-out forwards; }
-.cal-slide-in-right  { animation: slideInRight  0.12s ease-out forwards; }
-@keyframes slideOutLeft  { from{transform:translateX(0);opacity:1} to{transform:translateX(-12px);opacity:0} }
-@keyframes slideOutRight { from{transform:translateX(0);opacity:1} to{transform:translateX(12px);opacity:0} }
-@keyframes slideInLeft   { from{transform:translateX(12px);opacity:0} to{transform:translateX(0);opacity:1} }
-@keyframes slideInRight  { from{transform:translateX(-12px);opacity:0} to{transform:translateX(0);opacity:1} }
+/* 일정 없는 날 */
+.cal-grid-wrap .cal-cell-off .cn {
+  font-size: 14px; font-weight: 400;
+  color: #cbd5e1; line-height: 1;
+}
+.cal-grid-wrap .cal-cell-off.wknd .cn { color: #fca5a5; }
+.cal-grid-wrap .cal-cell-off .cd { display: none; }
+
+/* 일정 있는 날 */
+.cal-grid-wrap .cal-cell-on { cursor: pointer; }
+.cal-grid-wrap .cal-cell-on:active { transform: scale(0.88); }
+.cal-grid-wrap .cal-cell-on .cn {
+  font-size: 15px; font-weight: 700;
+  color: #1e293b; line-height: 1;
+}
+/* n곳 텍스트 제거 */
+.cal-grid-wrap .cal-cell-on .cc { display: none !important; }
+
+/* 도트 */
+.cal-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* 선택된 날 */
+.cal-grid-wrap .cal-cell-on.sel .cn {
+  color: #fff !important;
+  font-weight: 800;
+}
+.cal-grid-wrap .cal-cell-on.sel {
+  background: var(--color-primary, #2F6FE4) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 3px 10px rgba(47,111,228,0.35);
+}
+.cal-grid-wrap .cal-cell-on.sel .cal-dot { background: rgba(255,255,255,0.8) !important; }
+
+/* 오늘 날짜 */
+/* .cal-cell-today .cn-wrap { DISABLED 
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB, #60a5fa);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.4);
+} */
+.cal-cell-today .cn {
+  color: #fff !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+}
+
+/* 완료/부분완료 - 배경 제거, 도트만 */
+.cal-cell-on.cal-done { background: transparent !important; border: none !important; box-shadow: none !important; }
+.cal-cell-on.cal-done .cn { color: #15803d !important; font-weight: 800; }
+.cal-cell-on.cal-partial { background: transparent !important; border: none !important; box-shadow: none !important; }
+.cal-cell-on.cal-partial .cn { color: #92400e !important; }
+
+
+
+/* bounce 애니메이션 */
+@keyframes tabBounce {
+  0%   { transform: scale(1) translateY(0); }
+  30%  { transform: scale(0.82) translateY(3px); }
+  60%  { transform: scale(1.18) translateY(-5px); }
+  80%  { transform: scale(0.95) translateY(1px); }
+  100% { transform: scale(1) translateY(0); }
+}
+.tbtn { position: relative; }
+.tbtn.bouncing svg { animation: tabBounce 0.32s cubic-bezier(0.36,0.07,0.19,0.97) both; }
+.tbtn.active svg { filter: drop-shadow(0 0 5px rgba(47,111,228,0.5)); }
+.tbtn.active span { color: var(--color-primary, #2F6FE4) !important; font-weight: 700; }
+.tbtn.active::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 3px;
+  background: linear-gradient(90deg, #2F6FE4, #60a5fa);
+  border-radius: 0 0 3px 3px;
+}
+
+/* Ripple - 탭바 버튼 한정 */
+.tbtn { overflow: hidden; }
+.ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(47,111,228,0.18);
+  transform: scale(0); animation: rippleAnim 0.45s ease-out;
+  pointer-events: none;
+}
+@keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+
+/* ── 오늘 날짜 원형 배경 (cal-today 클래스 기반) ── */
+.cal-cell-on.cal-today {
+  position: relative;
+}
+.cal-cell-on.cal-today .cn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB 0%, #60a5fa 100%);
+  color: #fff !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.38);
+  line-height: 1;
+}
+.cal-cell-on.cal-today.sel .cn {
+  background: rgba(255,255,255,0.25) !important;
+  box-shadow: none;
+}
+.cal-cell-on.cal-today .cal-dot {
+  margin-top: 3px;
+}
+
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+<!-- ── 로그인 화면 ── -->
+<div id="loginScreen" style="display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1e3a8a 0%,#2563EB 50%,#60a5fa 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
+  <div style="width:100%;max-width:380px;background:#fff;border-radius:20px;padding:32px 24px;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="font-size:36px;margin-bottom:8px;">💊</div>
+      <div style="font-size:20px;font-weight:800;color:#1e293b;">바이겔 영업관리</div>
+      <div style="font-size:13px;color:#94a3b8;margin-top:4px;">로그인하여 시작하세요</div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <label style="font-size:12px;font-weight:600;color:#64748b;display:block;margin-bottom:6px;">이메일</label>
+      <input id="loginEmail" type="email" placeholder="email@example.com"
+        style="width:100%;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:15px;outline:none;box-sizing:border-box;"
+        onfocus="this.style.borderColor='#2563EB'" onblur="this.style.borderColor='#e2e8f0'">
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="font-size:12px;font-weight:600;color:#64748b;display:block;margin-bottom:6px;">비밀번호</label>
+      <input id="loginPw" type="password" placeholder="비밀번호 입력"
+        style="width:100%;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:15px;outline:none;box-sizing:border-box;"
+        onfocus="this.style.borderColor='#2563EB'" onblur="this.style.borderColor='#e2e8f0'"
+        onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+    <button onclick="doLogin()" id="loginBtn"
+      style="width:100%;padding:14px;background:linear-gradient(135deg,#2563EB,#60a5fa);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;letter-spacing:0.5px;">
+      로그인
+    </button>
+    <div id="loginError" style="margin-top:12px;text-align:center;font-size:13px;color:#ef4444;display:none;"></div>
+  </div>
+</div>
+
 <div id="splash">
   <div class="sp-icon"><img src="data:image/png;base64,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" alt="초당약품" style="width:110px;height:110px;border-radius:24px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.25);display:block;"></div>
   <div class="sp-dots"><span></span><span></span><span></span></div>
@@ -987,6 +1098,10 @@ button:active { transform:scale(0.96); }
       <div class="chip gr" onclick="showDoneList()" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:14px;" id="stat-done">0</span>완료</div>
       <div class="chip pu" onclick="showChipList('remain')" style="cursor:pointer;padding:4px 8px;"><span class="n" style="font-size:14px;" id="stat-remain">61</span>잔여</div>
     </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:8px;">
+    <span id="headerUserName" style="font-size:11px;color:#64748b;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+    <button onclick="doLogout()" style="font-size:11px;padding:4px 10px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;color:#64748b;cursor:pointer;white-space:nowrap;">로그아웃</button>
   </div>
 </div>
 
@@ -1055,38 +1170,94 @@ button:active { transform:scale(0.96); }
 <!-- TAB BAR -->
 <div class="tabbar">
   <button class="tbtn active" onclick="switchTab('sch',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1a" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#2563EB"/>
+        </linearGradient>
+      </defs>
+      <path d="M3 10L12 3L21 10V20C21 20.55 20.55 21 20 21H4C3.45 21 3 20.55 3 20V10Z" fill="url(#g1a)" opacity="0.18"/>
+      <path d="M3 10L12 3L21 10V20C21 20.55 20.55 21 20 21H4C3.45 21 3 20.55 3 20V10Z" stroke="url(#g1a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="7" y="10" width="10" height="8" rx="1.5" stroke="url(#g1a)" stroke-width="1.5"/>
+      <path d="M10 13.5L11.5 15L14.5 11.5" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <span>일정</span>
   </button>
   <button class="tbtn" onclick="switchTab('record',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-      <polyline points="9 12 11 14 15 10"/>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g2a" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#94a3b8"/>
+          <stop offset="100%" stop-color="#475569"/>
+        </linearGradient>
+      </defs>
+      <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="url(#g2a)" opacity="0.15"/>
+      <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="url(#g2a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 2V8H20" stroke="url(#g2a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="12" cy="14" r="3.5" stroke="url(#g2a)" stroke-width="1.5"/>
+      <path d="M12 12.5V14L13 15" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
     <span>방문기록</span>
   </button>
   <button class="tbtn" onclick="switchTab('actstats',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-      <circle cx="18" cy="7" r="2" fill="currentColor" stroke="none"/>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g3a" x1="0" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#34d399"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+        <linearGradient id="g3b" x1="0" y1="0" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#2563EB"/>
+          <stop offset="100%" stop-color="#7c3aed"/>
+        </linearGradient>
+      </defs>
+      <rect x="3" y="13" width="4" height="8" rx="1" fill="url(#g3a)" opacity="0.25"/>
+      <rect x="10" y="8" width="4" height="13" rx="1" fill="url(#g3a)" opacity="0.4"/>
+      <rect x="17" y="3" width="4" height="18" rx="1" fill="url(#g3a)" opacity="0.6"/>
+      <rect x="3" y="13" width="4" height="8" rx="1" stroke="url(#g3a)" stroke-width="1.8"/>
+      <rect x="10" y="8" width="4" height="13" rx="1" stroke="url(#g3a)" stroke-width="1.8"/>
+      <rect x="17" y="3" width="4" height="18" rx="1" stroke="url(#g3a)" stroke-width="1.8"/>
+      <path d="M3 17L8 12L13 15L21 6" stroke="url(#g3b)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <span>활동·통계</span>
   </button>
   <button class="tbtn" onclick="switchTab('aichat',this)">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g4a" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#818cf8"/>
+          <stop offset="100%" stop-color="#4f46e5"/>
+        </linearGradient>
+      </defs>
+      <path d="M21 11.5C21 16.2 16.97 20 12 20C10.52 20 9.12 19.66 7.9 19.06L3 21L4.5 16.5C3.56 15.13 3 13.52 3 11.5C3 6.81 7.03 3 12 3C16.97 3 21 6.81 21 11.5Z" fill="url(#g4a)" opacity="0.18"/>
+      <path d="M21 11.5C21 16.2 16.97 20 12 20C10.52 20 9.12 19.66 7.9 19.06L3 21L4.5 16.5C3.56 15.13 3 13.52 3 11.5C3 6.81 7.03 3 12 3C16.97 3 21 6.81 21 11.5Z" stroke="url(#g4a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 8L12.6 10.4L15 11L12.6 11.6L12 14L11.4 11.6L9 11L11.4 10.4L12 8Z" fill="#4f46e5"/>
     </svg>
     <span>AI채팅</span>
   </button>
-  <button class="tbtn" onclick="openDataManager()">
-    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-      <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+  <button class="tbtn" onclick="this.classList.add('bouncing');setTimeout(()=>this.classList.remove('bouncing'),350);openDataManager()">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g5a" x1="3" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#fb923c"/>
+          <stop offset="100%" stop-color="#ea580c"/>
+        </linearGradient>
+        <linearGradient id="g5b" x1="10" y1="12" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#2563EB"/>
+          <stop offset="100%" stop-color="#1d4ed8"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="12" cy="5" rx="9" ry="3" fill="url(#g5a)" opacity="0.2"/>
+      <path d="M21 5V19C21 20.66 16.97 22 12 22C7.03 22 3 20.66 3 19V5" fill="url(#g5a)" opacity="0.1"/>
+      <ellipse cx="12" cy="5" rx="9" ry="3" stroke="url(#g5a)" stroke-width="2"/>
+      <path d="M21 5V19C21 20.66 16.97 22 12 22C7.03 22 3 20.66 3 19V5" stroke="url(#g5a)" stroke-width="2"/>
+      <path d="M3 12C3 13.66 7.03 15 12 15" stroke="url(#g5a)" stroke-width="1.8"/>
+      <circle cx="16" cy="16" r="3.5" stroke="url(#g5b)" stroke-width="1.8"/>
+      <path d="M18.5 18.5L21 21" stroke="url(#g5b)" stroke-width="1.8" stroke-linecap="round"/>
     </svg>
     <span>자료관리</span>
   </button>
-
 </div>
 
 </div>
@@ -1371,6 +1542,85 @@ button:active { transform:scale(0.96); }
 </div>
 
 <script>
+// ── Supabase Auth 초기화 ──
+const _sb = supabase.createClient('https://tsshgvrfcdcsvekvpfys.supabase.co', 'sb_publishable_u1oGDZqGdJNfvylqql_RSw_rFz0syH8');
+let currentUser = null;
+let currentUserRole = 'staff';
+
+async function initAuth(){
+  // 로그인 상태 확인
+  const { data: { session } } = await _sb.auth.getSession();
+  if(session){
+    currentUser = session.user;
+    await loadUserProfile();
+    hideLoginScreen();
+  } else {
+    showLoginScreen();
+  }
+
+  // 로그인 상태 변경 감지
+  _sb.auth.onAuthStateChange(async (event, session) => {
+    if(session){
+      currentUser = session.user;
+      await loadUserProfile();
+      hideLoginScreen();
+    } else {
+      currentUser = null;
+      showLoginScreen();
+    }
+  });
+}
+
+async function loadUserProfile(){
+  try{
+    const { data } = await _sb.from('profiles').select('*').eq('id', currentUser.id).single();
+    if(data){
+      currentUserRole = data.role;
+      currentUserName = data.name;
+      var hn = document.getElementById('headerUserName');
+      if(hn) hn.textContent = data.name;
+    }
+  } catch(e){}
+}
+
+function showLoginScreen(){
+  var s = document.getElementById('loginScreen');
+  if(s) s.style.display='flex';
+}
+
+function hideLoginScreen(){
+  var s = document.getElementById('loginScreen');
+  if(s) s.style.display='none';
+}
+
+async function doLogin(){
+  var email = document.getElementById('loginEmail').value.trim();
+  var pw = document.getElementById('loginPw').value;
+  var btn = document.getElementById('loginBtn');
+  var err = document.getElementById('loginError');
+  
+  if(!email || !pw){ err.textContent='이메일과 비밀번호를 입력하세요.'; err.style.display='block'; return; }
+  
+  btn.textContent = '로그인 중...';
+  btn.disabled = true;
+  err.style.display='none';
+  
+  const { error } = await _sb.auth.signInWithPassword({ email, password: pw });
+  
+  if(error){
+    err.textContent = '이메일 또는 비밀번호가 틀렸습니다.';
+    err.style.display='block';
+    btn.textContent = '로그인';
+    btn.disabled = false;
+  }
+}
+
+async function doLogout(){
+  await _sb.auth.signOut();
+}
+
+let currentUserName = '';
+
 // ── DATA ──
 const HOME={lat:37.5498,lng:126.6823,name:'집'};
 const H={
@@ -1681,6 +1931,7 @@ let schCalMode = '3';
 let schCalCustomData = null;
 
 function renderSchCal(m, activeKeys, selectedKey) {
+  var _td=new Date(); var todayStr=(_td.getMonth()+1)+'/'+_td.getDate();
   const wt = document.getElementById('weekTabs');
   const ds = document.getElementById('dateStrip');
   if (!wt) return;
@@ -1696,7 +1947,11 @@ function renderSchCal(m, activeKeys, selectedKey) {
     activeKeys.forEach(function(k){
       const day=SCH[k]; if(!day) return;
       const visits=(day.visits||[]).filter(v=>v.name);
-      dayInfoMap[k]={count:visits.length,dots:visits.slice(0,4).map(function(v){
+      var allChecked=visits.length>0&&visits.every(function(v){ return visitRecords[k]&&visitRecords[k].checks&&visitRecords[k].checks[v.name]; });
+      var anyChecked=visits.some(function(v){ return visitRecords[k]&&visitRecords[k].checks&&visitRecords[k].checks[v.name]; });
+      var dotColor=allChecked?'#22c55e':anyChecked?'#f59e0b':null;
+      dayInfoMap[k]={count:visits.length,done:allChecked,partial:anyChecked,dots:visits.slice(0,4).map(function(v){
+        if(dotColor) return dotColor;
         const type=QUOTA_TOTAL[v.name]>=4?'weekly':QUOTA_TOTAL[v.name]>=2?'biweekly':'monthly';
         return (v.univ||(H[v.name]&&H[v.name].univ))?'#f97316':(type==='weekly'?'#049cb7':type==='biweekly'?'#7c3aed':'#0f9b5a');
       })};
@@ -1718,7 +1973,10 @@ function renderSchCal(m, activeKeys, selectedKey) {
     const dw=new Date(year,m-1,d).getDay(), isWknd=dw===0||dw===6, has=activeSet.has(d), isSel=d===selDay, key=m+'/'+d;
     const info=dayInfoMap[key];
     if(has && info){
-      html+='<div onclick="schCalClick(\''+key+'\')" class="cal-cell-on'+(isSel?' sel':'')+'"><div class="cn">'+d+'</div><div class="cc">'+info.count+'곳</div></div>';
+      var dotColor=info.done?'#22c55e':info.partial?'#f59e0b':'#93c5fd';
+      var isToday=(key===todayStr);
+      var todayCls=isToday?' cal-today':'';
+      html+='<div data-key="'+key+'" class="cal-cell-on'+todayCls+(isSel?' sel':'')+'"><div class="cn">'+d+'</div><div class="cal-dot" style="background:'+dotColor+';"></div></div>';
     } else {
       html+='<div class="cal-cell-off'+(isWknd?' wknd':'')+'"><div class="cn">'+d+'</div><div class="cd">'+dowKr[dw]+'</div></div>';
     }
@@ -1728,6 +1986,14 @@ function renderSchCal(m, activeKeys, selectedKey) {
   wt.style.overflowX='unset'; wt.style.display='block';
   wt.innerHTML=html;
   if(prevH) wt.style.height=prevH; // 드래그 높이 복원
+  // 클릭 이벤트 위임
+  if(!wt._calClickBound){
+    wt._calClickBound=true;
+    wt.addEventListener('click',function(e){
+      var cell=e.target.closest('[data-key]');
+      if(cell) schCalClick(cell.dataset.key);
+    });
+  }
 }
 
 function schCalClick(key) {
@@ -1881,9 +2147,7 @@ function buildDayHtml(dk, dow, hours, visits, cumCount, m, isCustom){
   html += '<button class="edit-btn-sm" id="inlineEditBtn" onclick="' + editFn + '">' + (schEditMode ? '✓완료' : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> 편집') + '</button>';
   html += '</div></div>';
 
-  var vrKey = isCustom ? ('visitRecords_' + m) : 'visitRecords';
-  var vr = {};
-  try { var vrRaw = localStorage.getItem(vrKey); if(vrRaw) vr = JSON.parse(vrRaw); } catch(e) {}
+  var vr = isCustom ? {} : visitRecords;
 
   var order = 0;
   visits.forEach(function(v){
@@ -1896,8 +2160,7 @@ function buildDayHtml(dk, dow, hours, visits, cumCount, m, isCustom){
     var nth = cumCount[v.name] || order;
     var isDone = nth >= quota;
     var addrShort = h.addr ? h.addr.replace('경기 ','').replace('서울 ','') : '';
-    var ckKey = dk + '__' + v.name;
-    var isChecked = vr[ckKey] && vr[ckKey].checked;
+    var isChecked = vr[dk] && vr[dk].checks && vr[dk].checks[v.name];
     var checkClass = isChecked ? 'visited' : '';
 
     html += '<div class="vcard ' + typeClass + ' ' + checkClass + '">';
@@ -1912,7 +2175,8 @@ function buildDayHtml(dk, dow, hours, visits, cumCount, m, isCustom){
       html += '<button class="se-move-btn" onclick="' + mFn1 + '">▲</button>';
       html += '<button class="se-move-btn" onclick="' + mFn2 + '">▼</button>';
     } else {
-      html += '<span class="vcard-seq">' + order + '</span>';
+      var seqColor=typeClass==='weekly'?'#049cb7':typeClass==='biweekly'?'#7c3aed':typeClass==='univ'?'#f97316':'#0f9b5a';
+      html += '<span class="vcard-seq" style="background:'+seqColor+';">' + order + '</span>';
     }
     html += '<span class="vcard-name" onclick="openHospDetail(' + Q + v.name + Q + ')">' + v.name + '</span>';
     if(isUniv) html += '<span class="badge badge-univ">대</span>';
@@ -2137,7 +2401,21 @@ function renderRecordContent(){
     var today = new Date();
     var todayKey = (today.getMonth()+1)+'/'+(today.getDate());
     var todayCard = scrollEl.querySelector('[data-dk="'+todayKey+'"]');
-    if(todayCard){ setTimeout(function(){ todayCard.scrollIntoView({behavior:'smooth',block:'start'}); }, 80); }
+    // 오늘 없으면 가장 가까운 다음 날짜 카드로
+    if(!todayCard){
+      var allCards = scrollEl.querySelectorAll('[data-dk]');
+      for(var i=0;i<allCards.length;i++){
+        var dk = allCards[i].dataset.dk;
+        var parts = dk.split('/');
+        var cardDate = new Date(2026, parseInt(parts[0])-1, parseInt(parts[1]));
+        if(cardDate >= today){ todayCard = allCards[i]; break; }
+      }
+      // 없으면 마지막 카드
+      if(!todayCard && allCards.length) todayCard = allCards[allCards.length-1];
+    }
+    if(todayCard){ setTimeout(function(){
+      scrollEl.scrollTop = todayCard.offsetTop - 8;
+    }, 80); }
   })();
 
   allDates.forEach(dk => {
@@ -3208,6 +3486,7 @@ function autoSelectToday(){
 }
 
 function switchTab(name,btn){
+  if(btn){ btn.classList.add('bouncing'); setTimeout(()=>btn.classList.remove('bouncing'),350); }
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));
   const el=document.getElementById('panel-'+name);
@@ -3215,12 +3494,14 @@ function switchTab(name,btn){
   if(btn) btn.classList.add('active');
   var mb=document.getElementById('monthBar');
   if(mb) mb.style.display=(name==='record'||name==='sch')?'flex':'none';
-  if(name==='sch') autoSelectToday();
-  if(name==='record') renderRecordPanel();
-  if(name==='actstats') renderActStats();
-  if(name==='aichat'){ initChatPanel(); dismissToast(); if(document.getElementById('panel-aichat')) document.getElementById('panel-aichat').style.bottom='56px'; }
-  if(name==='client' && !clMapInited) clInitMap();
-  if(name==='map') initVworldMap();
+  setTimeout(function(){
+    if(name==='sch') autoSelectToday();
+    if(name==='record') renderRecordPanel();
+    if(name==='actstats') renderActStats();
+    if(name==='aichat'){ initChatPanel(); dismissToast(); if(document.getElementById('panel-aichat')) document.getElementById('panel-aichat').style.bottom='56px'; }
+    if(name==='client' && !clMapInited) clInitMap();
+    if(name==='map') initVworldMap();
+  }, 0);
 }
 
 // ── 거래처 지도 ──
@@ -3244,8 +3525,8 @@ function initVworldMap(){
     vwMapInited = true;
     renderMapHospList();
   } catch(e) {
-    document.getElementById('vworld-map-container').innerHTML =
-      '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--t3);font-size:15px;padding:20px;">지도 로드 실패 — 인터넷 연결을 확인해주세요</div>';
+    var mc=document.getElementById('vworld-map-container');
+    if(mc) mc.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--t3);font-size:15px;padding:20px;">지도 로드 실패 — 인터넷 연결을 확인해주세요</div>';
   }
 }
 
@@ -3856,7 +4137,21 @@ function renderRecordPanelCustom(panel, m, dates, tab){
     var today=new Date();
     var todayKey=(today.getMonth()+1)+'/'+(today.getDate());
     var todayCard=panel.querySelector('[data-dk="'+todayKey+'"]');
-    if(todayCard){ setTimeout(function(){ todayCard.scrollIntoView({behavior:'smooth',block:'start'}); }, 80); }
+    // 오늘 없으면 가장 가까운 다음 날짜 카드로
+    if(!todayCard){
+      var allCards = scrollEl.querySelectorAll('[data-dk]');
+      for(var i=0;i<allCards.length;i++){
+        var dk = allCards[i].dataset.dk;
+        var parts = dk.split('/');
+        var cardDate = new Date(2026, parseInt(parts[0])-1, parseInt(parts[1]));
+        if(cardDate >= today){ todayCard = allCards[i]; break; }
+      }
+      // 없으면 마지막 카드
+      if(!todayCard && allCards.length) todayCard = allCards[allCards.length-1];
+    }
+    if(todayCard){ setTimeout(function(){
+      scrollEl.scrollTop = todayCard.offsetTop - 8;
+    }, 80); }
   })();
 }
 
@@ -4948,7 +5243,6 @@ function highlightHospInEditor(name){
   });
 }
 
-function editorDeleteDate(btn){ editorDeleteDateByKey(btn.dataset.key); }
 function editorDeleteDateByKey(key){
   const m = currentEditMonth;
   editorData[m].dates = editorData[m].dates.filter(function(d){return d.key!==key;});
@@ -5147,15 +5441,6 @@ function renderEditorDayDetail(key){
   scroll.innerHTML = html;
 }
 
-function editorDeleteDateByKey(key){
-  var m = currentEditMonth;
-  if(!confirm(key+' 날짜를 삭제할까요?')) return;
-  editorData[m].dates = editorData[m].dates.filter(function(d){return d.key!==key;});
-  editorSelectedDate = null;
-  renderEditorCalendar();
-  document.getElementById('editorScroll').innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3);font-size:15px;">날짜를 선택하세요</div>';
-  renderEditorQuotaBar(editorData[m].dates);
-}
 
 function editorDelHospBtnAndRefresh(btn){
   editorDelHospBtn(btn);
@@ -5178,43 +5463,52 @@ function openNewHospPanel(){
 var hospInfoDB = {};
 
 function loadHospInfo(){
-  try { hospInfoDB = JSON.parse(localStorage.getItem('hospInfoDB')||'{}'); } catch(e){ hospInfoDB={}; }
+  try { hospInfoDB = JSON.parse(localStorage.getItem('hospInfoDB_v2')||'{}'); } catch(e){ hospInfoDB={}; }
   // 전체 병원 초기 실적 데이터 (없을 때만)
   var _initData = {
-    '365웰정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'4',amt:'22'},1:{qty:'21',amt:'117'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '검단더굿정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'9',amt:'50'},9:{qty:'123',amt:'684'},10:{qty:'102',amt:'567'},11:{qty:'64',amt:'356'},12:{qty:'72',amt:'400'},1:{qty:'93',amt:'517'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '고려재활의학과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'82',amt:'456'},10:{qty:'54',amt:'300'},11:{qty:'70',amt:'389'},12:{qty:'70',amt:'389'},1:{qty:'106',amt:'589'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '광명성애병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'127',amt:'706'},9:{qty:'164',amt:'911'},10:{qty:'160',amt:'889'},11:{qty:'139',amt:'772'},12:{qty:'164',amt:'911'},1:{qty:'119',amt:'661'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '김포서울리더스정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'10',amt:'56'},9:{qty:'14',amt:'78'},10:{qty:'21',amt:'117'},11:{qty:'27',amt:'150'},12:{qty:'20',amt:'111'},1:{qty:'19',amt:'106'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '다선의원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'16',amt:'89'},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'6',amt:'33'},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '문산서울정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'42',amt:'233'},9:{qty:'41',amt:'228'},10:{qty:'36',amt:'200'},11:{qty:'37',amt:'206'},12:{qty:'40',amt:'222'},1:{qty:'40',amt:'222'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '박병섭내과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'15',amt:'83'},9:{qty:'16',amt:'89'},10:{qty:'17',amt:'94'},11:{qty:'10',amt:'56'},12:{qty:'8',amt:'44'},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '백석정형외과의원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'86',amt:'478'},9:{qty:'198',amt:'1100'},10:{qty:'257',amt:'1428'},11:{qty:'253',amt:'1406'},12:{qty:'200',amt:'1111'},1:{qty:'191',amt:'1061'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '성모365달려라정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'5',amt:'28'},11:{qty:'13',amt:'72'},12:{qty:'15',amt:'83'},1:{qty:'6',amt:'33'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '성모날개정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'21',amt:'117'},12:{qty:'45',amt:'250'},1:{qty:'29',amt:'161'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '성모튼튼365정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'9',amt:'50'},12:{qty:'13',amt:'72'},1:{qty:'10',amt:'56'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '수원덕산병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'16',amt:'89'},1:{qty:'88',amt:'489'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '수원백병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'5',amt:'28'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'300',amt:'168'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '수원의료원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'5',amt:'28'},11:{qty:'1',amt:'6'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '시화병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'758',amt:'4214'},9:{qty:'736',amt:'4091'},10:{qty:'584',amt:'3250'},11:{qty:'537',amt:'2989'},12:{qty:'748',amt:'4160'},1:{qty:'697',amt:'3873'}},pita2:{8:{qty:'35313',amt:'19776'},9:{qty:'37376',amt:'20931'},10:{qty:'33326',amt:'18663'},11:{qty:'35681',amt:'19982'},12:{qty:'38824',amt:'21741'},1:{qty:'28759',amt:'16105'}},pita4:{8:{qty:'6115',amt:'5143'},9:{qty:'5455',amt:'4588'},10:{qty:'6927',amt:'5826'},11:{qty:'5782',amt:'4863'},12:{qty:'6886',amt:'5792'},1:{qty:'5055',amt:'4251'}}},
-    '연세드림재활의학과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'497',amt:'2762'},9:{qty:'430',amt:'2390'},10:{qty:'398',amt:'2212'},11:{qty:'401',amt:'2228'},12:{qty:'412',amt:'2289'},1:{qty:'415',amt:'2305'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '연세삼육오매일의원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'11',amt:'61'},9:{qty:'3',amt:'17'},10:{qty:'3',amt:'17'},11:{qty:'1',amt:'6'},12:{qty:'7',amt:'39'},1:{qty:'12',amt:'67'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '연세이음정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'30',amt:'167'},9:{qty:'53',amt:'295'},10:{qty:'53',amt:'295'},11:{qty:'38',amt:'211'},12:{qty:'26',amt:'144'},1:{qty:'20',amt:'111'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '원광대산본병원': {type:'대학병원',dept:'정형외과',doctor:'',tel:'',addr:'경기도 군포시 산본로 321',memo:'',recent:'',photo:'',sales:{8:{qty:'37',amt:'206'},9:{qty:'76',amt:'422'},10:{qty:'75',amt:'417'},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'10061',amt:'5634'},9:{qty:'5123',amt:'2869'},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'389',amt:'327'},9:{qty:'2274',amt:'1912'},10:{qty:'1839',amt:'1547'},11:{qty:'1110',amt:'934'},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '이정혁마취통증의학과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'16',amt:'89'},9:{qty:'12',amt:'67'},10:{qty:'19',amt:'106'},11:{qty:'18',amt:'100'},12:{qty:'21',amt:'117'},1:{qty:'20',amt:'111'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '잠실믿음정형외과': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'2',amt:'11'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '제이에스병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'293',amt:'1628'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '중앙대광명병원': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'884',amt:'4912'},9:{qty:'1217',amt:'6763'},10:{qty:'749',amt:'4162'},11:{qty:'823',amt:'4573'},12:{qty:'1036',amt:'5757'},1:{qty:'915',amt:'5083'}},pita2:{8:{qty:'147',amt:'82'},9:{qty:'',amt:''},10:{qty:'3629',amt:'2032'},11:{qty:'3225',amt:'1806'},12:{qty:'3616',amt:'2025'},1:{qty:'3355',amt:'1879'}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
-    '중앙대병원(서울)': {type:'',dept:'',doctor:'',tel:'',addr:'',memo:'',recent:'',photo:'',sales:{8:{qty:'282',amt:'1567'},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'336',amt:'1867'},12:{qty:'246',amt:'1367'},1:{qty:'214',amt:'1189'}},pita2:{8:{qty:'9308',amt:'5212'},9:{qty:'9523',amt:'5333'},10:{qty:'8674',amt:'4857'},11:{qty:'7871',amt:'4408'},12:{qty:'9115',amt:'5104'},1:{qty:'8027',amt:'4495'}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}}
+    '365웰정형외과': {type:'',dept:'',doctor:'',tel:'02-6285-0365',addr:'서울 송파구 송파대로 367',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'4',amt:'22'},1:{qty:'21',amt:'117'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '검단더굿정형외과': {type:'',dept:'',doctor:'',tel:'032-563-0005',addr:'인천 서구 원당대로 653',memo:'',recent:'',photo:'',sales:{8:{qty:'9',amt:'50'},9:{qty:'123',amt:'684'},10:{qty:'102',amt:'567'},11:{qty:'64',amt:'356'},12:{qty:'72',amt:'400'},1:{qty:'93',amt:'517'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '고려재활의학과': {type:'',dept:'',doctor:'',tel:'032-563-7501',addr:'인천 서구 원당대로 853',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'82',amt:'456'},10:{qty:'54',amt:'300'},11:{qty:'70',amt:'389'},12:{qty:'70',amt:'389'},1:{qty:'106',amt:'589'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '광명성애병원': {type:'',dept:'',doctor:'',tel:'02-2680-7114',addr:'경기 광명시 디지털로 36',memo:'',recent:'',photo:'',sales:{8:{qty:'127',amt:'706'},9:{qty:'164',amt:'911'},10:{qty:'160',amt:'889'},11:{qty:'139',amt:'772'},12:{qty:'164',amt:'911'},1:{qty:'119',amt:'661'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '김포서울리더스정형외과': {type:'',dept:'',doctor:'',tel:'031-984-7533',addr:'경기 김포시 김포한강1로 240',memo:'',recent:'',photo:'',sales:{8:{qty:'10',amt:'56'},9:{qty:'14',amt:'78'},10:{qty:'21',amt:'117'},11:{qty:'27',amt:'150'},12:{qty:'20',amt:'111'},1:{qty:'19',amt:'106'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '다선의원': {type:'',dept:'',doctor:'',tel:'031-269-7582',addr:'경기 수원시 장안구 정자천로 171',memo:'',recent:'',photo:'',sales:{8:{qty:'16',amt:'89'},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'6',amt:'33'},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '문산서울정형외과': {type:'',dept:'',doctor:'',tel:'031-952-3200',addr:'경기 파주시 문산읍 문산역로 94',memo:'',recent:'',photo:'',sales:{8:{qty:'42',amt:'233'},9:{qty:'41',amt:'228'},10:{qty:'36',amt:'200'},11:{qty:'37',amt:'206'},12:{qty:'40',amt:'222'},1:{qty:'40',amt:'222'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '박병섭내과': {type:'',dept:'',doctor:'',tel:'02-353-8328',addr:'서울 은평구 서오릉로 145',memo:'',recent:'',photo:'',sales:{8:{qty:'15',amt:'83'},9:{qty:'16',amt:'89'},10:{qty:'17',amt:'94'},11:{qty:'10',amt:'56'},12:{qty:'8',amt:'44'},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '백석정형외과의원': {type:'',dept:'',doctor:'',tel:'031-904-7582',addr:'경기 고양시 일산동구 강송로 74',memo:'',recent:'',photo:'',sales:{8:{qty:'86',amt:'478'},9:{qty:'198',amt:'1100'},10:{qty:'257',amt:'1428'},11:{qty:'253',amt:'1406'},12:{qty:'200',amt:'1111'},1:{qty:'191',amt:'1061'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '성모365달려라정형외과': {type:'',dept:'',doctor:'',tel:'031-241-1190',addr:'경기 수원시 팔달구 정조로 619',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'5',amt:'28'},11:{qty:'13',amt:'72'},12:{qty:'15',amt:'83'},1:{qty:'6',amt:'33'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '성모날개정형외과': {type:'',dept:'',doctor:'',tel:'031-311-3033',addr:'경기 시흥시 은계번영길 9',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'21',amt:'117'},12:{qty:'45',amt:'250'},1:{qty:'29',amt:'161'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '성모튼튼365정형외과': {type:'',dept:'',doctor:'',tel:'02-381-8275',addr:'경기 고양시 덕양구 권율대로 886',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'9',amt:'50'},12:{qty:'13',amt:'72'},1:{qty:'10',amt:'56'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '수원덕산병원': {type:'',dept:'',doctor:'',tel:'031-229-8000',addr:'경기 수원시 권선구 권선로 439',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'16',amt:'89'},1:{qty:'88',amt:'489'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '수원백병원': {type:'',dept:'',doctor:'',tel:'031-233-1123',addr:'경기 수원시 팔달구 효원로 297',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'5',amt:'28'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'300',amt:'168'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '수원의료원': {type:'',dept:'',doctor:'',tel:'031-888-0114',addr:'경기 수원시 장안구 수성로 245',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'5',amt:'28'},11:{qty:'1',amt:'6'},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '시화병원': {type:'',dept:'',doctor:'',tel:'1811-7000',addr:'경기 시흥시 군자천로 381',memo:'',recent:'',photo:'',sales:{8:{qty:'758',amt:'4214'},9:{qty:'736',amt:'4091'},10:{qty:'584',amt:'3250'},11:{qty:'537',amt:'2989'},12:{qty:'748',amt:'4160'},1:{qty:'697',amt:'3873'}},pita2:{8:{qty:'35313',amt:'19776'},9:{qty:'37376',amt:'20931'},10:{qty:'33326',amt:'18663'},11:{qty:'35681',amt:'19982'},12:{qty:'38824',amt:'21741'},1:{qty:'28759',amt:'16105'}},pita4:{8:{qty:'6115',amt:'5143'},9:{qty:'5455',amt:'4588'},10:{qty:'6927',amt:'5826'},11:{qty:'5782',amt:'4863'},12:{qty:'6886',amt:'5792'},1:{qty:'5055',amt:'4251'}}},
+    '연세드림재활의학과': {type:'',dept:'',doctor:'',tel:'031-969-7588',addr:'경기 고양시 일산동구 위시티로 24',memo:'',recent:'',photo:'',sales:{8:{qty:'497',amt:'2762'},9:{qty:'430',amt:'2390'},10:{qty:'398',amt:'2212'},11:{qty:'401',amt:'2228'},12:{qty:'412',amt:'2289'},1:{qty:'415',amt:'2305'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '연세삼육오매일의원': {type:'',dept:'',doctor:'',tel:'031-977-1365',addr:'경기 고양시 일산동구 고봉로 770',memo:'',recent:'',photo:'',sales:{8:{qty:'11',amt:'61'},9:{qty:'3',amt:'17'},10:{qty:'3',amt:'17'},11:{qty:'1',amt:'6'},12:{qty:'7',amt:'39'},1:{qty:'12',amt:'67'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '연세이음정형외과': {type:'',dept:'',doctor:'',tel:'031-970-1365',addr:'경기 고양시 덕양구 화신로 267',memo:'',recent:'',photo:'',sales:{8:{qty:'30',amt:'167'},9:{qty:'53',amt:'295'},10:{qty:'53',amt:'295'},11:{qty:'38',amt:'211'},12:{qty:'26',amt:'144'},1:{qty:'20',amt:'111'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '원광대산본병원': {type:'대학병원',dept:'정형외과',doctor:'',tel:'031-390-2211',addr:'경기도 군포시 산본로 321',memo:'',recent:'',photo:'',sales:{8:{qty:'37',amt:'206'},9:{qty:'76',amt:'422'},10:{qty:'75',amt:'417'},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita2:{8:{qty:'10061',amt:'5634'},9:{qty:'5123',amt:'2869'},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'389',amt:'327'},9:{qty:'2274',amt:'1912'},10:{qty:'1839',amt:'1547'},11:{qty:'1110',amt:'934'},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '이정혁마취통증의학과': {type:'',dept:'',doctor:'',tel:'02-3158-6330',addr:'경기 고양시 덕양구 충경로 38',memo:'',recent:'',photo:'',sales:{8:{qty:'16',amt:'89'},9:{qty:'12',amt:'67'},10:{qty:'19',amt:'106'},11:{qty:'18',amt:'100'},12:{qty:'21',amt:'117'},1:{qty:'20',amt:'111'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '잠실믿음정형외과': {type:'',dept:'',doctor:'',tel:'02-416-0119',addr:'서울 송파구 올림픽로 114',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'2',amt:'11'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '제이에스병원': {type:'',dept:'',doctor:'',tel:'031-235-1191',addr:'경기 수원시 권선구 경수대로 394',memo:'',recent:'',photo:'',sales:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'293',amt:'1628'}},pita2:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '중앙대광명병원': {type:'',dept:'',doctor:'',tel:'1811-7800',addr:'경기 광명시 덕안로 110',memo:'',recent:'',photo:'',sales:{8:{qty:'884',amt:'4912'},9:{qty:'1217',amt:'6763'},10:{qty:'749',amt:'4162'},11:{qty:'823',amt:'4573'},12:{qty:'1036',amt:'5757'},1:{qty:'915',amt:'5083'}},pita2:{8:{qty:'147',amt:'82'},9:{qty:'',amt:''},10:{qty:'3629',amt:'2032'},11:{qty:'3225',amt:'1806'},12:{qty:'3616',amt:'2025'},1:{qty:'3355',amt:'1879'}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '중앙대병원(서울)': {type:'',dept:'',doctor:'',tel:'1800-1114',addr:'서울 동작구 흑석로 102',memo:'',recent:'',photo:'',sales:{8:{qty:'282',amt:'1567'},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'336',amt:'1867'},12:{qty:'246',amt:'1367'},1:{qty:'214',amt:'1189'}},pita2:{8:{qty:'9308',amt:'5212'},9:{qty:'9523',amt:'5333'},10:{qty:'8674',amt:'4857'},11:{qty:'7871',amt:'4408'},12:{qty:'9115',amt:'5104'},1:{qty:'8027',amt:'4495'}},pita4:{8:{qty:'',amt:''},9:{qty:'',amt:''},10:{qty:'',amt:''},11:{qty:'',amt:''},12:{qty:'',amt:''},1:{qty:'',amt:''}}},
+    '새움병원': {type:'',dept:'',doctor:'',tel:'1577-7015',addr:'서울 금천구 시흥대로139길 8',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}},
+    '가톨릭성빈센트병원': {type:'',dept:'',doctor:'',tel:'1577-8588',addr:'경기 수원시 팔달구 중부대로 93',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}},
+    '인천성모병원': {type:'',dept:'',doctor:'',tel:'1544-9004',addr:'인천 부평구 동수로 56',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}},
+    '여의도성모병원': {type:'',dept:'',doctor:'',tel:'1661-7500',addr:'서울 영등포구 63로 10',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}},
+    '화홍병원': {type:'',dept:'',doctor:'',tel:'1833-2255',addr:'경기 수원시 권선구 호매실로 211',memo:'',recent:'',photo:'',sales:{},pita2:{},pita4:{}},
   };
   Object.keys(_initData).forEach(function(h){
     if(!hospInfoDB[h]){ hospInfoDB[h] = _initData[h]; }
+    else {
+      if(_initData[h].tel) hospInfoDB[h].tel = _initData[h].tel;
+      if(_initData[h].addr) hospInfoDB[h].addr = _initData[h].addr;
+    }
   });
   saveHospInfoDB();
 }
 
 function saveHospInfoDB(){
-  try { localStorage.setItem('hospInfoDB', JSON.stringify(hospInfoDB)); sbSet('hospInfoDB', hospInfoDB); } catch(e){}
+  try { localStorage.setItem('hospInfoDB_v2', JSON.stringify(hospInfoDB)); sbSet('hospInfoDB', hospInfoDB); } catch(e){}
 }
 
 function openHospDetail(name){
@@ -5510,8 +5804,8 @@ var chatHistory = [];
 var chatApiKey = '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';
 
 function initChatPanel(){
-  document.getElementById('apiKeyArea').style.display = 'none';
-  document.getElementById('chatStatusLabel').textContent = '실적·일정 데이터 연동됨';
+  var a=document.getElementById('apiKeyArea'); if(a) a.style.display='none';
+  var s=document.getElementById('chatStatusLabel'); if(s) s.textContent='실적·일정 데이터 연동됨';
 }
 
 function saveApiKey(){
@@ -6018,6 +6312,7 @@ function exportPdfReport(){
 ;
 
   var w = window.open('','_blank');
+  if(!w){ alert('팝업이 차단되었습니다. 팝업 허용 후 다시 시도하세요.'); return; }
   w.document.write(html);
   w.document.close();
   setTimeout(function(){ w.print(); }, 500);
@@ -6388,6 +6683,7 @@ function toggleEditorCal(){
 }
 
 document.addEventListener('DOMContentLoaded', function(){
+  initAuth();
 // ── CANVAS ICON (HiDPI) ──
   (function drawSplashIcon(){
     const canvas = document.getElementById('splash-icon-canvas');
@@ -6597,6 +6893,22 @@ if ('serviceWorker' in navigator && location.hostname === 'yejin41188-boop.githu
     stepMonth(dx < 0 ? 1 : -1);
   }, {passive:true});
 })();
+</script>
+<script>
+// Ripple - 탭바 버튼 전용
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.tbtn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      var r = document.createElement('span');
+      r.className = 'ripple';
+      var rect = btn.getBoundingClientRect();
+      var size = Math.max(rect.width, rect.height);
+      r.style.cssText = 'width:'+size+'px;height:'+size+'px;left:'+(e.clientX-rect.left-size/2)+'px;top:'+(e.clientY-rect.top-size/2)+'px;';
+      btn.appendChild(r);
+      setTimeout(function(){ r.remove(); }, 450);
+    });
+  });
+});
 </script>
 </body>
 </html>
