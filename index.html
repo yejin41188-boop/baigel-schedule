@@ -1807,6 +1807,11 @@ function renderSchCal(m, activeKeys, selectedKey) {
     const dw=new Date(year,m-1,d).getDay(), isWknd=dw===0||dw===6, has=activeSet.has(d), isSel=d===selDay, key=m+'/'+d;
     const info=dayInfoMap[key];
     if(has && info){
+      var allChecked=info.visits&&info.visits.every(function(v){return visitRecords[key]&&visitRecords[key].checks&&visitRecords[key].checks[v.name];});
+      var anyChecked=info.visits&&info.visits.some(function(v){return visitRecords[key]&&visitRecords[key].checks&&visitRecords[key].checks[v.name];});
+      var dotColor=allChecked?'#22c55e':anyChecked?'#f59e0b':'#93c5fd';
+      var isToday=(key===todayStr);
+      var todayCls=isToday?' cal-today':'';
       html+='<div onclick="schCalClick(\''+key+'\')" class="cal-cell-on'+(isSel?' sel':'')+'"><div class="cn">'+d+'</div><div class="cc">'+info.count+'곳</div></div>';
     } else {
       html+='<div class="cal-cell-off'+(isWknd?' wknd':'')+'"><div class="cn">'+d+'</div><div class="cd">'+dowKr[dw]+'</div></div>';
