@@ -1769,6 +1769,7 @@ let schCalMode = '3';
 let schCalCustomData = null;
 
 function renderSchCal(m, activeKeys, selectedKey) {
+  var _td=new Date(); var todayStr=(_td.getMonth()+1)+'/'+_td.getDate();
   const wt = document.getElementById('weekTabs');
   const ds = document.getElementById('dateStrip');
   if (!wt) return;
