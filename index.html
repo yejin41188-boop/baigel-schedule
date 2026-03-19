@@ -2074,7 +2074,10 @@ function renderRecordPanel(){
   // ── 스크롤 영역 ──
   var scrollEl = document.createElement('div');
   scrollEl.id = 'recScrollArea';
-  scrollEl.style.cssText = 'flex:1;overflow-y:auto;overscroll-behavior:contain;padding:20px 14px 80px;margin-top:10px;';
+  scrollEl.style.cssText = 'flex:1;overflow-y:auto;overscroll-behavior:contain;padding:0 14px 80px;';
+  var spacer = document.createElement('div');
+  spacer.style.height = '20px';
+  scrollEl.appendChild(spacer);
   panel.appendChild(scrollEl);
 
   window._recTab = 'all';
