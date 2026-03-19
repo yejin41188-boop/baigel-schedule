@@ -223,7 +223,7 @@ button:active { transform:scale(0.96); }
 .dcard.active .dot { background:rgba(255,255,255,0.7) !important; }
 
 /* SCHEDULE SCROLL */
-.sch-scroll { flex:1; overflow-y:auto; padding:16px var(--sp-md) 80px; background:var(--color-bg); overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.sch-scroll { flex:1; overflow-y:auto; padding:2px var(--sp-md) 80px; background:var(--color-bg); overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
 .sch-scroll::-webkit-scrollbar { width:4px; }
 .sch-scroll::-webkit-scrollbar-track { background:transparent; }
 .sch-scroll::-webkit-scrollbar-thumb { background:var(--bd2); border-radius:4px; }
@@ -1609,7 +1609,7 @@ let leafMap=null, mapLayers=[];
 function initMap(){
   if(leafMap) return;
   leafMap=L.map('mapModal',{zoomControl:false,attributionControl:false}).setView([37.48,126.89],10);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{maxZoom:17}).addTo(leafMap);
+  L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png',{maxZoom:17}).addTo(leafMap);
   L.control.zoom({position:'bottomright'}).addTo(leafMap);
   const hi=L.divIcon({html:'<div style="background:#fff;border:2px solid #049cb7;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#049cb7;font-weight:900;">H</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
   L.marker([HOME.lat,HOME.lng],{icon:hi}).addTo(leafMap).bindTooltip('🏠 집');
@@ -2167,14 +2167,14 @@ function renderRecordContent(){
   });
 
   if(!hasAny) html = '<div style="text-align:center;padding:50px 20px;color:var(--t3);font-size:15px;">기록이 없습니다</div>';
-  scrollEl.innerHTML = '<div style="height:20px;"></div>' + html;
+  scrollEl.innerHTML = '<div style="height:10px;"></div>' + html;
 
   // 오늘 날짜 카드로 자동 스크롤
   (function(){
     var today = new Date();
     var todayKey = (today.getMonth()+1)+'/'+(today.getDate());
     var todayCard = scrollEl.querySelector('[data-dk="'+todayKey+'"]');
-    if(todayCard){ scrollEl.scrollTop = todayCard.offsetTop - scrollEl.offsetTop - 20; }
+    if(todayCard){ scrollEl.scrollTop = todayCard.offsetTop - scrollEl.offsetTop - 10; }
   })();
 
   allDates.forEach(dk => {
@@ -3422,7 +3422,7 @@ let clMarkers = [];
 function clInitMap(){
   clMapInited = true;
   clMap = L.map('clMapWrap').setView([37.5665, 126.9784], 12);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+  L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap',maxZoom:19
   }).addTo(clMap);
   document.getElementById('clSearchInput').addEventListener('keydown', e=>{
@@ -4660,7 +4660,7 @@ function openCoordPicker(){
   setTimeout(function(){
     if(!coordPickerMap){
       coordPickerMap = L.map('coordPickerMap',{zoomControl:true,attributionControl:false}).setView([37.5498,126.6823],12);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(coordPickerMap);
+      L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png',{maxZoom:19}).addTo(coordPickerMap);
       coordPickerMap.on('click', function(e){
         coordPickedLatLng = e.latlng;
         if(coordPickerMarker) coordPickerMap.removeLayer(coordPickerMarker);
