@@ -2174,7 +2174,7 @@ function renderRecordContent(){
     var today = new Date();
     var todayKey = (today.getMonth()+1)+'/'+(today.getDate());
     var todayCard = scrollEl.querySelector('[data-dk="'+todayKey+'"]');
-    if(todayCard){ scrollEl.scrollTop = todayCard.offsetTop - 20; }
+    if(todayCard){ scrollEl.scrollTop = todayCard.offsetTop - scrollEl.offsetTop - 20; }
   })();
 
   allDates.forEach(dk => {
@@ -3646,6 +3646,7 @@ function switchHospTab(tab){
 
 function renderAddHospForm(body){
   body.innerHTML = '';
+  window._newHospCoord = null;
   var wrap = document.createElement('div');
   wrap.style.cssText = 'padding:8px 4px;';
 
@@ -3658,12 +3659,35 @@ function renderAddHospForm(body){
   nameInput.placeholder = '병원명 입력';
   nameInput.style.cssText = 'width:100%;padding:10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;box-sizing:border-box;margin-bottom:12px;';
 
+  // 주소 검색
+  var addrLabel = document.createElement('label');
+  addrLabel.style.cssText = 'font-size:12px;font-weight:700;color:#64748b;display:block;margin-bottom:4px;';
+  addrLabel.textContent = '주소 검색';
+  var addrRow = document.createElement('div');
+  addrRow.style.cssText = 'display:flex;gap:6px;margin-bottom:4px;';
+  var addrInput = document.createElement('input');
+  addrInput.id = 'newHospAddr';
+  addrInput.placeholder = '병원명 또는 주소 입력';
+  addrInput.style.cssText = 'flex:1;padding:10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;';
+  var addrBtn = document.createElement('button');
+  addrBtn.textContent = '검색';
+  addrBtn.style.cssText = 'padding:10px 14px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;';
+  addrBtn.onclick = searchNewHospAddr;
+  addrRow.appendChild(addrInput);
+  addrRow.appendChild(addrBtn);
+  var addrResults = document.createElement('div');
+  addrResults.id = 'newHospResults';
+  addrResults.style.cssText = 'display:none;border:1.5px solid #2563EB;border-radius:8px;max-height:150px;overflow-y:auto;margin-bottom:12px;background:#fff;';
+  var addrPicked = document.createElement('div');
+  addrPicked.id = 'newHospPicked';
+  addrPicked.style.cssText = 'font-size:12px;color:#2563EB;margin-bottom:12px;display:none;';
+
   // 방문횟수
   var qLabel = document.createElement('label');
   qLabel.style.cssText = 'font-size:12px;font-weight:700;color:#64748b;display:block;margin-bottom:4px;';
   qLabel.textContent = '월 방문횟수';
   var qRow = document.createElement('div');
-  qRow.style.cssText = 'display:flex;gap:8px;margin-bottom:12px;';
+  qRow.style.cssText = 'display:flex;gap:8px;margin-bottom:16px;';
   [[4,'4회(주1)'],[2,'2회(격주)'],[1,'1회(월1)']].forEach(function(pair){
     var btn = document.createElement('button');
     btn.id = 'nq'+pair[0];
@@ -3671,19 +3695,6 @@ function renderAddHospForm(body){
     btn.style.cssText = 'flex:1;padding:10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;background:#f8fafc;';
     btn.onclick = function(){ setNewQuota(pair[0]); };
     qRow.appendChild(btn);
-  });
-
-  // 지역
-  var rLabel = document.createElement('label');
-  rLabel.style.cssText = 'font-size:12px;font-weight:700;color:#64748b;display:block;margin-bottom:4px;';
-  rLabel.textContent = '지역';
-  var rSel = document.createElement('select');
-  rSel.id = 'newHospRegion';
-  rSel.style.cssText = 'width:100%;padding:10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;margin-bottom:16px;';
-  [['서울 금천구','서울'],['인천 부평구','인천'],['경기 광명','경기 광명/시흥'],['경기 수원 팔달','경기 수원/군포'],['경기 고양 덕양','경기 고양'],['경기 김포','경기 기타']].forEach(function(pair){
-    var opt = document.createElement('option');
-    opt.value = pair[0]; opt.textContent = pair[1];
-    rSel.appendChild(opt);
   });
 
   // 추가 버튼
@@ -3694,10 +3705,12 @@ function renderAddHospForm(body){
 
   wrap.appendChild(nameLabel);
   wrap.appendChild(nameInput);
+  wrap.appendChild(addrLabel);
+  wrap.appendChild(addrRow);
+  wrap.appendChild(addrResults);
+  wrap.appendChild(addrPicked);
   wrap.appendChild(qLabel);
   wrap.appendChild(qRow);
-  wrap.appendChild(rLabel);
-  wrap.appendChild(rSel);
   wrap.appendChild(addBtn);
   body.appendChild(wrap);
 
@@ -3709,18 +3722,83 @@ function setNewQuota(n){
   window._newHospQuota = n;
   [1,2,4].forEach(function(v){
     var btn = document.getElementById('nq'+v);
-    if(btn){ btn.style.background = v===n?'#2563EB':'#f8fafc'; btn.style.color = v===n?'#fff':'#1e293b'; btn.style.border = v===n?'1.5px solid #2563EB':'1.5px solid #e2e8f0'; }
+    if(btn){
+      btn.style.background = v===n?'#2563EB':'#f8fafc';
+      btn.style.color = v===n?'#fff':'#1e293b';
+      btn.style.border = v===n?'1.5px solid #2563EB':'1.5px solid #e2e8f0';
+    }
   });
 }
 
+function searchNewHospAddr(){
+  var q = (document.getElementById('newHospAddr').value||'').trim();
+  if(!q) return;
+  var results = document.getElementById('newHospResults');
+  results.style.display='block';
+  results.innerHTML='<div style="padding:8px;color:#64748b;font-size:13px;">검색 중...</div>';
+
+  var cbName = 'newHospCb_'+Date.now();
+  var timeout = setTimeout(function(){
+    delete window[cbName];
+    var s = document.getElementById('newHospScript');
+    if(s) s.remove();
+    results.innerHTML='<div style="padding:8px;color:#dc2626;font-size:13px;">검색 오류</div>';
+  }, 8000);
+
+  window[cbName] = function(data){
+    clearTimeout(timeout);
+    delete window[cbName];
+    var s = document.getElementById('newHospScript');
+    if(s) s.remove();
+    var items = (data&&data.response&&data.response.result&&data.response.result.items)||[];
+    if(!items.length){
+      results.innerHTML='<div style="padding:8px;color:#64748b;font-size:13px;">결과 없음</div>';
+      return;
+    }
+    results.innerHTML='';
+    items.forEach(function(item){
+      var name2 = item.title||'';
+      var addr = (item.address&&(item.address.road||item.address.parcel))||'';
+      var lat = parseFloat(item.point&&item.point.y?item.point.y:0);
+      var lng = parseFloat(item.point&&item.point.x?item.point.x:0);
+      if(!lat||!lng) return;
+      var row = document.createElement('div');
+      row.style.cssText = 'padding:10px;border-bottom:1px solid #e2e8f0;cursor:pointer;font-size:13px;color:#1e293b;';
+      row.innerHTML = '<b>'+name2+'</b>'+(addr?'<br><span style="color:#64748b;font-size:12px;">'+addr+'</span>':'');
+      row.onclick = function(){
+        window._newHospCoord = {lat:lat, lng:lng, addr:addr};
+        document.getElementById('newHospPicked').style.display='block';
+        document.getElementById('newHospPicked').textContent='📍 '+name2+' '+addr;
+        results.style.display='none';
+      };
+      results.appendChild(row);
+    });
+  };
+
+  var script = document.createElement('script');
+  script.id = 'newHospScript';
+  script.src = 'https://api.vworld.kr/req/search?service=search&request=search&version=2.0&crs=EPSG:4326&size=7&page=1'
+    +'&query='+encodeURIComponent(q)
+    +'&type=place&format=json&errorformat=json'
+    +'&callback='+cbName+'&key='+VW_KEY;
+  script.onerror = function(){
+    clearTimeout(timeout);
+    delete window[cbName];
+    results.innerHTML='<div style="padding:8px;color:#dc2626;font-size:13px;">검색 오류</div>';
+  };
+  document.head.appendChild(script);
+}
+
+
 function addNewHosp(){
   var name = (document.getElementById('newHospName').value||'').trim();
-  var region = document.getElementById('newHospRegion').value;
   var quota = window._newHospQuota||1;
+  var coord = window._newHospCoord;
   if(!name){ document.getElementById('newHospName').style.border='1.5px solid #dc2626'; return; }
   if(QUOTA_TOTAL[name]){ alert('이미 등록된 병원이에요.'); return; }
   QUOTA_TOTAL[name] = quota;
-  H[name] = {lat:0, lng:0, addr:region, type:quota>=4?'weekly':quota>=2?'biweekly':'monthly'};
+  var addrStr = coord ? coord.addr.split(',').slice(0,3).join(',') : '';
+  H[name] = {lat:coord?coord.lat:0, lng:coord?coord.lng:0, addr:addrStr, type:quota>=4?'weekly':quota>=2?'biweekly':'monthly'};
   try{
     var saved = JSON.parse(localStorage.getItem('quotaOverride')||'{}');
     saved[name] = quota;
@@ -3905,8 +3983,7 @@ function showChipList(type){
       tabBar.appendChild(addBtn2);
       body.parentNode.insertBefore(tabBar, body);
     } else {
-      switchHospTab('list');
-      return;
+      // 탭은 유지, body만 다시 렌더링
     }
 
     // 지역 그룹 정의
