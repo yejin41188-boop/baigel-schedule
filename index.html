@@ -2075,9 +2075,6 @@ function renderRecordPanel(){
   var scrollEl = document.createElement('div');
   scrollEl.id = 'recScrollArea';
   scrollEl.style.cssText = 'flex:1;overflow-y:auto;overscroll-behavior:contain;padding:0 14px 80px;';
-  var spacer = document.createElement('div');
-  spacer.style.height = '20px';
-  scrollEl.appendChild(spacer);
   panel.appendChild(scrollEl);
 
   window._recTab = 'all';
@@ -2170,7 +2167,7 @@ function renderRecordContent(){
   });
 
   if(!hasAny) html = '<div style="text-align:center;padding:50px 20px;color:var(--t3);font-size:15px;">기록이 없습니다</div>';
-  scrollEl.innerHTML = html;
+  scrollEl.innerHTML = '<div style="height:20px;"></div>' + html;
 
   // 오늘 날짜 카드로 자동 스크롤
   (function(){
