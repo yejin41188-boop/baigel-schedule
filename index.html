@@ -2174,7 +2174,7 @@ function renderRecordContent(){
     var today = new Date();
     var todayKey = (today.getMonth()+1)+'/'+(today.getDate());
     var todayCard = scrollEl.querySelector('[data-dk="'+todayKey+'"]');
-    if(todayCard){ todayCard.scrollIntoView({behavior:'auto',block:'start'}); }
+    if(todayCard){ scrollEl.scrollTop = todayCard.offsetTop - 20; }
   })();
 
   allDates.forEach(dk => {
