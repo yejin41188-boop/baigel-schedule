@@ -1609,7 +1609,7 @@ let leafMap=null, mapLayers=[];
 function initMap(){
   if(leafMap) return;
   leafMap=L.map('mapModal',{zoomControl:false,attributionControl:false}).setView([37.48,126.89],10);
-  L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png',{maxZoom:17}).addTo(leafMap);
+  L.tileLayer('https://api.vworld.kr/req/wmts/1.0.0/C1D8B5E0-C152-39D2-9563-B321FB1CD9AC/Base/{z}/{y}/{x}.png',{maxZoom:17}).addTo(leafMap);
   L.control.zoom({position:'bottomright'}).addTo(leafMap);
   const hi=L.divIcon({html:'<div style="background:#fff;border:2px solid #049cb7;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#049cb7;font-weight:900;">H</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
   L.marker([HOME.lat,HOME.lng],{icon:hi}).addTo(leafMap).bindTooltip('🏠 집');
@@ -3422,7 +3422,7 @@ let clMarkers = [];
 function clInitMap(){
   clMapInited = true;
   clMap = L.map('clMapWrap').setView([37.5665, 126.9784], 12);
-  L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png',{
+  L.tileLayer('https://api.vworld.kr/req/wmts/1.0.0/C1D8B5E0-C152-39D2-9563-B321FB1CD9AC/Base/{z}/{y}/{x}.png',{
     attribution:'© OpenStreetMap',maxZoom:19
   }).addTo(clMap);
   document.getElementById('clSearchInput').addEventListener('keydown', e=>{
@@ -4660,7 +4660,7 @@ function openCoordPicker(){
   setTimeout(function(){
     if(!coordPickerMap){
       coordPickerMap = L.map('coordPickerMap',{zoomControl:true,attributionControl:false}).setView([37.5498,126.6823],12);
-      L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png',{maxZoom:19}).addTo(coordPickerMap);
+      L.tileLayer('https://api.vworld.kr/req/wmts/1.0.0/C1D8B5E0-C152-39D2-9563-B321FB1CD9AC/Base/{z}/{y}/{x}.png',{maxZoom:19}).addTo(coordPickerMap);
       coordPickerMap.on('click', function(e){
         coordPickedLatLng = e.latlng;
         if(coordPickerMarker) coordPickerMap.removeLayer(coordPickerMarker);
