@@ -3998,9 +3998,14 @@ function showChipList(type){
 
     function getRegion(name){
       var addr=(H[name]&&H[name].addr)||'';
+      // 광역 키워드 먼저 체크
+      if(addr.includes('인천')) return '인천';
+      if(addr.includes('서울')) return '서울';
+      // 세부 경기 지역 체크
       for(var region in REGION_MAP){
         if(REGION_MAP[region].some(function(a){ return addr.includes(a.replace('경기 ','').replace('서울 ','').replace('인천 ','')); })) return region;
       }
+      if(addr.includes('경기')) return '경기 기타';
       return '기타';
     }
 
