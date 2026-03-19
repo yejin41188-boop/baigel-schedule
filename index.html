@@ -341,7 +341,7 @@ button:active { transform:scale(0.96); }
 #panel-record { overflow:hidden; padding:0; background:var(--bg); display:none; flex-direction:column; }
 #panel-record.active { display:flex; animation:panelIn 0.45s ease-out both; }
 #panel-actstats { background:var(--bg); display:none; flex-direction:column; overflow:hidden; }
-#panel-actstats.active { display:flex; animation:panelIn 0.45s ease-out both; }
+#panel-actstats.active { display:flex; }
 #panel-map { background:var(--bg); display:none; flex-direction:column; overflow:hidden; }
 #panel-map.active { display:flex; animation:panelIn 0.45s ease-out both; }
 .map-top-bar { background:var(--s1); border-bottom:1px solid var(--bd); padding:8px 10px; flex-shrink:0; }
@@ -3060,17 +3060,19 @@ function renderActStats(){
   const ringColor=pct>=80?'var(--green)':pct>=50?'var(--blue)':'var(--orange)';
   const totalActs=Object.values(actCount).reduce(function(a,b){return a+b;},0);
 
-  const wrap=document.createElement('div');
-  wrap.style.cssText='padding:16px 14px 80px;overflow-y:auto;flex:1;';
-
-  // ── 월 헤더 ──
+  // ── 월 헤더 (패널 상단 고정) ──
   const mHdr=document.createElement('div');
-  mHdr.style.cssText='display:flex;align-items:center;gap:10px;margin-bottom:14px;';
+  mHdr.style.cssText='display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 24px;border-bottom:1px solid #E5E7EB;flex-shrink:0;background:#F3F4F6;position:sticky;top:0;z-index:10;';
   const curM3 = parseInt(currentEditMonth||'3');
   mHdr.innerHTML='<button onclick="stepMonthActStats(-1)" style="border:none;background:var(--s2);border-radius:10px;width:32px;height:32px;font-size:16px;cursor:pointer;color:var(--neutral);font-weight:700;display:flex;align-items:center;justify-content:center;">◀</button>'
-    +'<span style="font-size:18px;font-weight:800;color:var(--neutral);flex:1;text-align:center;">2026년 '+(currentEditMonth||'3')+'월</span>'
+    +'<span style="font-size:17px;color:var(--t3);font-weight:800;">2026 ·</span><select id="actStatsMonthSelect" onchange="switchMonthActStats(this.value)" style="border:none;background:none;font-size:16px;font-weight:800;color:var(--blue);font-family:Noto Sans KR,sans-serif;cursor:pointer;padding:0 2px;appearance:none;-webkit-appearance:none;text-align:center;margin:0 4px;"><option value="3"'+(currentEditMonth==='3'?' selected':'')+'>3월</option><option value="4"'+(currentEditMonth==='4'?' selected':'')+'>4월</option><option value="5"'+(currentEditMonth==='5'?' selected':'')+'>5월</option><option value="6"'+(currentEditMonth==='6'?' selected':'')+'>6월</option><option value="7"'+(currentEditMonth==='7'?' selected':'')+'>7월</option><option value="8"'+(currentEditMonth==='8'?' selected':'')+'>8월</option><option value="9"'+(currentEditMonth==='9'?' selected':'')+'>9월</option><option value="10"'+(currentEditMonth==='10'?' selected':'')+'>10월</option><option value="11"'+(currentEditMonth==='11'?' selected':'')+'>11월</option><option value="12"'+(currentEditMonth==='12'?' selected':'')+'>12월</option></select>'
     +'<button onclick="stepMonthActStats(1)" style="border:none;background:var(--s2);border-radius:10px;width:32px;height:32px;font-size:16px;cursor:pointer;color:var(--neutral);font-weight:700;display:flex;align-items:center;justify-content:center;">▶</button>';
-  wrap.appendChild(mHdr);
+  panel.innerHTML='';
+  panel.style.cssText='display:flex;flex-direction:column;overflow-y:auto;';
+  panel.appendChild(mHdr);
+
+  const wrap=document.createElement('div');
+  wrap.style.cssText='padding:16px 14px 80px;overflow-y:auto;flex:1;';
 
   // ── 통계 섹션 ──
   const statsSection=document.createElement('div');
@@ -3193,7 +3195,6 @@ function renderActStats(){
     }
   }
 
-  panel.innerHTML='';
   panel.appendChild(wrap);
 }
 
@@ -3557,6 +3558,11 @@ function clCalcDist(){
 function switchMonthSelect(m){
   switchMonth(m, null);
 }
+function switchMonthActStats(val){
+  currentEditMonth = val;
+  renderActStats();
+}
+
 function stepMonthActStats(dir){
   var cur = parseInt(currentEditMonth || '3');
   var next = cur + dir;
