@@ -24,7 +24,7 @@
 <title>초당제약 이상윤과장 스케줄</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2e6737cfe98dd0a3793ff6d8bfd042ee&libraries=services"></script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2e6737cfe98dd0a3793ff6d8bfd042ee&libraries=services&autoload=false"></script>
 <script type="text/javascript" src="https://map.vworld.kr/js/vworldMapInit.js.do?version=2.0&apiKey=C1D8B5E0-C152-39D2-9563-B321FB1CD9AC"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -1605,58 +1605,97 @@ function calcQuota(upToDk){
   return result;
 }
 
-// ── MAP ──
+// ── MAP (카카오맵) ──
 let leafMap=null, mapLayers=[];
-function initMap(){
-  if(leafMap) return;
-  leafMap=L.map('mapModal',{zoomControl:false,attributionControl:false}).setView([37.48,126.89],10);
-  L.tileLayer('https://api.vworld.kr/req/wmts/1.0.0/C1D8B5E0-C152-39D2-9563-B321FB1CD9AC/Base/{z}/{y}/{x}.png',{maxZoom:17}).addTo(leafMap);
-  L.control.zoom({position:'bottomright'}).addTo(leafMap);
-  const hi=L.divIcon({html:'<div style="background:#fff;border:2px solid #049cb7;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#049cb7;font-weight:900;">H</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
-  L.marker([HOME.lat,HOME.lng],{icon:hi}).addTo(leafMap).bindTooltip('🏠 집');
+function initMap(callback){
+  if(leafMap){ if(callback) callback(); return; }
+  kakao.maps.load(function(){
+    var container = document.getElementById('mapModal');
+    leafMap = new kakao.maps.Map(container, {
+      center: new kakao.maps.LatLng(37.48, 126.89),
+      level: 9
+    });
+    var zoomControl = new kakao.maps.ZoomControl();
+    leafMap.addControl(zoomControl, kakao.maps.ControlPosition.BOTTOMRIGHT);
+    var homeOverlay = new kakao.maps.CustomOverlay({
+      position: new kakao.maps.LatLng(HOME.lat, HOME.lng),
+      content: '<div style="background:#fff;border:2px solid #049cb7;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#049cb7;font-weight:900;">H</div>',
+      yAnchor: 0.5
+    });
+    homeOverlay.setMap(leafMap);
+    mapLayers.push(homeOverlay);
+    if(callback) callback();
+  });
+}
+
+function clearMapLayers(){
+  mapLayers.forEach(function(l){ l.setMap(null); });
+  mapLayers = [];
 }
 
 function renderMap(dk){
-  initMap();
-  mapLayers.forEach(l=>leafMap.removeLayer(l)); mapLayers=[];
-  const day=SCH[dk]; if(!day) return;
-  const hvs=day.visits.filter(v=>v.name);
+  initMap(function(){
+  clearMapLayers();
+  var day=SCH[dk]; if(!day) return;
+  var hvs=day.visits.filter(function(v){return v.name;});
   if(!hvs.length) return;
-  const stops=[HOME,...hvs.map(v=>H[v.name]).filter(Boolean)];
-  const pts=stops.map(s=>[s.lat,s.lng]);
-  const glow=L.polyline(pts,{color:'#049cb7',weight:10,opacity:0.1}).addTo(leafMap);
-  const line=L.polyline(pts,{color:'#049cb7',weight:2.5,opacity:0.9,dashArray:'8 5'}).addTo(leafMap);
-  mapLayers.push(glow,line);
-  for(let i=0;i<stops.length-1;i++){
-    const mid=midpoint(stops[i],stops[i+1]);
-    const km=(haversine(stops[i],stops[i+1])*1.35).toFixed(1);
-    const di=L.divIcon({html:`<div class="dist-label-map">${km}km</div>`,className:'',iconSize:[60,20],iconAnchor:[30,10]});
-    mapLayers.push(L.marker([mid.lat,mid.lng],{icon:di,interactive:false}).addTo(leafMap));
-  }
-  hvs.forEach((v,i)=>{
-    const h=H[v.name]; if(!h) return;
-    const c=getColor(h.type,h.univ||v.univ);
-    const short=v.name.replace('정형외과의원','정형').replace('재활의학과의원','재활').replace('마취통증의학과','통증').replace('의원','').replace('정형외과','정형');
-    const icon=L.divIcon({
-      html:`<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-        <div style="background:${c};border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${i+1}</div>
-        <div style="background:rgba(255,255,255,0.95);border:1.5px solid ${c};border-radius:5px;padding:2px 7px;font-size:13px;font-weight:700;color:${c};white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">${short}</div>
-      </div>`,
-      className:'',iconSize:[110,50],iconAnchor:[55,14]
+  var stops=[HOME].concat(hvs.map(function(v){return H[v.name];}).filter(Boolean));
+
+  // 폴리라인
+  var path = stops.map(function(s){ return new kakao.maps.LatLng(s.lat, s.lng); });
+  var glow = new kakao.maps.Polyline({ path:path, strokeWeight:10, strokeColor:'#049cb7', strokeOpacity:0.1, strokeStyle:'solid' });
+  var line = new kakao.maps.Polyline({ path:path, strokeWeight:2.5, strokeColor:'#049cb7', strokeOpacity:0.9, strokeStyle:'shortdot' });
+  glow.setMap(leafMap); line.setMap(leafMap);
+  mapLayers.push(glow, line);
+
+  // 거리 라벨
+  for(var i=0;i<stops.length-1;i++){
+    var mid=midpoint(stops[i],stops[i+1]);
+    var km=(haversine(stops[i],stops[i+1])*1.35).toFixed(1);
+    var distOverlay = new kakao.maps.CustomOverlay({
+      position: new kakao.maps.LatLng(mid.lat, mid.lng),
+      content: '<div class="dist-label-map">'+km+'km</div>',
+      yAnchor: 0.5
     });
-    mapLayers.push(L.marker([h.lat,h.lng],{icon}).addTo(leafMap).bindTooltip(`<b>${i+1}. ${v.name}</b><br>${v.time||''}`));
+    distOverlay.setMap(leafMap);
+    mapLayers.push(distOverlay);
+  }
+
+  // 병원 마커
+  hvs.forEach(function(v,i){
+    var h=H[v.name]; if(!h) return;
+    var c=getColor(h.type,h.univ||v.univ);
+    var short=v.name.replace('정형외과의원','정형').replace('재활의학과의원','재활').replace('마취통증의학과','통증').replace('의원','').replace('정형외과','정형');
+    var markerEl = '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">'
+      +'<div style="background:'+c+';border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:DM Mono,monospace;font-size:15px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">'+(i+1)+'</div>'
+      +'<div style="background:rgba(255,255,255,0.95);border:1.5px solid '+c+';border-radius:5px;padding:2px 7px;font-size:13px;font-weight:700;color:'+c+';white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">'+short+'</div>'
+      +'</div>';
+    var overlay = new kakao.maps.CustomOverlay({
+      position: new kakao.maps.LatLng(h.lat, h.lng),
+      content: markerEl,
+      yAnchor: 1.0
+    });
+    overlay.setMap(leafMap);
+    mapLayers.push(overlay);
   });
-  if(pts.length>1) leafMap.fitBounds(pts,{padding:[60,60]});
+
+  // 범위 맞춤
+  if(path.length>1){
+    var bounds = new kakao.maps.LatLngBounds();
+    path.forEach(function(p){ bounds.extend(p); });
+    leafMap.setBounds(bounds, 60);
+  }
+  }); // end initMap callback
 }
 
 let currentMapDk=null;
 function openMap(dk){
   currentMapDk=dk;
-  const day=SCH[dk];
-  document.getElementById('mapModalTitle').textContent=`${day.label}(${day.dow}) 동선`;
+  var day=SCH[dk];
+  document.getElementById('mapModalTitle').textContent=day.label+'('+day.dow+') 동선';
   document.getElementById('mapModalWrap').classList.add('open');
-  setTimeout(()=>{
-    if(leafMap) leafMap.invalidateSize();
+  setTimeout(function(){
+    if(leafMap) leafMap.relayout();
     renderMap(dk);
   },80);
 }
@@ -1664,45 +1703,57 @@ function closeMap(){
   document.getElementById('mapModalWrap').classList.remove('open');
 }
 
-// 커스텀 월 지도용
 let currentCustomDay = null;
 function openMapCustomDay(day){
   if(!day||!day.visits||day.visits.length===0){ alert('이 날짜에 배정된 병원이 없습니다.'); return; }
   document.getElementById('mapModalTitle').textContent = (day.key||'')+'('+day.dow+') 동선';
   document.getElementById('mapModalWrap').classList.add('open');
   setTimeout(function(){
-    if(leafMap) leafMap.invalidateSize();
-    // SCH 없이 직접 렌더
-    initMap();
-    mapLayers.forEach(function(l){leafMap.removeLayer(l);}); mapLayers=[];
-    const hvs = (day.visits||[]).filter(function(v){return v.name && H[v.name];});
+    initMap(function(){
+    clearMapLayers();
+    var hvs = (day.visits||[]).filter(function(v){return v.name && H[v.name];});
     if(!hvs.length){ return; }
-    const stops=[HOME].concat(hvs.map(function(v){return H[v.name];}));
-    const pts=stops.map(function(s){return[s.lat,s.lng];});
-    const glow=L.polyline(pts,{color:'#049cb7',weight:10,opacity:0.1}).addTo(leafMap);
-    const line=L.polyline(pts,{color:'#049cb7',weight:2.5,opacity:0.9,dashArray:'8 5'}).addTo(leafMap);
-    mapLayers.push(glow,line);
+    var stops=[HOME].concat(hvs.map(function(v){return H[v.name];}));
+    var path = stops.map(function(s){ return new kakao.maps.LatLng(s.lat, s.lng); });
+    var glow = new kakao.maps.Polyline({ path:path, strokeWeight:10, strokeColor:'#049cb7', strokeOpacity:0.1, strokeStyle:'solid' });
+    var line = new kakao.maps.Polyline({ path:path, strokeWeight:2.5, strokeColor:'#049cb7', strokeOpacity:0.9, strokeStyle:'shortdot' });
+    glow.setMap(leafMap); line.setMap(leafMap);
+    mapLayers.push(glow, line);
     for(var i=0;i<stops.length-1;i++){
-      const mid=midpoint(stops[i],stops[i+1]);
-      const km=(haversine(stops[i],stops[i+1])*1.35).toFixed(1);
-      const di=L.divIcon({html:'<div class="dist-label-map">'+km+'km</div>',className:'',iconSize:[60,20],iconAnchor:[30,10]});
-      mapLayers.push(L.marker([mid.lat,mid.lng],{icon:di,interactive:false}).addTo(leafMap));
+      var mid=midpoint(stops[i],stops[i+1]);
+      var km=(haversine(stops[i],stops[i+1])*1.35).toFixed(1);
+      var distOverlay = new kakao.maps.CustomOverlay({
+        position: new kakao.maps.LatLng(mid.lat, mid.lng),
+        content: '<div class="dist-label-map">'+km+'km</div>',
+        yAnchor: 0.5
+      });
+      distOverlay.setMap(leafMap);
+      mapLayers.push(distOverlay);
     }
     hvs.forEach(function(v,i){
-      const h=H[v.name]; if(!h) return;
-      const type=(QUOTA_TOTAL[v.name]>=4?'weekly':QUOTA_TOTAL[v.name]>=2?'biweekly':'monthly');
-      const c=(type==='weekly'?'#049cb7':type==='biweekly'?'#7c3aed':'#0f9b5a');
-      const short=v.name.replace('정형외과의원','정형').replace('재활의학과의원','재활').replace('마취통증의학과','통증').replace('의원','').replace('정형외과','정형');
-      const icon=L.divIcon({
-        html:'<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">'
-          +'<div style="background:'+c+';border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:DM Mono,monospace;font-size:15px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">'+(i+1)+'</div>'
-          +'<div style="background:rgba(255,255,255,0.95);border:1.5px solid '+c+';border-radius:5px;padding:2px 7px;font-size:13px;font-weight:700;color:'+c+';white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">'+short+'</div>'
-          +'</div>',
-        className:'',iconSize:[110,50],iconAnchor:[55,14]
+      var h=H[v.name]; if(!h) return;
+      var type=(QUOTA_TOTAL[v.name]>=4?'weekly':QUOTA_TOTAL[v.name]>=2?'biweekly':'monthly');
+      var c=(type==='weekly'?'#049cb7':type==='biweekly'?'#7c3aed':'#0f9b5a');
+      var short=v.name.replace('정형외과의원','정형').replace('재활의학과의원','재활').replace('마취통증의학과','통증').replace('의원','').replace('정형외과','정형');
+      var markerEl = '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">'
+        +'<div style="background:'+c+';border:2px solid #fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);">'+(i+1)+'</div>'
+        +'<div style="background:rgba(255,255,255,0.95);border:1.5px solid '+c+';border-radius:5px;padding:2px 7px;font-size:13px;font-weight:700;color:'+c+';white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);">'+short+'</div>'
+        +'</div>';
+      var overlay = new kakao.maps.CustomOverlay({
+        position: new kakao.maps.LatLng(h.lat, h.lng),
+        content: markerEl,
+        yAnchor: 1.0
       });
-      mapLayers.push(L.marker([h.lat,h.lng],{icon}).addTo(leafMap).bindTooltip('<b>'+(i+1)+'. '+v.name+'</b>'));
+      overlay.setMap(leafMap);
+      mapLayers.push(overlay);
     });
-    if(pts.length>1) leafMap.fitBounds(pts,{padding:[60,60]});
+    if(path.length>1){
+      var bounds = new kakao.maps.LatLngBounds();
+      path.forEach(function(p){ bounds.extend(p); });
+      leafMap.setBounds(bounds, 60);
+      leafMap.relayout();
+    }
+    }); // end initMap callback
   },80);
 }
 
@@ -1747,11 +1798,7 @@ function renderSchCal(m, activeKeys, selectedKey) {
     const dw=new Date(year,m-1,d).getDay(), isWknd=dw===0||dw===6, has=activeSet.has(d), isSel=d===selDay, key=m+'/'+d;
     const info=dayInfoMap[key];
     if(has && info){
-      var allChecked=info.visits&&info.visits.every(function(v){return visitRecords[key]&&visitRecords[key].checks&&visitRecords[key].checks[v.name];});
-      var anyChecked=info.visits&&info.visits.some(function(v){return visitRecords[key]&&visitRecords[key].checks&&visitRecords[key].checks[v.name];});
-      var dotColor=allChecked?'#22c55e':anyChecked?'#f59e0b':'#93c5fd';
       var isToday=(key===todayStr);
-      var todayCls=isToday?' cal-today':'';
       var dotsHtml='<div style="display:flex;justify-content:center;gap:3px;margin-top:4px;">';
       (info.dots||[]).forEach(function(c){dotsHtml+='<span style="width:5px;height:5px;border-radius:50%;background:'+c+';display:inline-block;"></span>';});
       dotsHtml+='</div>';
