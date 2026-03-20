@@ -1609,8 +1609,10 @@ function calcQuota(upToDk){
 let leafMap=null, mapLayers=[];
 function initMap(callback){
   if(leafMap){ if(callback) callback(); return; }
+  try {
   kakao.maps.load(function(){
     var container = document.getElementById('mapModal');
+    if(!container){ alert('mapModal 없음'); return; }
     leafMap = new kakao.maps.Map(container, {
       center: new kakao.maps.LatLng(37.48, 126.89),
       level: 9
@@ -1624,8 +1626,9 @@ function initMap(callback){
     });
     homeOverlay.setMap(leafMap);
     mapLayers.push(homeOverlay);
-    if(callback) callback();
+    setTimeout(function(){ if(leafMap) leafMap.relayout(); if(callback) callback(); }, 100);
   });
+  } catch(e){ alert('카카오맵 오류: '+e.message); }
 }
 
 function clearMapLayers(){
@@ -1697,7 +1700,7 @@ function openMap(dk){
   setTimeout(function(){
     if(leafMap) leafMap.relayout();
     renderMap(dk);
-  },80);
+  },300);
 }
 function closeMap(){
   document.getElementById('mapModalWrap').classList.remove('open');
