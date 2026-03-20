@@ -24,7 +24,7 @@
 <title>초당제약 이상윤과장 스케줄</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2e6737cfe98dd0a3793ff6d8bfd042ee&libraries=services&autoload=false"></script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2e6737cfe98dd0a3793ff6d8bfd042ee&libraries=services"></script>
 <script type="text/javascript" src="https://map.vworld.kr/js/vworldMapInit.js.do?version=2.0&apiKey=C1D8B5E0-C152-39D2-9563-B321FB1CD9AC"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -1610,9 +1610,7 @@ let leafMap=null, mapLayers=[];
 function initMap(callback){
   if(leafMap){ if(callback) callback(); return; }
   try {
-  kakao.maps.load(function(){
     var container = document.getElementById('mapModal');
-    if(!container){ alert('mapModal 없음'); return; }
     leafMap = new kakao.maps.Map(container, {
       center: new kakao.maps.LatLng(37.48, 126.89),
       level: 9
@@ -1626,8 +1624,7 @@ function initMap(callback){
     });
     homeOverlay.setMap(leafMap);
     mapLayers.push(homeOverlay);
-    setTimeout(function(){ if(leafMap) leafMap.relayout(); if(callback) callback(); }, 100);
-  });
+    if(callback) callback();
   } catch(e){ alert('카카오맵 오류: '+e.message); }
 }
 
